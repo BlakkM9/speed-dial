@@ -1,0 +1,69 @@
+{
+  "gallery":
+  [
+    {
+      "img": "https://duckduckgo.com/",
+      "url": "https://i.imgur.com/ty2ZyT6.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://imgur.com/",
+      "url": "https://i.imgur.com/sZ8xT7X.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://mail.google.com",
+      "url": "https://i.imgur.com/tIngPxr.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://www.mobile.de/",
+      "url": "https://i.imgur.com/dkrKtEB.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://soundcloud.com/",
+      "url": "https://i.imgur.com/xEWFP4D.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://www.youtube.com/",
+      "url": "https://i.imgur.com/4cRRzZB.png",
+      "ratio": 0.725
+    },    {
+      "img": "https://www.tvmovie.de/",
+      "url": "https://i.imgur.com/sJjYNgN.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://www.twitch.tv/",
+      "url": "https://i.imgur.com/5BbJu2E.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://wikipedia.de/",
+      "url": "https://i.imgur.com/1HRwxZL.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://www.wetter.de/",
+      "url": "https://i.imgur.com/badWv9u.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "https://www.ebay.com/",
+      "url": "https://i.imgur.com/mM4Ofss.png",
+      "ratio": 0.725
+    },
+    {
+      "img": "",
+      "url": "",
+      "ratio": 0.725
+    },
+    {
+      "img": "",
+      "url": "",
+      "ratio": 0.725
+    }
+  ]
+}

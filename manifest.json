@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "SpeedDial",
+  "version": "1.0",
+
+  "description": "Opens customizable SpeedDial page when new tab is created",
+  "icons": {
+    "24": "icons/speeddial.svg",
+    "48": "icons/speeddial.svg",
+    "96": "icons/speeddial.svg",
+    "128": "icons/speeddial.svg",
+    "192": "icons/speeddial.svg",
+    "256": "icons/speeddial.svg"
+  },
+
+  "permissions": [
+    "storage",
+    "unlimitedStorage"
+  ],
+
+  "chrome_url_overrides": {
+    "newtab": "speeddial.html"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "speeddial@blakkm9.de",
+      "strict_min_version": "58.0a1"
+    }
+  }
+}
