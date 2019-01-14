@@ -10,7 +10,6 @@ function dec2hex(decInt) {
     if (hexString.length % 2) {
         hexString = '0' + hexString;
     }
-    console.log(hexString);
     return hexString;
 }
 

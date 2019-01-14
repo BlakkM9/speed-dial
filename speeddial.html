@@ -83,22 +83,30 @@
 
                 <label>Link to website</label>
                 <input id="url-input" class="text-input long" type="text">
-                <button id="generate-button" class="button">Generate</button>
 
                 <label>Preview image</label>
                 <input id="img-input" class="text-input long" type="text">
                 <div id="upload-animation" class="text-input long"></div>
-                <label id="custom-file-input-label" class="button">
-                    <input type="file" accept="image/*" id="img-file-input">
-                </label>
+
 
                 <div id="tile-preview-container">
                     <div id="tile-preview" class="tile"></div>
                 </div>
 
-                <button id="save-button" class="button">
-                    Save
-                </button>
+                <div class="editor-buttons-container parent">
+                    <div class="editor-buttons-container left">
+                        <button id="generate-button" class="button editor-button left">Generate</button>
+                        <button id="gallery-button" class="button editor-button left">Gallery...</button>
+                        <label id="custom-file-input-label" class="button editor-button left">
+                            <input type="file" accept="image/*" id="img-file-input">
+                        </label>
+                    </div>
+                    <div class="editor-buttons-container right">
+                        <button id="save-button" class="button">
+                            Save
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

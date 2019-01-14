@@ -3,7 +3,8 @@ let imgInput;
 let fileInput;
 let uploadAnimation;
 let generateButton;
-let previewTile;
+let tilePreviewContainer;
+let tilePreview;
 
 $(document).ready(function() {
 
@@ -12,7 +13,8 @@ $(document).ready(function() {
     fileInput = $("#img-file-input");
     uploadAnimation = $("#upload-animation");
     generateButton = $("#generate-button");
-    previewTile = $("#tile-preview");
+    tilePreviewContainer = $("#tile-preview-container");
+    tilePreview = $("#tile-preview");
 
 
     //Editor
@@ -36,7 +38,17 @@ $(document).ready(function() {
 
     imgInput.bind("keyup input paste", function() {
         if (imgInputisValidSilent()) {
-            previewTile.css("background-image", "url('" + imgInput.val() + "')");
+            $("<img/>").attr("src", imgInput.val()).on("load", function() {
+                $(this).remove();
+                tilePreviewContainer.css("display", "flex");
+                tilePreview.css("background-image", "url('" + imgInput.val() + "')");
+            }).on("error", function() {
+                $(this).remove();
+                tilePreviewContainer.css("display", "none");
+                console.log("error loading preview image");
+            });
+        } else {
+            tilePreviewContainer.css("display", "none");
         }
     });
 });
@@ -89,11 +101,11 @@ function generateScreenshot(url) {
 function openEditor(row, col) {
     let saveButton = $("#save-button");
 
-    previewTile.css("width", (100.0 / data.cols) * 3 + "%");
-    previewTile.css("padding-top", (((data.height / data.width) * 100 / data.cols) - (data.vgap / 20)) * 3 + "%");
-    previewTile.css("background-color", "black");
-    previewTile.css("background-image", "");
-    // $("#tile-preview-container").css("display", "none");
+    let qTile = $(".tile");
+
+    tilePreview.css("width", qTile.css("width"));
+    tilePreview.css("padding-top", qTile.css("padding-top"));
+    tilePreview.css("background-color", "black");
 
     saveButton.off("click");
     uploadAnimation.css("display", "");
@@ -108,9 +120,14 @@ function openEditor(row, col) {
     if (!tile.url.match("none")) {
         urlInput.val(tile.url);
     }
-    if (!tile.url.match("none")) {
+    if (!tile.img.match("none")) {
         imgInput.val(tile.img);
+        tilePreviewContainer.css("display", "flex");
+        tilePreview.css("background-image", "url(" + imgInput.val() + ")");
+    } else {
+        tilePreviewContainer.css("display", "none");
     }
+
 
     saveButton.click(function() {
 

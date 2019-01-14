@@ -7,8 +7,6 @@ $(document).ready(function() {
 });
 
 function uploadFile(file) {
-    console.log("uploading file:");
-    console.log(file);
     imgInput.prop("disabled", true);
     uploadAnimation.css("display", "block");
 

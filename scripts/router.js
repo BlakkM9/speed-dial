@@ -90,7 +90,6 @@ function loadDatafromStorage(callback) {
 
 //States
 function setLoading(loading) {
-    console.log("loading", loading);
     if (loading) {
         editor.css("display", "");
         creator.css("display", "");

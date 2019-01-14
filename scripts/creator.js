@@ -210,7 +210,9 @@ function generateSpeedDial() {
 
     //Create css
     //Reflection row
-    reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
+    if (data.reflection) {
+        reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
+    }
     //SpeedDial
     speedDial.css("width", speedDialWidthPercent + "%");
     //Background
@@ -251,7 +253,7 @@ function generateSpeedDial() {
     //Hover
     tile.hover(function() {
         $(this).css("opacity", "1");
-        if (data.reflection) {
+        if (data.reflection && $(this).attr("id") == null) {
             if ($(this).parent().attr("class").includes("row" + (data.rows - 1))) {
                 let col = /col\d/.exec($(this).attr("class"))[0];
                 let reflexTile = $("." + col + ".reflection");
@@ -260,7 +262,7 @@ function generateSpeedDial() {
         }
     }, function() {
         $(this).css("opacity", "");
-        if (data.reflection) {
+        if (data.reflection && $(this).attr("id") == null) {
             if ($(this).parent().attr("class").includes("row" + (data.rows - 1))) {
                 let col = /col\d/.exec($(this).attr("class"))[0];
                 $("." + col + ".reflection").css("opacity", "");
