@@ -72,7 +72,7 @@ $(document).ready(function() {
                 break;
             case "action-options":
                 closeContextMenu();
-                openCreator();
+                displayCreator();
                 break;
             default:
 

@@ -23,13 +23,3 @@ function processClick(e, tile) {
         window.location = tileData[data.cols * row + col].url;
     }
 }
-
-function isDataLoaded() {
-    return (data == null);
-}
-
-function loadDatafromStorage(callback) {
-    browser.storage.sync.get("data").then((res) => {
-        callback(res.data);
-    }, onError);
-}

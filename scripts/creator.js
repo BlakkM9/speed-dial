@@ -1,6 +1,6 @@
+
 let head;
 let body;
-let speedDial;
 let colorInput;
 let padding;
 let cols, rows;
@@ -14,7 +14,6 @@ let tileData = [];
 $(document).ready(function() {
     head = $("head");
     body = $("body");
-    speedDial = $("#speeddial");
     colorInput = $(".color-input");
     let colorInputFrame = $(".color-input-frame");
 
@@ -29,16 +28,18 @@ $(document).ready(function() {
 
     $("#create-button").click(function() {
         if (creatorInputIsValid()) {
-            browser.storage.sync.set({init: true}).then(() => {
+            setLoading(true);
+            save("sync", {init: true}, function() {
                 init = true;
-                creator.css("display", "none");
-                loader.css("display", "block");
                 saveData();
-                createSpeedDial();
+                displayCreator(false);
+            });
+            browser.storage.sync.set({init: true}).then(() => {
+                generateSpeedDial();
 
             }, onError);
         }
-    })
+    });
 
     creator.click(function(e) {
         if (init) {
@@ -49,37 +50,45 @@ $(document).ready(function() {
     });
 });
 
-function openCreator() {
-    if (data == null || !init) {
-        colorInput.val(rgb2hex(body.css("background-color").toString()));
-        padding.val("");
-        cols.val("");
-        rows.val("");
-        width.val("");
-        height.val("");
-        vgap.val("");
-        hgap.val("");
-        reflection.prop("checked", false);
-        speedDial.css("display", "none");
-        creator.css("background-color", "transparent");
-    } else {
-        colorInput.val(data.bg);
-        padding.val(data.padding);
-        cols.val(data.cols);
-        rows.val(data.rows);
-        width.val(data.width);
-        height.val(data.height);
-        vgap.val(data.vgap);
-        hgap.val(data.hgap);
-        reflection.prop("checked", data.reflection);
-        $("#create-button").html("Apply changes");
-        creator.css("background-color", "");
+function displayCreator(show) {
+    if (show == null) {
+        show = true;
     }
 
-    $(colorInput).trigger("change");
+    if (show) {
+        if (data == null || !init) {
+            colorInput.val(rgb2hex(body.css("background-color").toString()));
+            padding.val("");
+            cols.val("");
+            rows.val("");
+            width.val("");
+            height.val("");
+            vgap.val("");
+            hgap.val("");
+            reflection.prop("checked", false);
+            speedDial.css("display", "");
+            creator.css("background-color", "transparent");
+        } else {
+            colorInput.val(data.bg);
+            padding.val(data.padding);
+            cols.val(data.cols);
+            rows.val(data.rows);
+            width.val(data.width);
+            height.val(data.height);
+            vgap.val(data.vgap);
+            hgap.val(data.hgap);
+            reflection.prop("checked", data.reflection);
+            $("#create-button").html("Apply changes");
+            creator.css("background-color", "");
+        }
 
-    loader.css("display", "none");
-    creator.css("display", "grid");
+        $(colorInput).trigger("change");
+
+        setLoading(false);
+        creator.css("display", "grid");
+    } else {
+        creator.css("display", "");
+    }
 }
 
 function creatorInputIsValid() {
@@ -163,19 +172,7 @@ function saveData() {
     browser.storage.sync.set({"data": data}).then(() => {}, onError);
 }
 
-
-function checkDataLoaded() {
-    if (data == null) {
-        browser.storage.sync.get("data").then((res) => {
-            data = res.data;
-            createSpeedDial();
-        }, onError);
-    } else {
-        createSpeedDial();
-    }
-}
-
-function createSpeedDial() {
+function generateSpeedDial() {
     //Clear speeddial inner html and speeddial inline css
     speedDial.html("");
     $("#speeddial-style").remove();
@@ -294,10 +291,9 @@ function createSpeedDial() {
 function validateTileData() {
     //Check if tiledata is up to date
     if (tileData.length === data.cols * data.rows) {
-        applyTileData();
+        //Size fits
     } else if (tileData.length > data.cols * data.rows) {
         //If tiles were removed
-        applyTileData();
     } else if (tileData.length < data.cols * data.rows) {
         //If tiles were added
         let diff = data.cols * data.rows - tileData.length;
@@ -308,7 +304,6 @@ function validateTileData() {
                 "url": "none"
             });
         }
-        applyTileData();
     }
 }
 
@@ -325,7 +320,7 @@ function createTileData() {
 }
 
 function applyTileData() {
-    //TODO tile data applied twice when loading
+
     let imageCount = 0;
     let loadedImages = 0;
 
@@ -342,9 +337,8 @@ function applyTileData() {
                     loadedImages++;
 
                     if (loadedImages === imageCount) {
-                        loader.css("display", "");
-                        speedDial.css("display", "");
-                        console.log("finished loading");
+                        setLoading(false);
+                        speedDial.css("display", "block");
                     }
                 });
             } else {
@@ -367,5 +361,20 @@ function applyTileData() {
         }
     }
 
-    browser.storage.sync.set({"tileData": tileData}).then(() => {}, onError);
+    save("sync", {tileData: tileData}, function() {
+        getAddURL(function(addURL) {
+            if (addURL != null) {
+                openFirstEmpty(addURL);
+            }
+        })
+    });
+}
+
+function getAddURL(callback) {
+    get("local", "add_url", function(res) {
+        let addURL = res.add_url;
+        remove("local", "add_url", function() {
+            callback(addURL);
+        });
+    });
 }

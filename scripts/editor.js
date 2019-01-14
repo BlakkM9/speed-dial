@@ -72,7 +72,6 @@ function urlInputIsValidSilent() {
 }
 
 function imgInputisValidSilent() {
-    console.log(imgInput.val());
     return urlIsValid(imgInput.val());
 }
 
@@ -85,12 +84,6 @@ function generateScreenshot(url) {
             uploadFile(new File([blobRes], "preview.png", {type: "image/png"}));
         }, onError);
     }, onError);
-}
-
-function openForFirstEmpty() {
-    let firstEmpty = $(".tile.empty")[0];
-    console.log(firstEmpty.parent().attr("class"));
-    console.log(firstEmpty.attr("class"));
 }
 
 function openEditor(row, col) {
@@ -135,4 +128,25 @@ function openEditor(row, col) {
             applyTileData();
         }
     });
+}
+
+function openFirstEmpty(addURL) {
+
+    let tile = $($(".tile.empty")[0]);
+
+    let rowClass = tile.parent().attr("class");
+    let colClass = tile.attr("class");
+
+    rowClass = /row\d/.exec(rowClass)[0];
+    colClass = /col\d/.exec(colClass)[0];
+
+    let row = parseInt(/\d/.exec(rowClass)[0]);
+    let col = parseInt(/\d/.exec(colClass)[0]);
+
+    if (row < data.rows && col < data.cols) {
+        urlInput.val(addURL);
+        openEditor(row, col);
+    } else {
+        console.log("no free tiles");
+    }
 }
