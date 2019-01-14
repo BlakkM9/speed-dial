@@ -13,9 +13,15 @@
     "256": "icons/speeddial.svg"
   },
 
+  "background": {
+    "scripts": ["menuitem.js"]
+  },
+
   "permissions": [
+    "tabs",
+    "contextMenus",
     "storage",
-    "unlimitedStorage"
+    "<all_urls>"
   ],
 
   "chrome_url_overrides": {

@@ -7,10 +7,11 @@
         <link rel="stylesheet" href="css/speeddial.css">
         <link rel="stylesheet" href="css/loader.css">
         <link rel="stylesheet" href="css/contextmenu.css">
-        <script src="scripts/jquery.js"></script>
+        <script src="scripts/lib/jquery.js"></script>
         <script src="scripts/utils.js"></script>
         <script src="scripts/router.js"></script>
         <script src="scripts/creator.js"></script>
+        <script src="scripts/editor.js"></script>
         <script src="scripts/speeddial.js"></script>
         <script src="scripts/contextmenu.js"></script>
         <script src="scripts/uploadfile.js"></script>
@@ -79,21 +80,26 @@
 
         <div id="editor-container" class="window-container">
             <div id="editor">
-                <label>Link to website:</label>
-                <input id="url-input" class="text-input long" type="text">
 
-                <label>Preview image:</label>
+                <label>Link to website</label>
+                <input id="url-input" class="text-input long" type="text">
+                <button id="generate-button" class="button">Generate</button>
+
+                <label>Preview image</label>
                 <input id="img-input" class="text-input long" type="text">
                 <div id="upload-animation" class="text-input long"></div>
-                    <label id="custom-file-input-label" class="button">
-                        <input type="file" accept="image/*" id="img-file-input">
-                    </label>
+                <label id="custom-file-input-label" class="button">
+                    <input type="file" accept="image/*" id="img-file-input">
+                </label>
+
+                <div id="tile-preview-container">
+                    <div id="tile-preview" class="tile"></div>
+                </div>
+
                 <button id="save-button" class="button">
                     Save
                 </button>
-
             </div>
         </div>
-
     </body>
 </html>

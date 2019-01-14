@@ -14,7 +14,8 @@ label {
     grid-column-start: 1;
     grid-column-end: 2;
     line-height: 30px;
-    height: 30px
+    height: 30px;
+    padding-right: 3px;
 }
 
 #creator {
@@ -45,11 +46,10 @@ label {
 }
 
 #editor {
-    height: auto;
     display: grid;
-    width: 30%;
     padding: 10px;
-    /*border: 1px solid #5a5a5c;*/
+    align-content: center;
+    justify-content: center;
     border-radius: 3px;
     background-color: #474749;
     box-shadow: 0 1px 8px 0 rgba(12, 12, 13, 0.2)
@@ -89,7 +89,10 @@ label {
     background-color: #323234;
     color: white;
     text-align: center;
+}
 
+.text-input:disabled {
+    color: #7f7f7f;
 }
 
 .text-input:last-child {
@@ -98,15 +101,15 @@ label {
 
 .text-input.long {
     grid-column-start: 2;
-    grid-column-end: 4;
+    grid-column-end: 3;
     width: 100%;
     text-align: left;
+    align-self: center;
 }
 
 #img-input {
     grid-row-start: 2;
     grid-row-end: 2;
-    grid-column-end: 3;
 }
 
 .checkbox-input-frame {
@@ -145,17 +148,16 @@ label {
 }
 
 #custom-file-input-label {
-    display: inline;
     grid-column-start: 3;
     grid-column-end: 4;
     height: 27px;
     line-height: 27px;
-    margin-left: 6px;
+    width: 90px;
+    padding: 0;
 }
 
 #custom-file-input-label:before {
     color: white;
-    display: inline-block;
     content: "Browse...";
 }
 
@@ -177,9 +179,30 @@ label {
     justify-self: left;
     border: none;
     margin-left: -3px;
-    margin-top: 1px;
     background-color: #666667;
     animation: uploading 1s linear infinite;
+}
+
+#generate-button {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    align-self: center;
+    height: 27px;
+    width: 90px;
+    padding: 0;
+}
+
+#tile-preview-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1 / 4;
+    padding: 15% 0;
+}
+
+#tile-preview {
+    background-color: red;
 }
 
 .row {
@@ -195,7 +218,6 @@ label {
 
 .tile {
     opacity: 0.7;
-    background-color: black !important;
     position: relative;
     background-size: contain !important;
     background-position: center !important;
@@ -204,7 +226,7 @@ label {
 }
 
 .tile.empty {
-    background-color: white !important;
+    background-color: white;
     background-image: url("../images/add.svg")
 }
 

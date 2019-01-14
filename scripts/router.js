@@ -2,7 +2,6 @@
 //TODO add gallery to editor with filter options
 //TODO add preview to editor
 //TODO add image options to editor (background-color and contain/cover)
-//TODO add option to use iframe as preview
 
 let loader;
 let creator;
@@ -22,6 +21,16 @@ $(document).ready(function() {
     } else {
         checkInit();
     }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const addURL = urlParams.get("url");
+
+    if (addURL != null) {
+        browser.storage.sync.set({add: addURL}).then(() => {
+            console.log("add url saved:"  + addURL);
+            window.location.search = "";
+        });
+    }
 });
 
 function checkInit() {
@@ -38,4 +47,23 @@ function checkInit() {
         }
 
     }, onError);
+}
+
+function isInit(callback) {
+    if (init != null) {
+        callback(init);
+    } else {
+        browser.storage.sync.get("init").then((res) => {
+            callback(res.init);
+        });
+    }
+}
+
+function setLoading(loading) {
+    if (loading) {
+        editor.css("display", "");
+        creator.css("display", "");
+        speedDial.css("display", "none");
+        loader.css("display", "block");
+    }
 }

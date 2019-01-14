@@ -1,34 +1,38 @@
-let fileInput;
-let uploadAnimation;
 let clientID = "2e71d236b3417d4";
 
 $(document).ready(function() {
-    fileInput = $("#img-file-input");
-    uploadAnimation = $("#upload-animation");
     fileInput.on("change", function() {
         uploadFile(fileInput.prop("files")[0]);
     })
 });
 
 function uploadFile(file) {
-    imgInput.val("");
+    console.log("uploading file:");
+    console.log(file);
+    imgInput.prop("disabled", true);
     uploadAnimation.css("display", "block");
 
-    let settings = {
-        "url": "https://api.imgur.com/3/image",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-            "Authorization": "Client-ID " + clientID
+    $.ajax({
+        url: "https://api.imgur.com/3/image",
+        method: "POST",
+        timeout: 0,
+        headers: {Authorization: "Client-ID " + clientID},
+        processData: false,
+        mimeType: "mulitpart/form-data",
+        contentType: false,
+        data: file,
+
+        success: function(res) {
+            let link = JSON.parse(res).data.link;
+            imgInput.prop("disabled", false);
+            generateButton.prop("disabled", false);
+            uploadAnimation.css("display", "");
+            imgInput.val(link);
+            imgInput.trigger("paste");
         },
-        "processData": false,
-        "mimeType": "multipart/form-data",
-        "contentType": false,
-        "data": file
-    };
-    $.ajax(settings).done(function (res) {
-        let link = JSON.parse(res).data.link;
-        uploadAnimation.css("display", "");
-        imgInput.val(link);
+        error: function(res) {
+            console.log("uploading failed:");
+            console.log(res);
+        }
     });
 }

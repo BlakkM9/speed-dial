@@ -27,10 +27,6 @@ $(document).ready(function() {
     hgap = $("#hgap");
     reflection = $("#reflection");
 
-    colorInput.on("change", function() {
-        colorInputFrame.css("background-color", colorInput.val());
-    });
-
     $("#create-button").click(function() {
         if (creatorInputIsValid()) {
             browser.storage.sync.set({init: true}).then(() => {
@@ -166,6 +162,7 @@ function saveData() {
 
     browser.storage.sync.set({"data": data}).then(() => {}, onError);
 }
+
 
 function checkDataLoaded() {
     if (data == null) {
@@ -328,13 +325,28 @@ function createTileData() {
 }
 
 function applyTileData() {
+    //TODO tile data applied twice when loading
+    let imageCount = 0;
+    let loadedImages = 0;
 
     for (let i = 0; i < data.rows; i++) {
         for (let j = 0; j < data.cols; j++) {
             let tile = $(".row" + i + " .col" + j);
             if (tileData[data.cols * i + j].img !== "none") {
-                tile.css("background-image", "url(" + tileData[data.cols * i + j].img + ")");
-                tile.removeClass("empty");
+                imageCount++;
+                let imgUrl = tileData[data.cols * i + j].img;
+                $("<img/>").attr("src", imgUrl).on("load", function() {
+                    $(this).remove();
+                    tile.css("background-image", "url('" + imgUrl + "')");
+                    tile.removeClass("empty");
+                    loadedImages++;
+
+                    if (loadedImages === imageCount) {
+                        loader.css("display", "");
+                        speedDial.css("display", "");
+                        console.log("finished loading");
+                    }
+                });
             } else {
                 tile.css("background-image", "");
                 tile.addClass("empty");
@@ -355,8 +367,5 @@ function applyTileData() {
         }
     }
 
-    browser.storage.sync.set({"tileData": tileData}).then(() => {
-        loader.css("display", "");
-        speedDial.css("display", "");
-    }, onError);
+    browser.storage.sync.set({"tileData": tileData}).then(() => {}, onError);
 }

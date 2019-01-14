@@ -26,9 +26,6 @@ $(document).ready(function() {
             y = maxY;
         }
 
-        console.log(maxX, maxY);
-        console.log(x, y);
-
         if(!e.target.className.includes("tile")) {
             actionOptions.css("padding-top", "10px");
             $("hr").css("display", "none");

@@ -1,4 +1,4 @@
-let hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+const hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
 
 function rgb2hex(rgb) {
     rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -11,4 +11,13 @@ function hex(x) {
 
 function onError(error) {
     console.log(error);
+}
+
+function urlIsValid(url) {
+    try {
+        new URL(url);
+        return true;
+    } catch (_) {
+        return false;
+    }
 }
