@@ -1,12 +1,17 @@
-const hexDigits = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+const rgbMatcher = /^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/;
 
 function rgb2hex(rgb) {
-    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    rgb = rgb.match(rgbMatcher);
+    return "#" + dec2hex(rgb[1]) + dec2hex(rgb[2]) + dec2hex(rgb[3]);
 }
 
-function hex(x) {
-    return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+function dec2hex(decInt) {
+    let hexString = decInt.toString(16);
+    if (hexString.length % 2) {
+        hexString = '0' + hexString;
+    }
+    console.log(hexString);
+    return hexString;
 }
 
 function onError(error) {

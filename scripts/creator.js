@@ -1,4 +1,6 @@
-
+const REFLECTION_BRIGHTNESS_PERCENT = 50;
+const REFLECT_HEIGHT_PERCENT = 60;
+const REFLECTION_BRIGHTNESS_HEX = dec2hex(Math.round(255 * (REFLECTION_BRIGHTNESS_PERCENT / 100)));
 let head;
 let body;
 let colorInput;
@@ -15,7 +17,6 @@ $(document).ready(function() {
     head = $("head");
     body = $("body");
     colorInput = $(".color-input");
-    let colorInputFrame = $(".color-input-frame");
 
     padding = $("#padding");
     cols = $("#cols");
@@ -187,21 +188,20 @@ function generateSpeedDial() {
         }
     }
 
+    let reflectionRow;
     //Reflection
     if (data.reflection) {
-        speedDial.append("<div class='row reflection'></div>");
-        let reflectionRow = $(".row.reflection");
+        speedDial.append("<div><div class='row reflection'></div></div>");
+        reflectionRow = $(".row.reflection");
         for (let i = 0; i < data.cols; i++) {
             reflectionRow.append("<div class='tile col" + i + " reflection empty'></div>");
         }
 
-        reflectionRow.css("background", "linear-gradient(" + data.bg + "99, " + data.bg + " 70%)");
+        reflectionRow.css("background", "linear-gradient(" + data.bg + REFLECTION_BRIGHTNESS_HEX + ", " + data.bg + ")");
     }
 
     //Calculate values
     let speedDialWidthPercent = 100.0 - data.padding;
-
-    speedDial.css("width", speedDialWidthPercent + "%");
 
     let vGapPercent = data.vgap / 10;
     let hGapPercent = data.hgap / 10;
@@ -209,6 +209,10 @@ function generateSpeedDial() {
     let tilePaddingTop = ((data.height / data.width) * 100 / data.cols) - (vGapPercent / 2);
 
     //Create css
+    //Reflection row
+    reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
+    //SpeedDial
+    speedDial.css("width", speedDialWidthPercent + "%");
     //Background
     body.css("background-color", data.bg);
     //Tiles
@@ -250,7 +254,8 @@ function generateSpeedDial() {
         if (data.reflection) {
             if ($(this).parent().attr("class").includes("row" + (data.rows - 1))) {
                 let col = /col\d/.exec($(this).attr("class"))[0];
-                $("." + col + ".reflection").css("opacity", "1");
+                let reflexTile = $("." + col + ".reflection");
+                reflexTile.css("opacity", "1");
             }
         }
     }, function() {
@@ -338,7 +343,7 @@ function applyTileData() {
 
                     if (loadedImages === imageCount) {
                         setLoading(false);
-                        speedDial.css("display", "block");
+                        speedDial.css("display", "flex");
                     }
                 });
             } else {
