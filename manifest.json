@@ -20,7 +20,8 @@
   "permissions": [
     "activeTab",
     "contextMenus",
-    "storage"
+    "storage",
+    "https://url-2-png.herokuapp.com/*"
   ],
 
   "chrome_url_overrides": {
