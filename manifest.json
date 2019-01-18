@@ -18,10 +18,9 @@
   },
 
   "permissions": [
-    "tabs",
+    "activeTab",
     "contextMenus",
-    "storage",
-    "<all_urls>"
+    "storage"
   ],
 
   "chrome_url_overrides": {
