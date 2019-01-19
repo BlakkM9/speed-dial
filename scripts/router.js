@@ -101,8 +101,19 @@ function setLoading(loading) {
     }
 }
 
-function removeInit() {
+function wipeData() {
+    removeInit(function() {
+        remove("sync", "data", function() {
+            remove("sync", "tileData", function() {
+                console.log("Complete data wiped");
+            })
+        })
+    })
+}
+
+function removeInit(callback) {
     remove("sync", "init", function() {
         console.log("reset init");
+        callback()
     })
 }
