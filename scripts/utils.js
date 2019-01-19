@@ -6,7 +6,7 @@ function rgb2hex(rgb) {
 }
 
 function dec2hex(decInt) {
-    let hexString = decInt.toString(16);
+    let hexString = parseInt(decInt, 10).toString(16);
     if (hexString.length % 2) {
         hexString = '0' + hexString;
     }
