@@ -1,8 +1,8 @@
-//TODO add info to buttons and inputs
 //TODO add selection of tile if tile added but no empty
 //TODO add image options to editor (background-color and contain/cover) + update old tileData
 //TODO add gallery to editor with filter options
 //TODO add reflexion height option to creator
+//TODO add option to generate from website icon (search in header for apple-touch)
 //TODO rebuild to work with js modules (to hide annoying warnings)
 
 let loader;
