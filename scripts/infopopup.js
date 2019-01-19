@@ -4,7 +4,7 @@ const INFO_TEXT = {
                 "Values between 100 and 70 are working good",
 
     ratio:      "Ratio means the width : heigh of your SpeedDials.</br>" +
-                "Exampe: You want to use images that have a resolution " +
+                "Exampe: You want to use images that has a resolution " +
                 "of 1920 x 1080 (Full HD) so you can write 1920 in the first " +
                 "and 1080 in the second. Or you could write 16 in the first 9 " +
                 "in the second. It's the same.",
@@ -13,7 +13,7 @@ const INFO_TEXT = {
                 "0 means no gap. Values between 0 and 100 are working good",
 
     generate:   "Generate a screenshot from the entered website and upload it to imgur.</br>" +
-                "This may take some while because the screenshot needs to be generated.",
+                "This may take some while because the screenshot needs to be generated and uploaded.",
 
     browse:     "Browse images from your computer. If you select an image it is automatically " +
                 "uploaded to imgur, so don't choose files which contain private data! (even if the " +
