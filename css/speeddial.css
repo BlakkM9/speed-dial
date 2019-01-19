@@ -18,6 +18,10 @@ label {
     padding-right: 3px;
 }
 
+label.anti-error {
+    display: none;
+}
+
 #creator {
     display: grid;
     grid-column-gap: 50px;
@@ -247,6 +251,6 @@ label {
     overflow: hidden;
 }
 @keyframes uploading {
-    0% {width: 0%;}
+    0% {width: 0;}
     100% {width: 100%;}
 }

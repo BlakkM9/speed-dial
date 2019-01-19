@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>SpeedDial</title>
@@ -42,38 +42,41 @@
 
         <div id="creator-container" class="window-container">
             <div id="creator">
-            <label>Background color:</label>
-            <div class="color-input-frame" style="grid-column-start: 2; grid-column-end: 3">
-                <input class="color-input" type="color"/>
+                <label for="color-background">Background color:</label>
+                <div class="color-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                    <input id="color-background" class="color-input" type="color"/>
+                </div>
+
+                <label for="padding">Padding:</label>
+                <input id="padding" class="text-input" type="text"/>
+
+                <label for="cols">Size:</label>
+                <label for="rows" class="anti-error"></label>
+                <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                    <input id="cols" class="text-input" type="text"/><input id="rows" class="text-input" type="text"/>
+                </div>
+
+                <label for="width">Image ratio:</label>
+                <label for="height" class="anti-error"></label>
+                <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                    <input id="width" class="text-input" type="text"/><input id="height" class="text-input" type="text"/>
+                </div>
+
+                <label for="vgap">Gaps:</label>
+                <label for="hgap" class="anti-error"></label>
+                <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                    <input id="vgap" class="text-input" type="text"/><input id="hgap" class="text-input" type="text"/>
+                </div>
+
+                <label for="reflection">Show reflection:</label>
+                <div class="checkbox-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                    <input id="reflection" class="checkbox-input" type="checkbox"/>
+                </div>
+
+                <button id="create-button" class="button">
+                    Create SpeedDial
+                </button>
             </div>
-
-            <label>Padding:</label>
-            <input id="padding" class="text-input" type="text"/>
-
-            <label>Size:</label>
-            <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
-                <input id="cols" class="text-input" type="text"/><input id="rows" class="text-input" type="text"/>
-            </div>
-
-            <label>Image ratio:</label>
-            <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
-                <input id="width" class="text-input" type="text"/><input id="height" class="text-input" type="text"/>
-            </div>
-
-            <label>Gaps:</label>
-            <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
-                <input id="vgap" class="text-input" type="text"/><input id="hgap" class="text-input" type="text"/>
-            </div>
-
-            <label>Show reflection:</label>
-            <div class="checkbox-input-frame" style="grid-column-start: 2; grid-column-end: 3">
-                <input id="reflection" class="checkbox-input" type="checkbox"/>
-            </div>
-
-            <button id="create-button" class="button">
-                Create SpeedDial
-            </button>
-        </div>
         </div>
 
         <div id="speeddial"></div>
@@ -81,10 +84,10 @@
         <div id="editor-container" class="window-container">
             <div id="editor">
 
-                <label>Link to website</label>
+                <label for="url-input">Link to website</label>
                 <input id="url-input" class="text-input long" type="text">
 
-                <label>Preview image</label>
+                <label for="img-input">Preview image</label>
                 <input id="img-input" class="text-input long" type="text">
                 <div id="upload-animation" class="text-input long"></div>
 

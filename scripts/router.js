@@ -1,8 +1,8 @@
 //TODO add info to buttons and inputs
 //TODO add gallery to editor with filter options
-//TODO add preview to editor
 //TODO add image options to editor (background-color and contain/cover)
 //TODO add reflexion height option to creator
+//TODO rebuild to work with js modules (to hide annoying warnings)
 
 let loader;
 let creator;
