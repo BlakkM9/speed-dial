@@ -18,13 +18,28 @@ label {
     padding-right: 3px;
 }
 
-label.anti-error {
+.anti-error {
     display: none;
+}
+
+.svg.path.info {
+    fill: #7f7f7f;
+}
+
+#info-popup {
+    display: none;
+    position: absolute;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #474749;
+    box-shadow: 0 1px 8px 0 rgba(12, 12, 13, 0.2);
+    z-index: 10;
 }
 
 #creator {
     display: grid;
-    grid-column-gap: 50px;
+    grid-column-gap: 10px;
     grid-row-gap: 5px;
     align-items: center;
     padding: 10px;
@@ -55,9 +70,15 @@ label.anti-error {
     padding: 10px;
     align-content: center;
     justify-content: center;
+    column-gap: 10px;
     border-radius: 3px;
     background-color: #474749;
     box-shadow: 0 1px 8px 0 rgba(12, 12, 13, 0.2)
+}
+
+.input.col3 {
+    grid-column-start: 3;
+    grid-column-end: 4;
 }
 
 .color-input-frame {
@@ -107,7 +128,7 @@ label.anti-error {
 .text-input.long {
     grid-column-start: 2;
     grid-column-end: 3;
-    width: 100%;
+    width: 200px;
     text-align: left;
     align-self: center;
 }
@@ -135,8 +156,7 @@ label.anti-error {
     cursor: pointer;
     transition: background-color 0.1s;
     font-family: "Arial", sans-serif;
-    grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column: 1 / 4;
 }
 
 .button:hover {
@@ -161,9 +181,10 @@ label.anti-error {
     grid-column-start: 2;
     grid-column-end: 3;
     justify-self: left;
-    border: none;
-    margin-left: -3px;
-    background-color: #666667;
+    border: 1px solid #0a84ff;
+    /*margin-left: 1px;*/
+    background-color: transparent;
+    /*opacity: 0.5;*/
     animation: uploading 1s linear infinite;
 }
 
@@ -179,6 +200,16 @@ label.anti-error {
 
 #tile-preview {
     background-color: red;
+}
+
+/* Info */
+.info {
+    width: 20px;
+    height: 20px;
+    justify-self: center;
+}
+.info.creator {
+    grid-column: 2 / 3;
 }
 
 /*Editor buttons*/
@@ -205,7 +236,6 @@ label.anti-error {
 
 .editor-buttons-container.left {
     justify-content: space-evenly;
-    margin-right: 50px;
 }
 
 .editor-buttons-container.right {
@@ -252,5 +282,5 @@ label.anti-error {
 }
 @keyframes uploading {
     0% {width: 0;}
-    100% {width: 100%;}
+    100% {width: 200px;}
 }

@@ -4,7 +4,7 @@ const REFLECTION_BRIGHTNESS_HEX = dec2hex(Math.round(255 * (REFLECTION_BRIGHTNES
 let head;
 let body;
 let colorInput;
-let padding;
+let totalWidth;
 let cols, rows;
 let width, height;
 let vgap, hgap;
@@ -18,7 +18,7 @@ $(document).ready(function() {
     body = $("body");
     colorInput = $(".color-input");
 
-    padding = $("#padding");
+    totalWidth = $("#total-width");
     cols = $("#cols");
     rows = $("#rows");
     width = $("#width");
@@ -37,7 +37,6 @@ $(document).ready(function() {
             });
             browser.storage.sync.set({init: true}).then(() => {
                 generateSpeedDial();
-
             }, onError);
         }
     });
@@ -59,19 +58,19 @@ function displayCreator(show) {
     if (show) {
         if (data == null || !init) {
             colorInput.val(rgb2hex(body.css("background-color").toString()));
-            padding.val("");
-            cols.val("");
-            rows.val("");
-            width.val("");
-            height.val("");
-            vgap.val("");
-            hgap.val("");
+            totalWidth.val("90");
+            cols.val("5");
+            rows.val("3");
+            width.val("4");
+            height.val("3");
+            vgap.val("2");
+            hgap.val("2");
             reflection.prop("checked", false);
             speedDial.css("display", "");
             creator.css("background-color", "transparent");
         } else {
             colorInput.val(data.bg);
-            padding.val(data.padding);
+            totalWidth.val(data.total_width);
             cols.val(data.cols);
             rows.val(data.rows);
             width.val(data.width);
@@ -96,11 +95,11 @@ function creatorInputIsValid() {
     let valid = true;
 
     //Padding
-    if (!padding.val().match(/^[\d+][.,]?[\d]*$/)) {
-        padding.css("border", "1px solid red");
+    if (!totalWidth.val().match(/^[\d+][.,]?[\d]*$/)) {
+        totalWidth.css("border", "1px solid red");
         valid = false;
     } else {
-        padding.css("border", "");
+        totalWidth.css("border", "");
     }
 
     //Size
@@ -156,7 +155,7 @@ function saveData() {
     data = {
         "bg": colorInput.val(),
 
-        "padding": parseFloat(padding.val()),
+        "total_width": parseFloat(totalWidth.val()),
 
         "cols": parseInt(cols.val()),
         "rows": parseInt(rows.val()),
@@ -177,6 +176,9 @@ function generateSpeedDial() {
     //Clear speeddial inner html and speeddial inline css
     speedDial.html("");
     $("#speeddial-style").remove();
+
+    //If old data format is used
+    checkAndAdjustDataCompability();
 
     //Create HTML
     //Rows
@@ -201,8 +203,6 @@ function generateSpeedDial() {
     }
 
     //Calculate values
-    let speedDialWidthPercent = 100.0 - data.padding;
-
     let vGapPercent = data.vgap / 10;
     let hGapPercent = data.hgap / 10;
     let tileWidthPercent = 100.0 / data.cols;
@@ -214,7 +214,7 @@ function generateSpeedDial() {
         reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
     }
     //SpeedDial
-    speedDial.css("width", speedDialWidthPercent + "%");
+    speedDial.css("width", data.total_width + "%");
     //Background
     body.css("background-color", data.bg);
     //Tiles

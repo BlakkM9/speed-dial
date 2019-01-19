@@ -1,6 +1,7 @@
 //TODO add info to buttons and inputs
+//TODO add selection of tile if tile added but no empty
+//TODO add image options to editor (background-color and contain/cover) + update old tileData
 //TODO add gallery to editor with filter options
-//TODO add image options to editor (background-color and contain/cover)
 //TODO add reflexion height option to creator
 //TODO rebuild to work with js modules (to hide annoying warnings)
 

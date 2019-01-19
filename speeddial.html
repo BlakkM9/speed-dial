@@ -16,6 +16,8 @@
         <script src="scripts/contextmenu.js"></script>
         <script src="scripts/uploadfile.js"></script>
         <script src="scripts/draganddrop.js"></script>
+        <script src="scripts/infopopup.js"></script>
+        <script src="scripts/compabiliy.js"></script>
     </head>
     <body>
         <div id="context-menu">
@@ -25,6 +27,8 @@
             <hr>
             <div id="action-options" class="menu-entry">Options</div>
         </div>
+
+        <div id="info-popup">This is a tooltip</div>
 
         <div id="loader">
             <div class="sk-cube-grid">
@@ -42,34 +46,68 @@
 
         <div id="creator-container" class="window-container">
             <div id="creator">
+
                 <label for="color-background">Background color:</label>
-                <div class="color-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                <div class="color-input-frame input col3">
                     <input id="color-background" class="color-input" type="color"/>
                 </div>
 
-                <label for="padding">Padding:</label>
-                <input id="padding" class="text-input" type="text"/>
+                <label for="total-width">Width:</label>
+                <div id="info-width" class="info hover creator">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <g transform="translate(0,-64.982858)">
+                            <path
+                                    class="svg path info"
+                                    d="M 24 4 A 20 20 0 0 0 4 24 A 20 20 0 0 0 24 44 A 20 20 0 0 0 44 24 A 20 20 0 0 0 24 4 z M 24 7 A 17 17 0 0 1 41 24 A 17 17 0 0 1 24 41 A 17 17 0 0 1 7 24 A 17 17 0 0 1 24 7 z M 22 11 L 22 15 L 26 15 L 26 11 L 22 11 z M 22 20 L 22 37 L 26 37 L 26 20 L 22 20 z "
+                                    transform="translate(0,64.982858)">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <input id="total-width" class="text-input input col3" type="text"/>
 
-                <label for="cols">Size:</label>
+                <label for="cols">Size (Colums and Rows):</label>
                 <label for="rows" class="anti-error"></label>
-                <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                <div class="two-text-input-frame input col3">
                     <input id="cols" class="text-input" type="text"/><input id="rows" class="text-input" type="text"/>
                 </div>
 
                 <label for="width">Image ratio:</label>
                 <label for="height" class="anti-error"></label>
-                <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                <div id="info-ratio" class="info hover creator">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <g transform="translate(0,-64.982858)">
+                            <path
+                                    class="svg path info"
+                                    d="M 24 4 A 20 20 0 0 0 4 24 A 20 20 0 0 0 24 44 A 20 20 0 0 0 44 24 A 20 20 0 0 0 24 4 z M 24 7 A 17 17 0 0 1 41 24 A 17 17 0 0 1 24 41 A 17 17 0 0 1 7 24 A 17 17 0 0 1 24 7 z M 22 11 L 22 15 L 26 15 L 26 11 L 22 11 z M 22 20 L 22 37 L 26 37 L 26 20 L 22 20 z "
+                                    transform="translate(0,64.982858)">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="two-text-input-frame input col3">
                     <input id="width" class="text-input" type="text"/><input id="height" class="text-input" type="text"/>
                 </div>
 
                 <label for="vgap">Gaps:</label>
                 <label for="hgap" class="anti-error"></label>
-                <div class="two-text-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                <div id="info-gaps" class="info hover creator">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <g transform="translate(0,-64.982858)">
+                            <path
+                                    class="svg path info"
+                                    d="M 24 4 A 20 20 0 0 0 4 24 A 20 20 0 0 0 24 44 A 20 20 0 0 0 44 24 A 20 20 0 0 0 24 4 z M 24 7 A 17 17 0 0 1 41 24 A 17 17 0 0 1 24 41 A 17 17 0 0 1 7 24 A 17 17 0 0 1 24 7 z M 22 11 L 22 15 L 26 15 L 26 11 L 22 11 z M 22 20 L 22 37 L 26 37 L 26 20 L 22 20 z "
+                                    transform="translate(0,64.982858)">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="two-text-input-frame input col3">
                     <input id="vgap" class="text-input" type="text"/><input id="hgap" class="text-input" type="text"/>
                 </div>
 
                 <label for="reflection">Show reflection:</label>
-                <div class="checkbox-input-frame" style="grid-column-start: 2; grid-column-end: 3">
+                <div class="checkbox-input-frame input col3">
                     <input id="reflection" class="checkbox-input" type="checkbox"/>
                 </div>
 
@@ -89,7 +127,9 @@
 
                 <label for="img-input">Preview image</label>
                 <input id="img-input" class="text-input long" type="text">
-                <div id="upload-animation" class="text-input long"></div>
+                <div id="upload-animation" class="text-input long">
+                    <div></div>
+                </div>
 
 
                 <div id="tile-preview-container">
