@@ -207,7 +207,7 @@ label {
 }
 
 /* Info */
-.info {
+.info.hover.icon {
     width: 20px;
     height: 20px;
     justify-self: center;
@@ -246,7 +246,7 @@ label {
     justify-content: space-evenly;
 }
 
-#custom-file-input-label:before {
+#browse-button:before {
     color: white;
     content: "Browse...";
 }
