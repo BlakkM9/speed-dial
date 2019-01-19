@@ -58,7 +58,6 @@ function displayCreator(show) {
     if (show) {
         if (data == null || !init) {
             colorInput.val(rgb2hex(body.css("background-color").toString()));
-            console.log("body background", rgb2hex(body.css("background-color").toString()));
             totalWidth.val("90");
             cols.val("5");
             rows.val("3");
@@ -183,8 +182,6 @@ function generateSpeedDial() {
     //If old data format is used
     checkAndAdjustDataCompability();
 
-    console.log("data after compability check", data);
-
     //Create HTML
     //Rows
     for (let i = 0; i < data.rows; i++) {
@@ -206,8 +203,6 @@ function generateSpeedDial() {
 
         reflectionRow.css("background", "linear-gradient(" + data.bg + REFLECTION_BRIGHTNESS_HEX + ", " + data.bg + ")");
     }
-
-    console.log("data before calc", data);
 
     //Calculate values
     let vGapPercent = data.vgap / 10;
@@ -335,10 +330,6 @@ function createTileData() {
 }
 
 function applyTileData() {
-
-    console.log("applyTileData");
-    console.log(data);
-
     let imageCount = 0;
     let loadedImages = 0;
 
