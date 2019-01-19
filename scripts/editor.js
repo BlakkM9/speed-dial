@@ -11,7 +11,7 @@ $(document).ready(function() {
     urlInput = $("#url-input");
     imgInput = $("#img-input");
     fileInput = $("#img-file-input");
-    uploadAnimation = $("#upload-animation");
+    uploadAnimation = $("#upload-animation-container");
     generateButton = $("#generate-button");
     tilePreviewContainer = $("#tile-preview-container");
     tilePreview = $("#tile-preview");

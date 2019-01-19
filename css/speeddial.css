@@ -174,20 +174,24 @@ label {
     width: 0;
 }
 
-#upload-animation {
+#upload-animation-container {
     display: none;
-    grid-row-start: 2;
-    grid-row-end: 2;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    justify-self: left;
-    border: 1px solid #0a84ff;
-    /*margin-left: 1px;*/
+    position: relative;
+    grid-row: 2 / 2;
+    grid-column: 2 / 3;
+    border: none;
     background-color: transparent;
-    /*opacity: 0.5;*/
-    animation: uploading 1s linear infinite;
 }
 
+#upload-animation {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    margin: 0 !important;
+    background-color: transparent;
+    border: 1px solid #0a84ff;
+    animation: uploading 0.85s cubic-bezier(.45,.05,.55,.95) infinite;
+}
 
 #tile-preview-container {
     width: 100%;
@@ -280,7 +284,16 @@ label {
     margin-bottom: 0;
     overflow: hidden;
 }
+
+/*@keyframes uploading {*/
+    /*0% {width: 0;}*/
+    /*100% {width: 208px;}*/
+/*}*/
+
 @keyframes uploading {
-    0% {width: 0;}
-    100% {width: 200px;}
+    0% {clip-path: inset(0px 208px 0px 0px)}
+    25% {clip-path: inset(0px 208px 0px 208px)}
+    50% {clip-path: inset(0px 0px 0px 208px)}
+    75% {clip-path: inset(0px 208px 0px 208px)}
+    100% {clip-path: inset(0px 208px 0px 0px)}
 }
