@@ -203,7 +203,7 @@ function generateSpeedDial() {
     let reflectionRow;
     //Reflection
     if (data.reflection) {
-        speedDial.append("<div><div class='row reflection'></div></div>");
+        speedDial.append("<div id='reflection-container'><div class='row reflection'></div></div>");
         reflectionRow = $(".row.reflection");
         for (let i = 0; i < data.cols; i++) {
             reflectionRow.append("<div class='tile col" + i + " reflection empty'></div>");
@@ -243,6 +243,7 @@ function generateSpeedDial() {
     if (data.reflection) {
         reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
         $(".row:nth-last-child(2)").css("margin-bottom", 0);
+        $(".row:last-child").css("margin-bottom", 0);
     } else {
         $(".row:last-child").css("margin-bottom", 0);
     }
