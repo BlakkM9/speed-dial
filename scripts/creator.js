@@ -274,8 +274,6 @@ function generateSpeedDial() {
     tile.on("dragover", function(e) {allowDrag(e)});
     tile.on("drop", function(e) {drop(e)});
 
-    console.log("checking tileData");
-
     //Check if tile data exists and create/load and set it
     if (tileData.length === 0) {
         get("sync", "tileData", function(res) {
@@ -342,8 +340,6 @@ function applyTileData() {
                     tile.removeClass("empty");
                     loadedImages++;
 
-                    console.log(loadedImages, imageCount);
-
                     if (loadedImages === imageCount) {
                         setLoading(false);
                         speedDial.css("display", "flex");
@@ -356,7 +352,6 @@ function applyTileData() {
         }
     }
 
-    console.log("imageCount", imageCount);
     if (imageCount === 0) {
         setLoading(false);
         speedDial.css("display", "flex");
