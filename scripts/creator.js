@@ -177,7 +177,6 @@ function saveData() {
 function generateSpeedDial() {
     //Clear speeddial inner html and speeddial inline css
     speedDial.html("");
-    $("#speeddial-style").remove();
 
     //If old data format is used
     checkAndAdjustDataCompability();
@@ -188,7 +187,12 @@ function generateSpeedDial() {
         speedDial.append("<div class='row row" + i + "'></div>");
         //Cols
         for (let j = 0; j < data.cols; j++) {
-            $(".row" + i).append("<div draggable='true' class='tile col" + j + " empty'></div>");
+            let row = $(".row" + i);
+            row.append("<div draggable='true' class='tile col" + j + " empty'></div>");
+            //Add spacer
+            if (j !== (data.cols - 1)) {
+                row.append("<div class='vspacer'></div>");
+            }
         }
     }
 
@@ -199,6 +203,10 @@ function generateSpeedDial() {
         reflectionRow = $(".row.reflection");
         for (let i = 0; i < data.cols; i++) {
             reflectionRow.append("<div class='tile col" + i + " reflection empty'></div>");
+            //Add spacer
+            if (i !== (data.cols - 1)) {
+                reflectionRow.append("<div class='vspacer'></div>");
+            }
         }
 
         reflectionRow.css("background", "linear-gradient(" + data.bg + REFLECTION_BRIGHTNESS_HEX + ", " + data.bg + ")");
@@ -207,44 +215,33 @@ function generateSpeedDial() {
     //Calculate values
     let vGapPercent = data.vgap / 10;
     let hGapPercent = data.hgap / 10;
-    let tileWidthPercent = 100.0 / data.cols;
-    let tilePaddingTop = ((data.height / data.width) * 100 / data.cols) - (vGapPercent / 2);
+    let tileWidthPercent = (100.0 - (data.cols - 1) * vGapPercent) / data.cols;
+    let tilePaddingTop = tileWidthPercent * (data.height / data.width);
 
-    //Create css
+    let tile = $(".tile");
+
+    //Create CSS
+    //Spacers
+    $(".vspacer").css("width", vGapPercent + "%");
+
+    //SpeedDial
+    speedDial.css("width", data.total_width + "%");
+
+    //Background
+    body.css("background-color", data.bg);
+
+    //Tiles + rows
+    tile.css("width", tileWidthPercent + "%");
+    tile.css("padding-top", tilePaddingTop + "%");
+    $(".row").css("margin-bottom", hGapPercent + "%");
+
     //Reflection row
     if (data.reflection) {
         reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
-    }
-    //SpeedDial
-    speedDial.css("width", data.total_width + "%");
-    //Background
-    body.css("background-color", data.bg);
-    //Tiles
-    let css =   "<style id='speeddial-style'>" +
-                    ".tile{" +
-                        "width:" + tileWidthPercent + "%;" +
-                        "padding-top:" + tilePaddingTop + "%;" +
-                        "margin-right:" + vGapPercent + "%;" +
-                    "}" +
-                    ".tile:last-child{" +
-                        "margin-right: 0;" +
-                    "}" +
-                    ".row{" +
-                        "margin-bottom:" + hGapPercent + "%;" +
-                    "}";
-
-    if (data.reflection) {
-        css += ".row:nth-last-child(2){"
+        $(".row:nth-last-child(2)").css("margin-bottom", 0);
     } else {
-        css += ".row:last-child{"
+        $(".row:last-child").css("margin-bottom", 0);
     }
-
-    css +=      "margin-bottom: 0;" +
-            "}</style>";
-
-    head.append(css);
-
-    let tile = $(".tile");
 
     //Add listeners
     //Click
