@@ -116,14 +116,15 @@ function loadData() {
 
         $.getJSON( "../data.json", function(res) {
             data = res.data;
+            save("sync", {"data": data}, function() {
+                $.getJSON( "../tileData.json", function(res) {
+                    tileData = res.tileData;
 
-            $.getJSON( "../tileData.json", function(res) {
-                tileData = res.tileData;
-
-                console.log("backup loaded");
-                save("sync", data, function() {
-                    displayCreator(false);
-                    generateSpeedDial();
+                    console.log("backup loaded");
+                    save("sync", data, function() {
+                        displayCreator(false);
+                        generateSpeedDial();
+                    });
                 });
             });
         });

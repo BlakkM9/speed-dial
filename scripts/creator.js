@@ -286,18 +286,18 @@ function generateSpeedDial() {
                 applyTileData();
             } else {
                 tileData = res.tileData;
-                validateTileData();
+                validateTileDataSize();
                 applyTileData();
 
             }
         });
     } else {
-        validateTileData();
+        validateTileDataSize();
         applyTileData();
     }
 }
 
-function validateTileData() {
+function validateTileDataSize() {
     //Check if tiledata is up to date
     if (tileData.length === data.cols * data.rows) {
         //Size fits
