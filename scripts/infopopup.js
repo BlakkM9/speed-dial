@@ -22,7 +22,7 @@ const INFO_TEXT = {
 
 let infoPopup;
 
-$(document).ready(function() {
+$(function() {
     infoPopup = $("#info-popup");
 
     let info = $(".hover.info");

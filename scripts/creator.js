@@ -13,7 +13,7 @@ let reflection;
 let data;
 let tileData = [];
 
-$(document).ready(function() {
+$(function() {
     head = $("head");
     body = $("body");
     colorInput = $(".color-input");

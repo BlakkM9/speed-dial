@@ -5,10 +5,15 @@ let tilePreview;
 let fileInput;
 let uploadAnimation;
 let generateButton;
+let browseButton;
 let saveButton;
-let imgInputLoaded = false;
 
-$(document).ready(function() {
+let imgPreviewLoaded = false;
+
+let controller;
+let signal;
+
+$(function() {
 
     urlInput = $("#url-input");
     imgInput = $("#img-input");
@@ -17,15 +22,21 @@ $(document).ready(function() {
     fileInput = $("#img-file-input");
     uploadAnimation = $("#upload-animation-container");
     generateButton = $("#generate-button");
+    browseButton = $("#browse-button");
     saveButton = $("#save-button");
 
 
     //Editor
     editor.click(function(e) {
         if (e.target.id === "editor-container") {
-            editor.css("display", "none");
             urlInput.val("");
             imgInput.val("");
+            if (uploadReq != null) {
+                uploadReq.abort("Uploading canceled");
+            }
+            controller.abort();
+            editor.css("display", "");
+            setImgLoading(false);
         }
     });
 
@@ -44,12 +55,12 @@ $(document).ready(function() {
                 $(this).remove();
                 tilePreviewContainer.css("display", "flex");
                 tilePreview.css("background-image", "url('" + imgInput.val() + "')");
-                imgInputLoaded = true;
+                imgPreviewLoaded = true;
             }).on("error", function() {
                 $(this).remove();
                 tilePreviewContainer.css("display", "none");
                 console.log("Error loading preview image");
-                imgInputLoaded = false;
+                imgPreviewLoaded = false;
             });
         } else {
             tilePreviewContainer.css("display", "none");
@@ -60,7 +71,7 @@ $(document).ready(function() {
 function editorInputIsValid() {
     let valid = urlInputIsValid();
 
-    if (!(imgInputisValidSilent() && imgInputLoaded)) {
+    if (!(imgInputisValidSilent() && imgPreviewLoaded)) {
         imgInput.css("border", "1px solid red");
         valid = false;
     } else {
@@ -98,7 +109,10 @@ function imgInputisValidSilent() {
 function generateScreenshot(url) {
     let reqUrl = "https://url-2-png.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
-    fetch(reqUrl).then(res => {
+    fetch(reqUrl, {
+        method: "GET",
+        signal: signal,
+    }).then(res => {
         res.blob().then(blobRes => {
             uploadFile(new File([blobRes], "preview.png", {type: "image/png"}));
         }, onError);
@@ -107,6 +121,9 @@ function generateScreenshot(url) {
 
 function openEditor(row, col) {
     let qTile = $(".tile");
+
+    controller = new AbortController();
+    signal = controller.signal;
 
     tilePreview.css("width", qTile.css("width"));
     tilePreview.css("padding-top", qTile.css("padding-top"));
@@ -178,11 +195,15 @@ function setImgLoading(loading) {
         imgInput.prop("disabled", true);
         uploadAnimation.css("display", "block");
         generateButton.prop("disabled", true);
+        browseButton.prop("disabled", true);
         fileInput.prop("disabled", true);
+        saveButton.prop("disabled", true);
     } else {
         imgInput.prop("disabled", false);
         uploadAnimation.css("display", "");
         generateButton.prop("disabled", false);
+        browseButton.prop("disabled", false);
         fileInput.prop("disabled", false);
+        saveButton.prop("disabled", false);
     }
 }

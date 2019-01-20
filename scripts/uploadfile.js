@@ -1,6 +1,7 @@
+let uploadReq;
 const clientID = "2e71d236b3417d4";
 
-$(document).ready(function() {
+$(function() {
     fileInput.on("change", function() {
         uploadFile(fileInput.prop("files")[0]);
     })
@@ -10,7 +11,7 @@ function uploadFile(file) {
     imgInput.prop("disabled", true);
     uploadAnimation.css("display", "block");
 
-    $.ajax({
+    uploadReq = $.ajax({
         url: "https://api.imgur.com/3/image",
         method: "POST",
         timeout: 0,
@@ -23,8 +24,8 @@ function uploadFile(file) {
         success: function(res) {
             let link = JSON.parse(res).data.link;
             imgInput.val(link);
-            setImgLoading(false);
             imgInput.trigger("paste");
+            setImgLoading(false);
         },
         error: function(res) {
             console.log("uploading failed:", res);
@@ -34,6 +35,12 @@ function uploadFile(file) {
                     showError("Upload failed because because of invalid data was send.</br>This usually is due to the screenshot server being down.</br>Try again later.", 10);
                     break;
                 }
+                case 0: {
+                    if (res.statusText === "Uploading canceled") {
+                        break;
+                    }
+                }
+                //noinspection FallthroughInSwitchStatementJS
                 default: {
                     showError("Upload failed with error code " + res.status);
                 }

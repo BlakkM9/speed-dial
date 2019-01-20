@@ -5,7 +5,7 @@ let actionOptions;
 let target;
 let contextMenuOpened;
 
-$(document).ready(function() {
+$(function() {
     contextMenu = $("#context-menu");
     actionEdit = $("#action-edit");
     actionRemove = $("#action-remove");

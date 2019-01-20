@@ -1,5 +1,4 @@
-$(document).ready(function() {
-
+$(function() {
     colorInput.change(function() {
         $(this).parent().css("background-color", colorInput.val());
     });

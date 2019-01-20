@@ -24,7 +24,7 @@ label {
 }
 
 .svg.path.info {
-    fill: #7f7f7f;
+    fill: #b6b6b6;
 }
 
 #creator {
@@ -107,8 +107,13 @@ label {
     text-align: center;
 }
 
+.text-input:focus {
+    border: 1px solid #0a84ff;
+}
+
 .text-input:disabled {
     color: #7f7f7f;
+    background-color: transparent;
 }
 
 .text-input:last-child {
@@ -157,7 +162,9 @@ label {
     background-color: #7f7f7f;
 }
 
-
+.button:disabled {
+    background-color: #323234;
+}
 
 #img-file-input {
     visibility: hidden;

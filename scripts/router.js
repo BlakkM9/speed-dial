@@ -12,7 +12,7 @@ let speedDial;
 let editor;
 let init;
 
-$(document).ready(function() {
+$(function() {
     loader = $("#loader");
     creator = $("#creator-container");
     speedDial = $("#speeddial");
