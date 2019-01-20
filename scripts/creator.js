@@ -35,10 +35,8 @@ $(function() {
                 init = true;
                 saveData();
                 displayCreator(false);
-            });
-            browser.storage.sync.set({init: true}).then(() => {
                 generateSpeedDial();
-            }, onError);
+            });
         }
     });
 

@@ -1,4 +1,3 @@
-//TODO add selection of tile if tile added but no empty
 //TODO add image options to editor (background-color and contain/cover) + update old tileData
 //TODO add gallery to editor with filter options
 //TODO add reflexion height option to creator
@@ -100,20 +99,35 @@ function setLoading(loading) {
 }
 
 function wipeData() {
-    removeInit(function() {
+    remove("sync", "init", function() {
         remove("sync", "data", function() {
             remove("sync", "tileData", function() {
                 console.log("Complete data wiped");
-            })
-        })
-    })
+            });
+        });
+    });
 }
 
-function removeInit(callback) {
-    remove("sync", "init", function() {
-        console.log("reset init");
-        callback()
-    })
+function loadData() {
+    setLoading(true);
+
+    save("sync", {init: true}, function() {
+        init = true;
+
+        $.getJSON( "../data.json", function(res) {
+            data = res.data;
+
+            $.getJSON( "../tileData.json", function(res) {
+                tileData = res.tileData;
+
+                console.log("backup loaded");
+                save("sync", data, function() {
+                    displayCreator(false);
+                    generateSpeedDial();
+                });
+            });
+        });
+    });
 }
 
 // function isPrivateMode() {

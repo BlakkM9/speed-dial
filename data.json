@@ -1,0 +1,18 @@
+{
+  "data": {
+    "bg": "#323234",
+
+    "total_width": 80,
+
+    "cols": 5,
+    "rows": 3,
+
+    "width": 400,
+    "height": 290,
+
+    "vgap": 2,
+    "hgap": 2,
+
+    "reflection": true
+  }
+}
