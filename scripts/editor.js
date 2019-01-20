@@ -183,6 +183,6 @@ function setImgLoading(loading) {
         imgInput.prop("disabled", false);
         uploadAnimation.css("display", "");
         generateButton.prop("disabled", false);
-        fileInput.prop("disabled", true);
+        fileInput.prop("disabled", false);
     }
 }
