@@ -11,7 +11,7 @@ function uploadFile(file) {
     uploadAnimation.css("display", "block");
 
     $.ajax({
-        url: "https://api.imur.com/3/image",
+        url: "https://api.imgur.com/3/image",
         method: "POST",
         timeout: 0,
         headers: {Authorization: "Client-ID " + clientID},

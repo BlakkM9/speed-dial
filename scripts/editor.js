@@ -96,7 +96,7 @@ function imgInputisValidSilent() {
 }
 
 function generateScreenshot(url) {
-    let reqUrl = "https://url-2-png.herokuapp.com?url=" + url + "&width=" + data.width + "&height=" + data.height;
+    let reqUrl = "https://url-2-png.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
     fetch(reqUrl).then(res => {
         res.blob().then(blobRes => {
