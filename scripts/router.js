@@ -25,7 +25,7 @@ $(function() {
     });
 
     const addURL = getQuery("url");
-    //If addURL is send
+    //If addURL was send
     if (addURL != null) {
         save("local", {add_url: addURL}, function() {
             window.location.search = "";

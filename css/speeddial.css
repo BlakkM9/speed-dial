@@ -162,8 +162,9 @@ label {
     background-color: #7f7f7f;
 }
 
-.button:disabled {
-    background-color: #323234;
+.button:disabled, input:disabled + label {
+    background-color: #323234 !important;
+    cursor: wait;
 }
 
 #img-file-input {
@@ -208,6 +209,7 @@ label {
     width: 20px;
     height: 20px;
     justify-self: center;
+    cursor: help;
 }
 .info.creator {
     grid-column: 2 / 3;
@@ -283,7 +285,6 @@ label {
 }
 
 .row.reflection {
-    margin-top: 3%;
     margin-bottom: 0;
     overflow: hidden;
 }

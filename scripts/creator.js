@@ -1,6 +1,7 @@
-const REFLECTION_BRIGHTNESS_PERCENT = 50;
-const REFLECT_HEIGHT_PERCENT = 60;
-const REFLECTION_BRIGHTNESS_HEX = dec2hex(Math.round(255 * (REFLECTION_BRIGHTNESS_PERCENT / 100)));
+const REFLECT_BRIGHTNESS_PERCENT = 60;
+const REFLECT_HEIGHT_PERCENT = 50;
+const REFLECT_DISTANCE_PERCENT = 3;
+const REFLECT_BRIGHTNESS_HEX = dec2hex(Math.round(255 * (REFLECT_BRIGHTNESS_PERCENT / 100)));
 let head;
 let body;
 let colorInput;
@@ -213,7 +214,7 @@ function generateSpeedDial() {
             }
         }
 
-        reflectionRow.css("background", "linear-gradient(" + data.bg + REFLECTION_BRIGHTNESS_HEX + ", " + data.bg + ")");
+        reflectionRow.css("background", "linear-gradient(" + data.bg + REFLECT_BRIGHTNESS_HEX + ", " + data.bg + ")");
     }
 
     //Calculate values
@@ -241,9 +242,9 @@ function generateSpeedDial() {
 
     //Reflection row
     if (data.reflection) {
+        $("#reflection-container").css("margin-top", REFLECT_DISTANCE_PERCENT + "%");
         reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
         $(".row:nth-last-child(2)").css("margin-bottom", 0);
-        $(".row:last-child").css("margin-bottom", 0);
     } else {
         $(".row:last-child").css("margin-bottom", 0);
     }
@@ -390,6 +391,7 @@ function applyTileData() {
 function getAddURL(callback) {
     get("local", "add_url", function(res) {
         let addURL = res.add_url;
+        console.log("loaded add url", addURL);
         remove("local", "add_url", function() {
             callback(addURL);
         });

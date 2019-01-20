@@ -119,7 +119,10 @@ function generateScreenshot(url) {
     }, onError);
 }
 
-function openEditor(row, col) {
+function openEditor(row, col, clear) {
+    if (clear == null) {
+        clear = true;
+    }
     let qTile = $(".tile");
 
     controller = new AbortController();
@@ -135,8 +138,10 @@ function openEditor(row, col) {
     let tile = tileData[data.cols * row + col];
     editor.css("display", "flex");
 
-    urlInput.val("");
-    imgInput.val("");
+    if (clear) {
+        urlInput.val("");
+        imgInput.val("");
+    }
     urlInput.css("border", "");
     imgInput.css("border", "");
 
@@ -184,7 +189,7 @@ function openFirstEmpty(addURL) {
 
     if (row < data.rows && col < data.cols) {
         urlInput.val(addURL);
-        openEditor(row, col);
+        openEditor(row, col, false);
     } else {
         console.log("no free tiles");
     }
