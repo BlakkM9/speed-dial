@@ -31,6 +31,22 @@ function urlIsValid(url) {
     }
 }
 
+let errorTimeout;
+function showError(msg, displayTime) {
+    if (displayTime == null) {
+        displayTime = 4;
+    }
+    console.log("Error:", msg);
+    let error = $("#error-message");
+
+    error.html(msg);
+    error.addClass("active");
+    clearTimeout(errorTimeout);
+    errorTimeout = setTimeout(function() {
+        error.removeClass("active");
+    }, displayTime * 1000);
+}
+
 function save(storage, data, callback) {
     if (storage === "sync") {
         browser.storage.sync.set(data).then(callback, onError);

@@ -1,20 +1,23 @@
 let urlInput;
 let imgInput;
+let tilePreviewContainer;
+let tilePreview;
 let fileInput;
 let uploadAnimation;
 let generateButton;
-let tilePreviewContainer;
-let tilePreview;
+let saveButton;
+let imgInputLoaded = false;
 
 $(document).ready(function() {
 
     urlInput = $("#url-input");
     imgInput = $("#img-input");
+    tilePreviewContainer = $("#tile-preview-container");
+    tilePreview = $("#tile-preview");
     fileInput = $("#img-file-input");
     uploadAnimation = $("#upload-animation-container");
     generateButton = $("#generate-button");
-    tilePreviewContainer = $("#tile-preview-container");
-    tilePreview = $("#tile-preview");
+    saveButton = $("#save-button");
 
 
     //Editor
@@ -29,23 +32,24 @@ $(document).ready(function() {
     //Generate button
     generateButton.click(function() {
         if (urlInputIsValid()) {
-            imgInput.prop("disabled", true);
-            uploadAnimation.css("display", "block");
-            generateButton.prop("disabled", true);
+            setImgLoading(true);
             generateScreenshot(urlInput.val());
         }
     });
 
+    //Bind img input to update preview image
     imgInput.bind("keyup input paste", function() {
         if (imgInputisValidSilent()) {
-            $("<img/>").attr("src", imgInput.val()).on("load", function() {
+            $("<img alt=''/>").attr("src", imgInput.val()).on("load", function() {
                 $(this).remove();
                 tilePreviewContainer.css("display", "flex");
                 tilePreview.css("background-image", "url('" + imgInput.val() + "')");
+                imgInputLoaded = true;
             }).on("error", function() {
                 $(this).remove();
                 tilePreviewContainer.css("display", "none");
-                console.log("error loading preview image");
+                console.log("Error loading preview image");
+                imgInputLoaded = false;
             });
         } else {
             tilePreviewContainer.css("display", "none");
@@ -56,11 +60,15 @@ $(document).ready(function() {
 function editorInputIsValid() {
     let valid = urlInputIsValid();
 
-    if (!imgInputisValidSilent()) {
+    if (!(imgInputisValidSilent() && imgInputLoaded)) {
         imgInput.css("border", "1px solid red");
         valid = false;
     } else {
         imgInput.css("border", "");
+    }
+
+    if (!valid) {
+        showError("Invalid input");
     }
 
     return valid;
@@ -89,7 +97,6 @@ function imgInputisValidSilent() {
 
 function generateScreenshot(url) {
     let reqUrl = "https://url-2-png.herokuapp.com?url=" + url + "&width=" + data.width + "&height=" + data.height;
-    // let reqUrl = "localhost:8080?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
     fetch(reqUrl).then(res => {
         res.blob().then(blobRes => {
@@ -99,21 +106,20 @@ function generateScreenshot(url) {
 }
 
 function openEditor(row, col) {
-    let saveButton = $("#save-button");
-
     let qTile = $(".tile");
 
     tilePreview.css("width", qTile.css("width"));
     tilePreview.css("padding-top", qTile.css("padding-top"));
     tilePreview.css("background-color", "black");
 
-    saveButton.off("click");
     uploadAnimation.css("display", "");
     imgInput.prop("disabled", false);
 
     let tile = tileData[data.cols * row + col];
     editor.css("display", "flex");
 
+    urlInput.val("");
+    imgInput.val("");
     urlInput.css("border", "");
     imgInput.css("border", "");
 
@@ -128,13 +134,12 @@ function openEditor(row, col) {
         tilePreviewContainer.css("display", "none");
     }
 
-
+    saveButton.off("click");
     saveButton.click(function() {
+        console.log("saveButton clicked");
 
         if (editorInputIsValid()) {
-            editor.css("display", "");
-            speedDial.css("display", "none");
-            loader.css("display", "block");
+            setLoading(true);
 
             tileData[data.cols * row + col].url = urlInput.val();
             tileData[data.cols * row + col].img = imgInput.val();
@@ -165,5 +170,19 @@ function openFirstEmpty(addURL) {
         openEditor(row, col);
     } else {
         console.log("no free tiles");
+    }
+}
+
+function setImgLoading(loading) {
+    if (loading) {
+        imgInput.prop("disabled", true);
+        uploadAnimation.css("display", "block");
+        generateButton.prop("disabled", true);
+        fileInput.prop("disabled", true);
+    } else {
+        imgInput.prop("disabled", false);
+        uploadAnimation.css("display", "");
+        generateButton.prop("disabled", false);
+        fileInput.prop("disabled", true);
     }
 }

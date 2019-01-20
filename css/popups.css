@@ -6,14 +6,14 @@ hr {
 }
 
 #context-menu {
-    position: absolute;
+    position: fixed;
     display: none;
     padding: 0 10px;
     width: 100px;
     border-radius: 3px;
     background-color: #474749;
     box-shadow: 0 1px 8px 0 rgba(12, 12, 13, 0.2);
-    z-index: 5;
+    z-index: 10;
     top: 0;
     left: 0;
     -moz-user-select: none;
@@ -36,4 +36,34 @@ hr {
 
 .menu-entry:last-child {
     padding-bottom: 10px;
+}
+
+#info-popup {
+    display: none;
+    position: fixed;
+    max-width: 500px;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: #474749;
+    box-shadow: 0 1px 8px 0 rgba(12, 12, 13, 0.2);
+    z-index: 10;
+}
+
+#error-message {
+    position: fixed;
+    bottom: 20px;
+    max-width: 500px;
+    padding: 10px;
+    pointer-events: none;
+    border-radius: 3px;
+    background-color: firebrick;
+    opacity: 0;
+    box-shadow: 0 1px 8px 0 rgba(12, 12, 13, 0.2);
+    z-index: 8;
+    transition: opacity 2s;
+}
+
+#error-message.active {
+    opacity: 1;
+    transition: none;
 }

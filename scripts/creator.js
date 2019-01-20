@@ -147,6 +147,10 @@ function creatorInputIsValid() {
         hgap.css("border", "");
     }
 
+    if (!valid) {
+        showError("Invalid input");
+    }
+
     return valid;
 }
 
@@ -344,6 +348,8 @@ function applyTileData() {
                         setLoading(false);
                         speedDial.css("display", "flex");
                     }
+                }).on("error", function() {
+                    console.log("failed to load image", (loadedImages + 1));
                 });
             } else {
                 tile.css("background-image", "");

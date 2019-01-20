@@ -18,8 +18,11 @@ $(document).ready(function() {
     speedDial = $("#speeddial");
     editor = $("#editor-container");
 
-    setTimeout(function() {
-    }, 100);
+    $(document).keydown(function(e) {
+        if (e.originalEvent.key === "e") {
+            showError("testing error");
+        }
+    });
 
     const addURL = getQuery("url");
     //If addURL is send
