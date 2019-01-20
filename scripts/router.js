@@ -1,9 +1,9 @@
-//TODO add display for errors
 //TODO add selection of tile if tile added but no empty
 //TODO add image options to editor (background-color and contain/cover) + update old tileData
 //TODO add gallery to editor with filter options
 //TODO add reflexion height option to creator
 //TODO add option to generate from website icon (search in header for apple-touch)
+//TODO make secret options (hidden speed dials)
 //TODO rebuild to work with js modules (to hide annoying warnings)
 
 let loader;
@@ -17,12 +17,6 @@ $(function() {
     creator = $("#creator-container");
     speedDial = $("#speeddial");
     editor = $("#editor-container");
-
-    $(document).keydown(function(e) {
-        if (e.originalEvent.key === "e") {
-            showError("testing error");
-        }
-    });
 
     const addURL = getQuery("url");
     //If addURL was send
@@ -121,3 +115,21 @@ function removeInit(callback) {
         callback()
     })
 }
+
+// function isPrivateMode() {
+//     let privateMode;
+//
+//     $(document).keydown(function(e) {
+//         if (e.ctrlKey && e.altKey && e.key === "d") {
+//             privateMode = true;
+//         }
+//     });
+//
+//     $(document).keyup(function(e) {
+//         if (e.ctrlKey || e.altKey || e.key === "d") {
+//             privateMode = false;
+//         }
+//     });
+//
+//     return privateMode;
+// }

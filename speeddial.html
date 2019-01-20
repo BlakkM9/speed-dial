@@ -20,7 +20,7 @@
         <script src="scripts/compabiliy.js"></script>
     </head>
     <body>
-        <div id="context-menu">
+        <div id="context-menu" class="window">
             <div id="action-edit" class="menu-entry">Edit</div>
             <hr>
             <div id="action-remove" class="menu-entry">Reset tile</div>
@@ -28,9 +28,11 @@
             <div id="action-options" class="menu-entry">Options</div>
         </div>
 
-        <div id="info-popup">This is a tooltip</div>
+        <div id="info-popup" class="popup window">This is a tooltip</div>
 
-        <div id="error-message">This is an error message</div>
+        <div id="error-message" class="popup window">This is an error message</div>
+
+        <div id="info-message" class="popup window">This is an info message</div>
 
         <div id="loader">
             <div class="sk-cube-grid">
@@ -47,7 +49,7 @@
         </div>
 
         <div id="creator-container" class="window-container">
-            <div id="creator">
+            <div id="creator" class="window">
 
                 <label for="color-background">Background color:</label>
                 <div class="color-input-frame input col3">
@@ -122,7 +124,7 @@
         <div id="speeddial"></div>
 
         <div id="editor-container" class="window-container">
-            <div id="editor">
+            <div id="editor" class="window">
 
                 <label for="url-input">Link to website</label>
                 <input id="url-input" class="text-input long" type="text">

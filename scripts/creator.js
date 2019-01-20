@@ -382,6 +382,7 @@ function applyTileData() {
         //Check opend via add context menu
         getAddURL(function(addURL) {
             if (addURL != null) {
+                console.log("add url:", addURL);
                 openFirstEmpty(addURL);
             }
         })
@@ -391,7 +392,6 @@ function applyTileData() {
 function getAddURL(callback) {
     get("local", "add_url", function(res) {
         let addURL = res.add_url;
-        console.log("loaded add url", addURL);
         remove("local", "add_url", function() {
             callback(addURL);
         });

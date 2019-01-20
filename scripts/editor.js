@@ -8,6 +8,7 @@ let generateButton;
 let browseButton;
 let saveButton;
 
+let replacing = false;
 let imgPreviewLoaded = false;
 
 let controller;
@@ -138,21 +139,26 @@ function openEditor(row, col, clear) {
     let tile = tileData[data.cols * row + col];
     editor.css("display", "flex");
 
-    if (clear) {
-        urlInput.val("");
-        imgInput.val("");
-    }
+
     urlInput.css("border", "");
     imgInput.css("border", "");
 
-    if (!tile.url.match("none")) {
-        urlInput.val(tile.url);
+    if (clear) {
+        if (tile.url.match("none")) {
+            urlInput.val("");
+        } else {
+            urlInput.val(tile.url);
+        }
+        if (tile.img.match("none")) {
+            imgInput.val("");
+        } else {
+            imgInput.val(tile.img);
+            tilePreviewContainer.css("display", "flex");
+            tilePreview.css("background-image", "url(" + imgInput.val() + ")");
+        }
     }
-    if (!tile.img.match("none")) {
-        imgInput.val(tile.img);
-        tilePreviewContainer.css("display", "flex");
-        tilePreview.css("background-image", "url(" + imgInput.val() + ")");
-    } else {
+
+    if (imgInput.val("")) {
         tilePreviewContainer.css("display", "none");
     }
 
@@ -176,22 +182,43 @@ function openEditor(row, col, clear) {
 
 function openFirstEmpty(addURL) {
 
+    let freeTile = true;
     let tile = $($(".tile.empty")[0]);
 
-    let rowClass = tile.parent().attr("class");
-    let colClass = tile.attr("class");
+    let col;
+    let row;
 
-    rowClass = /row\d/.exec(rowClass)[0];
-    colClass = /col\d/.exec(colClass)[0];
+    console.log(tile);
 
-    let row = parseInt(/\d/.exec(rowClass)[0]);
-    let col = parseInt(/\d/.exec(colClass)[0]);
-
-    if (row < data.rows && col < data.cols) {
-        urlInput.val(addURL);
-        openEditor(row, col, false);
+    if (tile.length === 0) {
+        console.log("length of tile is 0");
+        freeTile = false;
     } else {
+        let colClass = tile.attr("class");
+        let rowClass = tile.parent().attr("class");
+
+        colClass = /col\d/.exec(colClass)[0];
+        rowClass = /row\d/.exec(rowClass)[0];
+
+        col = parseInt(/\d/.exec(colClass)[0]);
+        row = parseInt(/\d/.exec(rowClass)[0]);
+
+        console.log("free tile pos:", col, row);
+
+        if (col > data.cols || row > data.rows) {
+            freeTile = false;
+        } else {
+            urlInput.val(addURL);
+            console.log("opening editor for tile", row, col);
+            openEditor(row, col, false);
+        }
+    }
+
+    if (!freeTile) {
         console.log("no free tiles");
+        showInfo("No free tiles.</br>Click a tile to replace it.");
+        urlInput.val(addURL);
+        replacing = true;
     }
 }
 

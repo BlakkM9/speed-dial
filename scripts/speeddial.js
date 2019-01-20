@@ -18,7 +18,21 @@ function processClick(e, tile) {
 
     if (empty) {
         openEditor(row, col);
+    } else if (replacing) {
+        openEditor(row, col, false);
+        replacing = false;
     } else {
+        // if (isPrivateMode()) {
+        //     openPrivate(row, col);
+        // } else {
         window.location = tileData[data.cols * row + col].url;
+        // }
     }
 }
+
+// function openPrivate(row, col) {
+//     browser.windows.create({
+//         incognito: true,
+//         url: ""
+//     });
+// }

@@ -47,6 +47,18 @@ function showError(msg, displayTime) {
     }, displayTime * 1000);
 }
 
+function showInfo(msg) {
+    let info = $("#info-message");
+
+    if (msg === false) {
+        info.html("");
+        info.css("display", "");
+    } else {
+        info.html(msg);
+        info.css("display", "block");
+    }
+}
+
 function save(storage, data, callback) {
     if (storage === "sync") {
         browser.storage.sync.set(data).then(callback, onError);
