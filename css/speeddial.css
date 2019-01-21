@@ -1,3 +1,14 @@
+/* Checkboard pattern (Mozilla style) */
+.checkboard {
+    background-image: /* tint image */
+            linear-gradient(to right, rgba(235, 235, 235, 0.865), rgba(235, 235, 235, 0.865)),
+                /* checkered effect */
+            linear-gradient(to right, black 50%, white 50%),
+            linear-gradient(to bottom, black 50%, white 50%);
+    background-blend-mode: normal, difference, normal;
+    background-size: 4vmin 4vmin;
+}
+
 body {
     width: 100vw;
     height: 100vh;

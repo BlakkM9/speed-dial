@@ -120,9 +120,9 @@ function generateScreenshot(url) {
     }, onError);
 }
 
-function openEditor(row, col, clear) {
-    if (clear == null) {
-        clear = true;
+function openEditor(row, col, useDefaultContent) {
+    if (useDefaultContent == null) {
+        useDefaultContent = true;
     }
     let qTile = $(".tile");
 
@@ -140,16 +140,19 @@ function openEditor(row, col, clear) {
     editor.css("display", "flex");
 
 
+    console.log(useDefaultContent, tile);
+
     urlInput.css("border", "");
     imgInput.css("border", "");
 
-    if (clear) {
-        if (tile.url.match("none")) {
+    if (useDefaultContent) {
+        if (tile.url === "none") {
             urlInput.val("");
         } else {
             urlInput.val(tile.url);
         }
-        if (tile.img.match("none")) {
+
+        if (tile.img === "none") {
             imgInput.val("");
         } else {
             imgInput.val(tile.img);
@@ -158,7 +161,7 @@ function openEditor(row, col, clear) {
         }
     }
 
-    if (imgInput.val("")) {
+    if (imgInput.val() === "") {
         tilePreviewContainer.css("display", "none");
     }
 

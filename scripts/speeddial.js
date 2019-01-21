@@ -19,8 +19,9 @@ function processClick(e, tile) {
     if (empty) {
         openEditor(row, col);
     } else if (replacing) {
-        openEditor(row, col, false);
+        showInfo(false);
         replacing = false;
+        openEditor(row, col, false);
     } else {
         // if (isPrivateMode()) {
         //     openPrivate(row, col);
