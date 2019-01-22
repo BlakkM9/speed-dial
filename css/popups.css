@@ -5,6 +5,7 @@ hr {
     border:none;
 }
 
+/* Context menu */
 #context-menu {
     position: fixed;
     display: none;
@@ -38,12 +39,79 @@ hr {
     padding-bottom: 10px;
 }
 
+/* Drop down selection */
+.select {
+    border: none;
+    color: white;
+    border-radius: 3px;
+    padding: 0 3px;
+    z-index: 8;
+    -moz-user-select: none;
+    transition: background-color 0.2s;
+}
+
+.select.container {
+    display: flex;
+    justify-self: center;
+    justify-content: space-between;
+    align-items: center;
+    height: 26px;
+    padding: 0;
+    background-color: #323234;
+}
+
+.select.container.active > svg.drop-down.select {
+    transform: rotate(0deg);
+}
+
+.drop-down.container {
+    position: fixed;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+svg.drop-down.select {
+    padding: 0 3px;
+    transform: rotate(90deg);
+    width: 8px;
+    height: 8px;
+}
+
+.menu-entry.drop-down {
+    padding: 5px 24px 5px 8px;
+    margin: 0 !important;
+}
+
+.menu-entry.drop-down.select {
+    padding: 4px 0 4px 3px;
+}
+
+.menu-entry.drop-down.select:hover {
+    box-shadow: none !important;
+    /*text-indent: 5px;*/
+}
+
+.select.container.active .drop-down.container {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.menu-entry.drop-down:hover {
+
+}
+
+/* Info popup */
 #info-popup {
     display: none;
     z-index: 10;
     text-align: left;
 }
 
+/* Info message */
 #info-message {
     display: none;
     top: 20px;
@@ -51,6 +119,7 @@ hr {
     z-index: 8;
 }
 
+/* Error message */
 #error-message {
     bottom: 20px;
     background-color: firebrick;

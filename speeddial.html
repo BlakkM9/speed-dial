@@ -18,6 +18,8 @@
         <script src="scripts/draganddrop.js"></script>
         <script src="scripts/infopopup.js"></script>
         <script src="scripts/compabiliy.js"></script>
+        <script src="scripts/dropdown.js"></script>
+        <script src="scripts/colorinput.js"></script>
     </head>
     <body>
         <div id="context-menu" class="window">
@@ -56,7 +58,7 @@
                     <input id="color-background" class="color-input" type="color"/>
                 </div>
 
-                <label for="total-width">Width:</label>
+                <label for="total-width">Width</label>
                 <div id="info-width" class="info hover icon creator">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
                         <g transform="translate(0,-64.982858)">
@@ -70,13 +72,13 @@
                 </div>
                 <input id="total-width" class="text-input input col3" type="text"/>
 
-                <label for="cols">Size (Colums and Rows):</label>
+                <label for="cols">Size (Colums and Rows)</label>
                 <label for="rows" class="anti-error"></label>
                 <div class="two-text-input-frame input col3">
                     <input id="cols" class="text-input" type="text"/><input id="rows" class="text-input" type="text"/>
                 </div>
 
-                <label for="width">Image ratio:</label>
+                <label for="width">Image ratio</label>
                 <label for="height" class="anti-error"></label>
                 <div id="info-ratio" class="info hover icon creator">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -93,7 +95,7 @@
                     <input id="width" class="text-input" type="text"/><input id="height" class="text-input" type="text"/>
                 </div>
 
-                <label for="vgap">Gaps:</label>
+                <label for="vgap">Gaps</label>
                 <label for="hgap" class="anti-error"></label>
                 <div id="info-gaps" class="info hover icon creator">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -110,10 +112,11 @@
                     <input id="vgap" class="text-input" type="text"/><input id="hgap" class="text-input" type="text"/>
                 </div>
 
-                <label for="reflection">Show reflection:</label>
-                <div class="checkbox-input-frame input col3">
+                <label>Enable reflection</label>
+                <label for="reflection" class="checkbox-input-frame input col3">
                     <input id="reflection" class="checkbox-input" type="checkbox"/>
-                </div>
+                    <span class="checkmark"></span>
+                </label>
 
                 <button id="create-button" class="button">
                     Create SpeedDial
@@ -126,10 +129,10 @@
         <div id="editor-container" class="window-container">
             <div id="editor" class="window">
 
-                <label for="url-input">Link to website</label>
+                <label for="url-input">Link to website (URL)</label>
                 <input id="url-input" class="text-input long" type="text">
 
-                <label for="img-input">Preview image</label>
+                <label for="img-input">Preview image (URL)</label>
                 <input id="img-input" class="text-input long" type="text">
                 <div id="upload-animation-container" class="text-input long">
                     <div id="upload-animation" class="text-input long upload-animation"></div>
@@ -138,6 +141,37 @@
 
                 <div id="tile-preview-container">
                     <div id="tile-preview" class="tile"></div>
+                    <div id="tile-options" class="window">
+                        <div id="show-options-dropdown">
+                            <svg id="options-dropdown-svg" class="drop-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path class="svg path" transform="translate(0,8)" d="M 12,9 2,-1 H 22 L 12,9"></path>
+                            </svg>
+                            Options
+                        </div>
+
+                        <div id="options">
+                            <label for="color-tile-background">Background color</label>
+                            <div class="color-input-frame input col2">
+                                <input id="color-tile-background" class="color-input" type="color"/>
+                            </div>
+                            <label for="display-type-select">Display type</label>
+
+                            <div id="display-type-select" class="select container">
+                                <div class="select">
+                                    <div class="selected">Contain</div>
+                                    <div class="drop-down container window">
+                                        <div class="drop-down select menu-entry">Contain</div>
+                                        <div data-value="auto" class="menu-entry drop-down">Auto</div>
+                                        <div data-value="contain" class="menu-entry drop-down">Contain</div>
+                                        <div data-value="cover" class="menu-entry drop-down">Cover</div>
+                                    </div>
+                                </div>
+                                <svg class="drop-down select" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path class="svg path" transform="translate(0,8)" d="M 12,9 2,-1 H 22 L 12,9"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="editor-buttons-container parent">

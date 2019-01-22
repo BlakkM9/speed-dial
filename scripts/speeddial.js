@@ -1,9 +1,3 @@
-$(function() {
-    colorInput.change(function() {
-        $(this).parent().css("background-color", colorInput.val());
-    });
-});
-
 function processClick(e, tile) {
 
     let rowClass = tile.parent().attr("class");

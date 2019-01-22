@@ -82,3 +82,36 @@ function remove(storage, data, callback) {
         browser.storage.local.remove(data).then(callback, onError);
     }
 }
+
+//Debugging functions
+function wipeData() {
+    remove("sync", "init", function() {
+        remove("sync", "data", function() {
+            remove("sync", "tileData", function() {
+                console.log("Complete data wiped");
+            });
+        });
+    });
+}
+
+function loadData() {
+    setLoading(true);
+
+    save("sync", {init: true}, function() {
+        init = true;
+
+        $.getJSON( "../data.json", function(res) {
+            data = res.data;
+            save("sync", {"data": data}, function() {
+                $.getJSON( "../tileData.json", function(res) {
+
+                    console.log("backup loaded");
+                    save("sync", {tileData: res.tileData}, function() {
+                        displayCreator(false);
+                        generateSpeedDial();
+                    });
+                });
+            });
+        });
+    });
+}

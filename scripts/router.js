@@ -1,21 +1,24 @@
-//TODO add image options to editor (background-color and contain/cover) + update old tileData
-//TODO add gallery to editor with filter options
+//TODO add option to generate from website icon http://url-2-png.herokuapp.com/icon?url=... ready to be used (;
+//TODO add advanced settings page
 //TODO add reflexion height option to creator
-//TODO add option to generate from website icon (search in header for apple-touch)
+//TODO add border radius setting
+//TODO add tile shadow to settings
+//TODO replace text inputs with sliders in normal settings
+//TODO add gallery to editor with filter options
 //TODO make secret options (hidden speed dials)
 //TODO rebuild to work with js modules (to hide annoying warnings)
 
 let loader;
 let creator;
 let speedDial;
-let editor;
+let editorContainer;
 let init;
 
 $(function() {
     loader = $("#loader");
     creator = $("#creator-container");
     speedDial = $("#speeddial");
-    editor = $("#editor-container");
+    editorContainer = $("#editor-container");
 
     const addURL = getQuery("url");
     //If addURL was send
@@ -89,46 +92,13 @@ function loadDatafromStorage(callback) {
 //States
 function setLoading(loading) {
     if (loading) {
-        editor.css("display", "");
+        editorContainer.css("display", "");
         creator.css("display", "");
         speedDial.css("display", "none");
         loader.css("display", "");
     } else {
         loader.css("display", "none");
     }
-}
-
-function wipeData() {
-    remove("sync", "init", function() {
-        remove("sync", "data", function() {
-            remove("sync", "tileData", function() {
-                console.log("Complete data wiped");
-            });
-        });
-    });
-}
-
-function loadData() {
-    setLoading(true);
-
-    save("sync", {init: true}, function() {
-        init = true;
-
-        $.getJSON( "../data.json", function(res) {
-            data = res.data;
-            save("sync", {"data": data}, function() {
-                $.getJSON( "../tileData.json", function(res) {
-                    tileData = res.tileData;
-
-                    console.log("backup loaded");
-                    save("sync", data, function() {
-                        displayCreator(false);
-                        generateSpeedDial();
-                    });
-                });
-            });
-        });
-    });
 }
 
 // function isPrivateMode() {

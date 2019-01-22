@@ -1,15 +1,15 @@
-const REFLECT_BRIGHTNESS_PERCENT = 60;
+const REFLECT_BRIGHTNESS_PERCENT = 40;
 const REFLECT_HEIGHT_PERCENT = 50;
 const REFLECT_DISTANCE_PERCENT = 3;
 const REFLECT_BRIGHTNESS_HEX = dec2hex(Math.round(255 * (REFLECT_BRIGHTNESS_PERCENT / 100)));
 let head;
 let body;
-let colorInput;
 let totalWidth;
 let cols, rows;
 let width, height;
 let vgap, hgap;
 let reflection;
+let bgColorInput;
 
 let data;
 let tileData = [];
@@ -17,8 +17,8 @@ let tileData = [];
 $(function() {
     head = $("head");
     body = $("body");
-    colorInput = $(".color-input");
 
+    bgColorInput = $("#color-background");
     totalWidth = $("#total-width");
     cols = $("#cols");
     rows = $("#rows");
@@ -56,7 +56,7 @@ function displayCreator(show) {
 
     if (show) {
         if (data == null || !init) {
-            colorInput.val(rgb2hex(body.css("background-color").toString()));
+            bgColorInput.val(rgb2hex(body.css("background-color").toString()));
             totalWidth.val("90");
             cols.val("5");
             rows.val("3");
@@ -68,7 +68,7 @@ function displayCreator(show) {
             speedDial.css("display", "");
             creator.css("background-color", "transparent");
         } else {
-            colorInput.val(data.bg);
+            bgColorInput.val(data.bg);
             totalWidth.val(data.total_width);
             cols.val(data.cols);
             rows.val(data.rows);
@@ -81,7 +81,7 @@ function displayCreator(show) {
             creator.css("background-color", "");
         }
 
-        $(colorInput).trigger("change");
+        $(bgColorInput).trigger("change");
 
         setLoading(false);
         creator.css("display", "grid");
@@ -240,11 +240,20 @@ function generateSpeedDial() {
 
     //Reflection row
     if (data.reflection) {
-        $("#reflection-container").css("margin-top", REFLECT_DISTANCE_PERCENT + "%");
+        let reflectContainer = $("#reflection-container");
         reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
         $(".row:nth-last-child(2)").css("margin-bottom", 0);
+        $(".row:last-child").css("margin-bottom", 0);
+
+        //Calculate top offset of speeddial to be centered again with reflection height
+        let rowHeight = speedDial.width() * (tilePaddingTop / 100);
+        let diffInPx =  (rowHeight *  (100 - REFLECT_HEIGHT_PERCENT)) / 100;
+        let speedDialTop = ((diffInPx / body.height() * 100) / 2) + "%";
+        reflectContainer.css("margin-top", REFLECT_DISTANCE_PERCENT + "%");
+        speedDial.css("top", speedDialTop);
     } else {
         $(".row:last-child").css("margin-bottom", 0);
+        speedDial.css("top", "0");
     }
 
     //Add listeners
@@ -285,7 +294,10 @@ function generateSpeedDial() {
                 createTileData();
                 applyTileData();
             } else {
+                //Tile data found
                 tileData = res.tileData;
+                //Check if up to date
+                checkAndAdjustTileDataCompability();
                 validateTileDataSize();
                 applyTileData();
 
@@ -310,7 +322,9 @@ function validateTileDataSize() {
         for (let i = 0; i < diff; i++) {
             tileData.push({
                 "img": "none",
-                "url": "none"
+                "url": "none",
+                "size": "contain",
+                "bg": "#000000"
             });
         }
     }
@@ -322,7 +336,9 @@ function createTileData() {
         for (let j = 0; j < data.cols; j++) {
             tileData.push({
                 "img": "none",
-                "url": "none"
+                "url": "none",
+                "size": "contain",
+                "bg": "#000000"
             });
         }
     }
@@ -335,14 +351,16 @@ function applyTileData() {
     for (let i = 0; i < data.rows; i++) {
         for (let j = 0; j < data.cols; j++) {
             let tile = $(".row" + i + " .col" + j);
-            if (tileData[data.cols * i + j].img !== "none") {
+            let currTileData = tileData[data.cols * i + j];
+            if (currTileData.img !== "none") {
                 imageCount++;
-                let imgUrl = tileData[data.cols * i + j].img;
-                $("<img alt=''/>").attr("src", imgUrl).on("load", function() {
-                    $(this).remove();
-                    tile.css("background-image", "url('" + imgUrl + "')");
+                $("<img alt=''/>").attr("src", currTileData.img).on("load", function() {
+                    tile.css("background-image", "url('" + currTileData.img + "')");
+                    tile.css("background-size", currTileData.size);
+                    tile.css("background-color", currTileData.bg);
                     tile.removeClass("empty");
                     loadedImages++;
+                    $(this).remove();
 
                     if (loadedImages === imageCount) {
                         setLoading(false);
@@ -353,6 +371,8 @@ function applyTileData() {
                 });
             } else {
                 tile.css("background-image", "");
+                tile.css("background-size", "");
+                tile.css("background-color", "");
                 tile.addClass("empty");
             }
         }
@@ -366,11 +386,16 @@ function applyTileData() {
     if (data.reflection) {
         for (let j = 0; j < data.cols; j++) {
             let tile = $(".reflection.col" + j);
-            if (tileData[data.cols * (data.rows - 1) + j].img !== "none") {
-                tile.css("background-image", "url(" + tileData[data.cols * (data.rows - 1) + j].img + ")");
+            let currTileData = tileData[data.cols * (data.rows - 1) + j];
+            if (currTileData.img !== "none") {
+                tile.css("background-image", "url(" + currTileData.img + ")");
+                tile.css("background-size", currTileData.size);
+                tile.css("background-color", currTileData.bg);
                 tile.removeClass("empty");
             } else {
                 tile.css("background-image", "");
+                tile.css("background-size", "");
+                tile.css("background-color", "");
                 tile.addClass("empty");
             }
         }

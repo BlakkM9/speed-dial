@@ -27,9 +27,8 @@ function drop(e) {
     tileData[targetIndex].url = tempUrl;
     tileData[targetIndex].img = tempImg;
 
-    browser.storage.sync.set({"tileData": tileData}).then(() => {
-        applyTileData();
-    }, onError);
+
+    applyTileData();
 }
 
 function allowDrag(e) {
