@@ -31,12 +31,21 @@ $(function() {
     $("#create-button").click(function() {
         if (creatorInputIsValid()) {
             setLoading(true);
-            save("sync", {init: true}, function() {
+            if (!init) {
                 init = true;
+                save("sync", {init: true}, function() {
+                    saveData();
+                    data.version = browser.runtime.getManifest().version;
+                    console.log("version added to data");
+                    data.tile_options_visible = false;
+                    displayCreator(false);
+                    generateSpeedDial();
+                });
+            } else {
                 saveData();
                 displayCreator(false);
                 generateSpeedDial();
-            });
+            }
         }
     });
 

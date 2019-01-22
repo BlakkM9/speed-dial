@@ -5,18 +5,21 @@ function checkAndAdjustDataCompability() {
     if (!data.hasOwnProperty("total_width")) {
         data.total_width = 100 - data.padding;
         delete data.padding;
+        console.log("total_width was missing");
         oldVersion = true;
     }
 
     //Check if version is in data
     if (!data.hasOwnProperty("version")) {
         data.version = browser.runtime.getManifest().version;
+        console.log("version was missing");
         oldVersion = true;
     }
 
     //Check if optionsVisible is in data
     if (!data.hasOwnProperty("tile_options_visible")) {
         data.tile_options_visible = false;
+        console.log("tile_options_visible was missing");
         oldVersion = true;
     }
 
@@ -26,7 +29,7 @@ function checkAndAdjustDataCompability() {
             console.log("data saved with new format");
         });
     } else {
-        console.log("data was fomat was up to date");
+        console.log("data was up to date");
     }
 }
 
