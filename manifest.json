@@ -1,9 +1,11 @@
 {
   "manifest_version": 2,
-  "name": "SpeedDial",
-  "version": "1.3.1",
+  "name": "__MSG_extension_name__",
+  "version": "1.5.0",
 
-  "description": "Opens customizable SpeedDial page when new tab is created",
+  "default_locale": "en",
+
+  "description": "__MSG_extension_decription__",
   "icons": {
     "24": "icons/speeddial.svg",
     "48": "icons/speeddial.svg",
@@ -14,15 +16,23 @@
   },
 
   "background": {
-    "scripts": ["menuitem.js"]
+    "scripts": ["./background/menuitem.js"]
   },
 
   "permissions": [
-    "activeTab",
+    "tabs",
+    "tabHide",
     "contextMenus",
     "storage",
-    "https://url-2-png.herokuapp.com/*"
+    "<all_urls>",
+    "downloads"
   ],
+
+  "options_ui": {
+    "browser_style": false,
+    "open_in_tab": true,
+    "page": "settings.html"
+  },
 
   "chrome_url_overrides": {
     "newtab": "speeddial.html"

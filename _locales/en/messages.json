@@ -1,0 +1,9 @@
+{
+  "extension_name": {
+    "message": "Flat Speed Dial"
+  },
+
+  "extension_decription": {
+    "message": "Opens customizable SpeedDial page when new tab is created"
+  }
+}

@@ -19,8 +19,32 @@ $(function() {
         }
     });
 
+    option.hover(function() {
+        let target = $(this);
+        if (target.attr("class").includes("select")) {
+            highlightSelected(target.parent());
+        } else {
+            let childs = target.parent().children();
+            for (let i = 1; i < childs.length; i++) {
+                let child = $(childs[i]);
+                if (child.attr("class").includes("hover")) {
+                    child.removeClass("hover");
+                }
+            }
+            target.addClass("hover");
+        }
+    }, function() {
+        $(this).removeClass("hover");
+    });
+
+
+    dropDownContainer.hover(function(e) {
+    }, function() {
+        highlightSelected($(this).parent());
+    });
+
     $(document).click(function(e) {
-        if (e.which === 1) {
+        if (e.which === 1 && e.target.hasOwnProperty("className")) {
             if (!e.target.className.includes("select")) {
                 selectContainer.removeClass("active");
             }
@@ -59,14 +83,13 @@ function updateSelect(el, updateWidth) {
 
     let currDdc = el.find(".drop-down.container");
 
-    if (updateWidth) {
-        currDdc.css("width", currDdc.width());
-    }
+    //The 2 is for each 1px border on left and right
+    let selectPadding = el.outerWidth() - el.width() - 2;
 
-    updateAvailableOptions(el);
+    highlightSelected(el);
 
     if (updateWidth) {
-        el.css("width", currDdc.outerWidth());
+        el.css("width", currDdc.width() - selectPadding);
     }
 
     let offset = el.offset();
@@ -74,7 +97,8 @@ function updateSelect(el, updateWidth) {
     currDdc.css("left", offset.left);
 }
 
-function updateAvailableOptions(el) {
+function highlightSelected(el) {
+
     let options = el.find(option);
     let selected = $(options[0]);
 
@@ -82,9 +106,9 @@ function updateAvailableOptions(el) {
     for (let i = 1; i < options.length; i++) {
         let currOption = $(options[i]);
         if (currOption.html() === selected.html()) {
-            currOption.css("display", "none");
+            currOption.addClass("hover");
         } else {
-            currOption.css("display", "");
+            currOption.removeClass("hover");
         }
     }
 }

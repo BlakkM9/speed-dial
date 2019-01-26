@@ -1,9 +1,11 @@
+//TODO add settings for screenshot method
+//TODO add option for using images without uploading
+//TODO add info when generating takes long
+//TODO fix bug with pipette sometimes not activation when clicking
 //TODO add option to generate from website icon http://url-2-png.herokuapp.com/icon?url=... ready to be used (;
-//TODO add advanced settings page
-//TODO add reflexion height option to creator
-//TODO add border radius setting
-//TODO add tile shadow to settings
-//TODO replace text inputs with sliders in normal settings
+//TODO duckduck go automatic image search
+//TODO add help/tutorial page
+//TODO replace text inputs with sliders in normal settings (maybe)
 //TODO add gallery to editor with filter options
 //TODO make secret options (hidden speed dials)
 //TODO rebuild to work with js modules (to hide annoying warnings)
@@ -11,14 +13,12 @@
 let loader;
 let creator;
 let speedDial;
-let editorContainer;
 let init;
 
 $(function() {
     loader = $("#loader");
     creator = $("#creator-container");
     speedDial = $("#speeddial");
-    editorContainer = $("#editor-container");
 
     const addURL = getQuery("url");
     //If addURL was send
@@ -29,6 +29,8 @@ $(function() {
     } else {
         //Else check if init (not first start)
         isInit(function() {
+
+            console.log("init", init);
 
             //If not first start
             if (init) {
@@ -42,14 +44,18 @@ $(function() {
                     loadDatafromStorage(function() {
                         //If no data was found
                         if (data == null) {
+                            console.log("no data found");
                             //Open blank creator
+                            createData();
                             displayCreator();
                         } else {
+                            console.log("found data in storage", data);
                             //Generate speeddial from loaded data and open
                             generateSpeedDial();
                         }
                     });
                 } else {
+                    console.log("data is loaded", data);
                     //Generate speeddial from data saved in variable
                     generateSpeedDial();
                 }
@@ -79,14 +85,14 @@ function isInit(callback) {
 }
 
 function isDataLoaded() {
-    return (data != null);
+    return !$.isEmptyObject(data);
 }
 
 function loadDatafromStorage(callback) {
-    browser.storage.sync.get("data").then((res) => {
+    get("sync", "data", function(res) {
         data = res.data;
         callback();
-    }, onError);
+    });
 }
 
 //States

@@ -3,24 +3,27 @@
     <head>
         <meta charset="UTF-8">
         <title>SpeedDial</title>
-        <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/default.css">
         <link rel="stylesheet" href="css/speeddial.css">
         <link rel="stylesheet" href="css/loader.css">
         <link rel="stylesheet" href="css/popups.css">
         <script src="scripts/lib/jquery.js"></script>
-        <script src="scripts/utils.js"></script>
-        <script src="scripts/router.js"></script>
-        <script src="scripts/creator.js"></script>
-        <script src="scripts/editor.js"></script>
-        <script src="scripts/speeddial.js"></script>
-        <script src="scripts/contextmenu.js"></script>
-        <script src="scripts/uploadfile.js"></script>
-        <script src="scripts/draganddrop.js"></script>
-        <script src="scripts/infopopup.js"></script>
-        <script src="scripts/compabiliy.js"></script>
-        <script src="scripts/dropdown.js"></script>
-        <script src="scripts/colorinput.js"></script>
+        <script src="scripts/utils/utils.js"></script>
+        <script src="scripts/speeddial/screenshot.js"></script>
+        <script src="scripts/loading/router.js"></script>
+        <script src="scripts/speeddial/creator.js"></script>
+        <script src="scripts/speeddial/editor.js"></script>
+        <script src="scripts/speeddial/speeddial.js"></script>
+        <script src="scripts/elements/contextmenu.js"></script>
+        <script src="scripts/utils/uploadfile.js"></script>
+        <script src="scripts/speeddial/draganddrop.js"></script>
+        <script src="scripts/elements/infopopup.js"></script>
+        <script src="scripts/loading/compabiliy.js"></script>
+        <script src="scripts/elements/dropdown.js"></script>
+        <script src="scripts/elements/colorinput.js"></script>
     </head>
+
     <body>
         <div id="context-menu" class="window">
             <div id="action-edit" class="menu-entry">Edit</div>
@@ -35,6 +38,18 @@
         <div id="error-message" class="popup window">This is an error message</div>
 
         <div id="info-message" class="popup window">This is an info message</div>
+
+        <div id="color-pipette-preview"></div>
+
+        <div id="settings-icon">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <g transform="translate(0,8)">
+                    <path transform="translate(0,-8)"
+                        d="M 10 3 L 10 5 L 9.546875 5.453125 A 7 7 0 0 0 7.2636719 6.8574219 L 6.7324219 7 L 5 6 L 3 9.4648438 L 4.7324219 10.464844 L 5.0175781 11.527344 A 7 7 0 0 0 5 12 A 7 7 0 0 0 5.0234375 12.451172 L 4.7324219 13.535156 L 3 14.535156 L 5 18 L 6.7324219 17 L 7.2597656 17.140625 A 7 7 0 0 0 9.5527344 18.552734 L 10 19 L 10 21 L 14 21 L 14 19 L 14.453125 18.546875 A 7 7 0 0 0 16.736328 17.142578 L 17.267578 17 L 19 18 L 21 14.535156 L 19.267578 13.535156 L 18.982422 12.472656 A 7 7 0 0 0 19 12 A 7 7 0 0 0 18.976562 11.548828 L 19.267578 10.464844 L 21 9.4648438 L 19 6 L 17.267578 7 L 16.740234 6.859375 A 7 7 0 0 0 14.447266 5.4472656 L 14 5 L 14 3 L 10 3 z M 12 8.5 A 3.5 3.5 0 0 1 15.5 12 A 3.5 3.5 0 0 1 12 15.5 A 3.5 3.5 0 0 1 8.5 12 A 3.5 3.5 0 0 1 12 8.5 z ">
+                    </path>
+                </g>
+            </svg>
+        </div>
 
         <div id="loader">
             <div class="sk-cube-grid">
@@ -53,72 +68,99 @@
         <div id="creator-container" class="window-container">
             <div id="creator" class="window">
 
-                <label for="color-background">Background color:</label>
-                <div class="color-input-frame input col3">
-                    <input id="color-background" class="color-input" type="color"/>
+                <div class="option-row">
+                    <div class="label">
+                        <div class="primary">Background Color</div>
+                        <div class="secondary">Background Color of your SpeedDial</div>
+                    </div>
+                    <label for="color-background" class="anti-error"></label>
+                    <label for="color-background-hex" class="anti-error"></label>
+                    <div class="color-input-container">
+                        <div class="hashtag">#</div>
+                        <input id="color-background-hex" class="text-input" maxlength="6" type="text">
+                        <div class="color-input-frame">
+                            <input id="color-background" class="color-input" type="color"/>
+                        </div>
+                    </div>
                 </div>
 
-                <label for="total-width">Width</label>
-                <div id="info-width" class="info hover icon creator">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                        <g transform="translate(0,-64.982858)">
-                            <path
-                                    class="svg path info"
-                                    d="M 24 4 A 20 20 0 0 0 4 24 A 20 20 0 0 0 24 44 A 20 20 0 0 0 44 24 A 20 20 0 0 0 24 4 z M 24 7 A 17 17 0 0 1 41 24 A 17 17 0 0 1 24 41 A 17 17 0 0 1 7 24 A 17 17 0 0 1 24 7 z M 22 11 L 22 15 L 26 15 L 26 11 L 22 11 z M 22 20 L 22 37 L 26 37 L 26 20 L 22 20 z "
-                                    transform="translate(0,64.982858)">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <input id="total-width" class="text-input input col3" type="text"/>
-
-                <label for="cols">Size (Colums and Rows)</label>
-                <label for="rows" class="anti-error"></label>
-                <div class="two-text-input-frame input col3">
-                    <input id="cols" class="text-input" type="text"/><input id="rows" class="text-input" type="text"/>
+                <div class="option-row">
+                    <div class="label">
+                        <div class="primary">SpeedDial Width</div>
+                        <div class="secondary">Width of the SpeedDial in Percent of your Browser-Width</div>
+                    </div>
+                    <label for="total-width" class="anti-error"></label>
+                    <input id="total-width" class="text-input" type="text" placeholder="%"/>
                 </div>
 
-                <label for="width">Image ratio</label>
-                <label for="height" class="anti-error"></label>
-                <div id="info-ratio" class="info hover icon creator">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                        <g transform="translate(0,-64.982858)">
-                            <path
-                                    class="svg path info"
-                                    d="M 24 4 A 20 20 0 0 0 4 24 A 20 20 0 0 0 24 44 A 20 20 0 0 0 44 24 A 20 20 0 0 0 24 4 z M 24 7 A 17 17 0 0 1 41 24 A 17 17 0 0 1 24 41 A 17 17 0 0 1 7 24 A 17 17 0 0 1 24 7 z M 22 11 L 22 15 L 26 15 L 26 11 L 22 11 z M 22 20 L 22 37 L 26 37 L 26 20 L 22 20 z "
-                                    transform="translate(0,64.982858)">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <div class="two-text-input-frame input col3">
-                    <input id="width" class="text-input" type="text"/><input id="height" class="text-input" type="text"/>
-                </div>
-
-                <label for="vgap">Gaps</label>
-                <label for="hgap" class="anti-error"></label>
-                <div id="info-gaps" class="info hover icon creator">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                        <g transform="translate(0,-64.982858)">
-                            <path
-                                    class="svg path info"
-                                    d="M 24 4 A 20 20 0 0 0 4 24 A 20 20 0 0 0 24 44 A 20 20 0 0 0 44 24 A 20 20 0 0 0 24 4 z M 24 7 A 17 17 0 0 1 41 24 A 17 17 0 0 1 24 41 A 17 17 0 0 1 7 24 A 17 17 0 0 1 24 7 z M 22 11 L 22 15 L 26 15 L 26 11 L 22 11 z M 22 20 L 22 37 L 26 37 L 26 20 L 22 20 z "
-                                    transform="translate(0,64.982858)">
-                            </path>
-                        </g>
-                    </svg>
-                </div>
-                <div class="two-text-input-frame input col3">
-                    <input id="vgap" class="text-input" type="text"/><input id="hgap" class="text-input" type="text"/>
+                <div class="option-row">
+                    <div class="label">
+                        <div class="label">
+                            <div class="primary">Size</div>
+                            <div class="secondary">How many Columns x Rows your SpeedDial should have</div>
+                        </div>
+                    </div>
+                    <div class="two-text-input-frame">
+                        <label for="cols" class="anti-error"></label>
+                        <input id="cols" class="text-input" type="text" placeholder="C"/>
+                        <div class="icon">x</div>
+                        <label for="rows" class="anti-error"></label>
+                        <input id="rows" class="text-input" type="text" placeholder="R"/>
+                    </div>
                 </div>
 
-                <label>Enable reflection</label>
-                <label for="reflection" class="checkbox-input-frame input col3">
-                    <input id="reflection" class="checkbox-input" type="checkbox"/>
-                    <span class="checkmark"></span>
-                </label>
+                <div class="option-row">
+                    <div class="label">
+                        <div class="label">
+                            <div class="primary">Image Ratio</div>
+                            <div class="secondary">Width : Height ratio of your images</div>
+                        </div>
+                    </div>
+                    <div class="two-text-input-frame">
+                        <label for="width" class="anti-error"></label>
+                        <input id="width" class="text-input" type="text" placeholder="W"/>
+                        <div class="icon">:</div>
+                        <label for="height" class="anti-error"></label>
+                        <input id="height" class="text-input" type="text" placeholder="H"/>
+                    </div>
+                </div>
 
-                <button id="create-button" class="button">
+                <div class="option-row">
+                    <div class="label">
+                        <div class="label">
+                            <div class="primary">Gaps</div>
+                            <div class="secondary">Vertical and Horizontal Gap between the Tiles (in Percent)</div>
+                        </div>
+                    </div>
+                    <div class="two-text-input-frame">
+                        <label for="vgap" class="anti-error"></label>
+                        <input id="vgap" class="text-input" type="text" placeholder="V"/>
+                        <div class="icon"></div>
+                        <label for="hgap" class="anti-error"></label>
+                        <input id="hgap" class="text-input" type="text" placeholder="H"/>
+                    </div>
+                </div>
+
+                <div class="option-row">
+                    <div class="label">
+                        <div class="primary">Enable Reflection</div>
+                    </div>
+                    <label for="reflection" class="checkbox-input-frame input">
+                        <input id="reflection" class="checkbox-input" type="checkbox"/>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="option-row">
+                    <div class="label">
+                        <a href="settings.html">Advanced Settings</a>
+                    </div>
+                    <div class="label right">
+                        <a href="help.html">Help</a>
+                    </div>
+                </div>
+
+                <button id="create-button" class="button primary">
                     Create SpeedDial
                 </button>
             </div>
@@ -129,12 +171,16 @@
         <div id="editor-container" class="window-container">
             <div id="editor" class="window">
 
-                <label for="url-input">Link to website (URL)</label>
-                <input id="url-input" class="text-input long" type="text">
+                <div class="option-row option-text-input">
+                    <div class="text-input-long-label">Link to Website</div>
+                    <label for="url-input" class="anti-error"></label>
+                    <input id="url-input" class="text-input long" type="text" placeholder="https://www.example.com">
+                </div>
 
-                <label for="img-input">Preview image (URL)</label>
-                <input id="img-input" class="text-input long" type="text">
-                <div id="upload-animation-container" class="text-input long">
+                <div class="option-row option-text-input">
+                    <div class="text-input-long-label">Preview Image (URL)</div>
+                    <label for="img-input" class="anti-error"></label>
+                    <input id="img-input" class="text-input long" type="text" placeholder="https://www.example.com/image.png">
                     <div id="upload-animation" class="text-input long upload-animation"></div>
                 </div>
 
@@ -143,32 +189,68 @@
                     <div id="tile-preview" class="tile"></div>
                     <div id="tile-options" class="window">
                         <div id="show-options-dropdown">
+                            Options
                             <svg id="options-dropdown-svg" class="drop-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path class="svg path" transform="translate(0,8)" d="M 12,9 2,-1 H 22 L 12,9"></path>
                             </svg>
-                            Options
                         </div>
 
                         <div id="options">
-                            <label for="color-tile-background">Background color</label>
-                            <div class="color-input-frame input col2">
-                                <input id="color-tile-background" class="color-input" type="color"/>
-                            </div>
-                            <label for="display-type-select">Display type</label>
-
-                            <div id="display-type-select" class="select container">
-                                <div class="select">
-                                    <div class="selected">Contain</div>
-                                    <div class="drop-down container window">
-                                        <div class="drop-down select menu-entry">Contain</div>
-                                        <div data-value="auto" class="menu-entry drop-down">Auto</div>
-                                        <div data-value="contain" class="menu-entry drop-down">Contain</div>
-                                        <div data-value="cover" class="menu-entry drop-down">Cover</div>
+                            <div class="option-row">
+                                <div class="label">
+                                    <div class="primary">Background</div>
+                                </div>
+                                <label for="color-tile-background" class="anti-error"></label>
+                                <label for="color-tile-background-hex" class="anti-error"></label>
+                                <div class="color-input-container">
+                                    <svg id="color-tile-background-pipette" class="color-pipette hover info" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <g transform="translate(0,8)">
+                                            <path
+                                                    transform="translate(0,-8)"
+                                                    d="M 18.589844 3.1113281 C 18.386612 3.096231 18.178819 3.1051207 17.970703 3.1386719 C 17.138239 3.2728765 16.307788 3.8277833 15.777344 4.8886719 L 14.933594 6.578125 L 14 5.6464844 L 12.646484 7 L 12.822266 7.1777344 L 13.822266 8.1777344 L 7 15 L 5 19 L 9 17 L 15.822266 10.177734 L 17 11.353516 L 18.353516 10 L 17.421875 9.0664062 L 19.111328 8.2226562 C 20.172217 7.692212 20.727123 6.8617606 20.861328 6.0292969 C 20.995533 5.1968332 20.724281 4.3688122 20.177734 3.8222656 C 19.767825 3.4123557 19.19954 3.1566195 18.589844 3.1113281 z M 18.552734 3.6113281 C 19.046153 3.6496195 19.503306 3.8587753 19.822266 4.1777344 C 20.247544 4.6030131 20.475938 5.2746388 20.367188 5.9492188 C 20.258436 6.6237987 19.827783 7.307788 18.888672 7.7773438 L 16.578125 8.9316406 L 17.644531 10 L 17 10.644531 L 13.355469 7 L 14 6.3554688 L 15.068359 7.421875 L 16.222656 5.1113281 C 16.692212 4.1722166 17.376201 3.7415641 18.050781 3.6328125 C 18.219426 3.6056246 18.388262 3.5985643 18.552734 3.6113281 z M 14.322266 8.6777344 L 15.322266 9.6777344 L 8.5 16.5 L 6 18 L 7.5 15.5 L 14.322266 8.6777344 z ">
+                                            </path>
+                                            <path
+                                                    d="M 7,8 8,9 5,11 Z">
+                                            </path>
+                                            <path
+                                                    d="M 5,11 8,9 12,5 11,4 7,8 Z">
+                                            </path>
+                                            <path
+                                                    d="M 5,11 8,9 7,8 Z">
+                                            </path>
+                                            <path
+                                                    d="M 6,10 8,7 5,11 9,8 Z">
+                                            </path>
+                                        </g>
+                                    </svg>
+                                    <div class="hashtag">#</div>
+                                    <input id="color-tile-background-hex" class="text-input" maxlength="6" type="text">
+                                    <div class="color-input-frame">
+                                        <input id="color-tile-background" class="color-input" type="color"/>
                                     </div>
                                 </div>
-                                <svg class="drop-down select" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                    <path class="svg path" transform="translate(0,8)" d="M 12,9 2,-1 H 22 L 12,9"></path>
-                                </svg>
+                            </div>
+
+                            <div class="option-row">
+                                <div class="label">
+                                    <div class="primary">Display Type</div>
+                                </div>
+                                <label for="display-type-select" class="anti-error"></label>
+
+                                <div id="display-type-select" class="select container">
+                                    <div class="select">
+                                        <div class="selected">Contain</div>
+                                        <div class="drop-down container window">
+                                            <div class="drop-down select menu-entry">Contain</div>
+                                            <div data-value="auto" class="menu-entry drop-down">Auto</div>
+                                            <div data-value="contain" class="menu-entry drop-down">Contain</div>
+                                            <div data-value="cover" class="menu-entry drop-down">Cover</div>
+                                        </div>
+                                    </div>
+                                    <svg class="drop-down select" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path class="svg path" transform="translate(0,8)" d="M 12,9 2,-1 H 22 L 12,9"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -176,13 +258,26 @@
 
                 <div class="editor-buttons-container parent">
                     <div class="editor-buttons-container left">
-                        <button id="generate-button" class="button editor-button left info hover">Generate</button>
+                        <div id="generate-button" class="button drop-down editor-button left">
+                            <button class="button"></button>
+                            <div class="select">
+                                <div class="selected">Generate</div>
+                                <div class="drop-down container window">
+                                    <div class="drop-down select menu-entry">Generate</div>
+                                    <div data-value="auto" class="menu-entry drop-down">Screenshot</div>
+                                    <div data-value="contain" class="menu-entry drop-down">Logo</div>
+                                </div>
+                            </div>
+                            <!--<svg class="drop-down select" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">-->
+                                <!--<path class="svg path" transform="translate(0,8)" d="M 12,9 2,-1 H 22 L 12,9"></path>-->
+                            <!--</svg>-->
+                        </div>
                         <button id="gallery-button" class="button editor-button left">Gallery...</button>
                         <input id="img-file-input" type="file" accept="image/*">
-                        <label for="img-file-input" id="browse-button" class="button editor-button left info hover"></label>
+                        <label for="img-file-input" id="browse-button" class="button editor-button left"></label>
                     </div>
                     <div class="editor-buttons-container right">
-                        <button id="save-button" class="button">
+                        <button id="save-button" class="button primary">
                             Save
                         </button>
                     </div>

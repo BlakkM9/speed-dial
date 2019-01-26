@@ -32,6 +32,7 @@ function urlIsValid(url) {
 }
 
 let errorTimeout;
+
 function showError(msg, displayTime) {
     if (displayTime == null) {
         displayTime = 4;
@@ -83,6 +84,43 @@ function remove(storage, data, callback) {
     }
 }
 
+function download(data, filename, type) {
+    let file = new Blob([data], {type: type});
+    let a = document.createElement("a");
+    let url = URL.createObjectURL(file);
+    a.style.display = "none";
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    });
+}
+
+function blobFromUrl(url, callback) {
+    let xhr = new XMLHttpRequest();
+
+    xhr.open( "GET", url, true);
+
+// Ask for the result as an ArrayBuffer.
+    xhr.responseType = "arraybuffer";
+
+    xhr.onload = function() {
+        // Obtain a blob: URL for the image data.
+        let arrayBufferView = new Uint8Array( this.response );
+        let blob = new Blob( [ arrayBufferView ], { type: "image/*" } );
+        let urlCreator = window.URL || window.webkitURL;
+        callback(urlCreator.createObjectURL(blob));
+
+        // let img = document.querySelector( "" );
+        // img.src = imageUrl;
+    };
+
+    xhr.send();
+}
+
 //Debugging functions
 function wipeData() {
     remove("sync", "init", function() {
@@ -100,10 +138,10 @@ function loadData() {
     save("sync", {init: true}, function() {
         init = true;
 
-        $.getJSON( "../data.json", function(res) {
+        $.getJSON( "./E_data.json", function(res) {
             data = res.data;
             save("sync", {"data": data}, function() {
-                $.getJSON( "../tileData.json", function(res) {
+                $.getJSON( "./E_tileData.json", function(res) {
 
                     console.log("backup loaded");
                     save("sync", {tileData: res.tileData}, function() {

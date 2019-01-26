@@ -1,3 +1,13 @@
+let settingsIcon;
+
+$(function() {
+    settingsIcon = $("#settings-icon");
+
+    settingsIcon.click(function() {
+        openSettings();
+    });
+});
+
 function processClick(e, tile) {
 
     let rowClass = tile.parent().attr("class");
@@ -22,6 +32,14 @@ function processClick(e, tile) {
         // } else {
         window.location = tileData[data.cols * row + col].url;
         // }
+    }
+}
+
+function openSettings() {
+    if (data.advanced_settings_default) {
+        window.location.href = "/settings.html";
+    } else {
+        displayCreator();
     }
 }
 

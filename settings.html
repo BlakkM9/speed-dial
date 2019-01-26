@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Settings</title>
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/settings.css">
+        <script src="scripts/lib/jquery.js"></script>
+        <script src="scripts/elements/colorinput.js"></script>
+        <script src="scripts/utils/utils.js"></script>
+        <script src="scripts/misc/settings.js"></script>
+    </head>
+
+    <body>
+        <div class="window-container settings">
+
+            <div class="window-container">
+                <div id="warning" class="window">
+                    <h1>Warning!</h1>
+                    <div>
+                        Be careful with what you do in the Advanced Settings,
+                        because there is Nothing that Prevents you from Breaking
+                        your Add-on. Better Export and Save your Settings before.
+                        Especially using very high Numbers for Rows and Colums may
+                        break the Add-on, and you can't use it until you wipe
+                        the Add-on Data. (And I'm not sure how to do that, but if
+                        Complains are coming up I will find a Solution)
+                    </div>
+                    <div class="button-container">
+                        <div class="left">
+                            <label for="advanced-settings-warning-window" class="checkbox-input-frame input">
+                                <input id="advanced-settings-warning-window" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="label">Never show this Warning again.</div>
+                        </div>
+                        <button id="understood-button" class="button primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="settings-container" class="window">
+                <div id="settings">
+                    <div id="settings-left">
+                        <div class="header2">SpeedDial Settings</div>
+                        <div class="header3">General</div>
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Background Color</div>
+                                <div class="secondary">Background Color of your SpeedDial</div>
+                            </div>
+                            <label for="color-background" class="anti-error"></label>
+                            <label for="color-background-hex" class="anti-error"></label>
+                            <div class="color-input-container">
+                                <div class="hashtag">#</div>
+                                <input id="color-background-hex" class="text-input" maxlength="6" type="text">
+                                <div class="color-input-frame">
+                                    <input id="color-background" class="color-input" type="color"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">SpeedDial Width</div>
+                                <div class="secondary">Width of the SpeedDial in Percent of your Browser-Width</div>
+                            </div>
+                            <label for="total-width" class="anti-error"></label>
+                            <input id="total-width" class="text-input" type="text" placeholder="%"/>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="label">
+                                    <div class="primary">Size</div>
+                                    <div class="secondary">How many Columns x Rows your SpeedDial should have</div>
+                                </div>
+                            </div>
+                            <div class="two-text-input-frame">
+                                <label for="cols" class="anti-error"></label>
+                                <input id="cols" class="text-input" type="text" placeholder="C"/>
+                                <div class="icon">x</div>
+                                <label for="rows" class="anti-error"></label>
+                                <input id="rows" class="text-input" type="text" placeholder="R"/>
+                            </div>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="label">
+                                    <div class="primary">Gaps</div>
+                                    <div class="secondary">Vertical and Horizontal Gap between the Tiles (in Percent)</div>
+                                </div>
+                            </div>
+                            <div class="two-text-input-frame">
+                                <label for="vgap" class="anti-error"></label>
+                                <input id="vgap" class="text-input" type="text" placeholder="V"/>
+                                <div class="icon"></div>
+                                <label for="hgap" class="anti-error"></label>
+                                <input id="hgap" class="text-input" type="text" placeholder="H"/>
+                            </div>
+                        </div>
+
+                        <div class="header3">Reflection</div>
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Enable Reflection</div>
+                            </div>
+                            <label for="reflection" class="checkbox-input-frame input">
+                                <input id="reflection" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div id="reflection-options" class="nested-options">
+                            <div class="option-row nested">
+                                <div class="label">
+                                    <div class="primary">Gap</div>
+                                    <div class="secondary">Distance between SpeedDial and Reflection</div>
+                                </div>
+                                <label for="reflection-gap" class="anti-error"></label>
+                                <input id="reflection-gap" class="text-input" type="text" placeholder="%"/>
+                            </div>
+                            <div class="option-row nested">
+                                <div class="label">
+                                    <div class="primary">Height</div>
+                                    <div class="secondary">Height of the Reflection in Percent of the Row Height in Percent</div>
+                                </div>
+                                <label for="reflection-height" class="anti-error"></label>
+                                <input id="reflection-height" class="text-input" type="text" placeholder="%"/>
+                            </div>
+                            <div class="option-row nested">
+                                <div class="label">
+                                    <div class="primary">Brightness</div>
+                                    <div class="secondary">How bright the Reflection should be (in Percent)</div>
+                                </div>
+                                <label for="reflection-brightness" class="anti-error"></label>
+                                <input id="reflection-brightness" class="text-input" type="text" placeholder="%"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settings-right">
+                        <div class="header2">Tile Settings</div>
+
+                        <div class="header3">General</div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="label">
+                                    <div class="primary">Image Ratio</div>
+                                    <div class="secondary">Width : Height ratio of your images</div>
+                                </div>
+                            </div>
+                            <div class="two-text-input-frame">
+                                <label for="width" class="anti-error"></label>
+                                <input id="width" class="text-input" type="text" placeholder="W"/>
+                                <div class="icon">:</div>
+                                <label for="height" class="anti-error"></label>
+                                <input id="height" class="text-input" type="text" placeholder="H"/>
+                            </div>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Border Radius</div>
+                                <div class="secondary">How much the of the tile cornors should be round (in Percent)</div>
+                            </div>
+                            <label for="border-radius" class="anti-error"></label>
+                            <input id="border-radius" class="text-input" type="text" placeholder="%"/>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Enable Shadow</div>
+                                <div class="secondary">Enables a Shadow around every tile</div>
+                            </div>
+                            <label for="shadow" class="checkbox-input-frame input">
+                                <input id="shadow" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div id="shadow-options" class="nested-options">
+                            <div class="option-row nested">
+                                <div class="label">
+                                    <div class="primary">Intensity</div>
+                                    <div class="secondary">Intensity of the Shadow (in Percent)</div>
+                                </div>
+                                <label for="shadow-intensity" class="anti-error"></label>
+                                <input id="shadow-intensity" class="text-input" type="text" placeholder="%"/>
+                            </div>
+                            <div class="option-row nested">
+                                <div class="label">
+                                    <div class="primary">Color</div>
+                                    <div class="secondary">Color of the Shadow</div>
+                                </div>
+                                <label for="shadow-color" class="anti-error"></label>
+                                <label for="shadow-color-hex" class="anti-error"></label>
+                                <div class="color-input-container">
+                                    <div class="hashtag">#</div>
+                                    <input id="shadow-color-hex" class="text-input" maxlength="6" type="text">
+                                    <div class="color-input-frame">
+                                        <input id="shadow-color" class="color-input" type="color"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="header2">Add-on Settings</div>
+                        <div class="header3">General</div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Advanced Settings Warning</div>
+                                <div class="secondary">Never show a Warning when Opening the Advanced Settings</div>
+                            </div>
+                            <label for="advanced-settings-warning" class="checkbox-input-frame input">
+                                <input id="advanced-settings-warning" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Always open Advanced Settings</div>
+                                <div class="secondary">When 'Options' is selected from the Contextmenu directly open Advanced Settings</div>
+                            </div>
+                            <label for="advanced-settings-default" class="checkbox-input-frame input">
+                                <input id="advanced-settings-default" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Show Settings Icon</div>
+                                <div class="secondary">Show a Settings Icon in the top Right Corner</div>
+                            </div>
+                            <label for="show-settings-icon" class="checkbox-input-frame input">
+                                <input id="show-settings-icon" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <!--<hr>-->
+
+                        <!--<div class="settings-header">GUI Settings</div>-->
+                        <!--<div class="settings-header2">Coming soon!</div>-->
+                    </div>
+                </div>
+                <div id="settings-end">
+                    <div class="option-row">
+                        <div class="label"></div>
+                        <div class="label right">
+                            <a href="/help.html">Help</a>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <div class="left">
+                            <input id="import-input" type="file" accept=".dat">
+                            <label for="import-input" id="import-button" class="button"></label>
+                            <button id="export-button" class="button">Export</button>
+                        </div>
+                        <div class="right">
+                            <button id="cancel-button" class="button">Cancel</button>
+                            <button id="apply-button" class="button primary">Apply Settings</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

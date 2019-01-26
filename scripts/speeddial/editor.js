@@ -1,7 +1,8 @@
 //TODO calculate option heights automatically
-const OPTIONS_HEIGHT_EXTENDED = 108;
-const OPTIONS_HEIGHT_REDUCED = 38;
+const OPTIONS_HEIGHT_EXTENDED = 141;
+const OPTIONS_HEIGHT_REDUCED = 51;
 
+let editorContainer;
 let editor;
 let urlInput;
 let imgInput;
@@ -11,6 +12,7 @@ let fileInput;
 let uploadAnimation;
 let optionsDropdown;
 let options;
+let tileBgPipette;
 let tileBgInput;
 let displayTypeSelect;
 let generateButton;
@@ -18,6 +20,7 @@ let browseButton;
 let saveButton;
 
 let replacing = false;
+let pickingColor = false;
 let imgPreviewLoaded = false;
 
 let controller;
@@ -27,15 +30,17 @@ let currentTile;
 
 $(function() {
 
+    editorContainer = $("#editor-container");
     editor = $("#editor");
     urlInput = $("#url-input");
     imgInput = $("#img-input");
     tilePreviewContainer = $("#tile-preview-container");
     tilePreview = $("#tile-preview");
     fileInput = $("#img-file-input");
-    uploadAnimation = $("#upload-animation-container");
+    uploadAnimation = $("#upload-animation");
     optionsDropdown = $("#show-options-dropdown");
     options = $("#options");
+    tileBgPipette = $("#color-tile-background-pipette");
     tileBgInput = $("#color-tile-background");
     displayTypeSelect = $("#display-type-select");
     generateButton = $("#generate-button");
@@ -58,6 +63,20 @@ $(function() {
         if (urlInputIsValid()) {
             setImgLoading(true);
             generateScreenshot(urlInput.val());
+        }
+    });
+
+    //Pipette
+    tileBgPipette.click(function() {
+        console.log("picking color");
+        pickColor(true);
+    });
+
+    $(document).keyup(function(e) {
+        if (pickingColor) {
+            if (e.key === "Escape") {
+                pickColor(false);
+            }
         }
     });
 
@@ -96,7 +115,7 @@ $(function() {
 function editorInputIsValid() {
     let valid = urlInputIsValid();
 
-    if (!(imgInputisValidSilent() && imgPreviewLoaded)) {
+    if (!imgInputisValidSilent() || !imgPreviewLoaded) {
         imgInput.css("border", "1px solid red");
         valid = false;
     } else {
@@ -104,7 +123,7 @@ function editorInputIsValid() {
     }
 
     if (!valid) {
-        showError("Invalid input");
+        showError("Invalid Input");
     }
 
     return valid;
@@ -116,6 +135,7 @@ function urlInputIsValid() {
     if (!urlInputIsValidSilent()) {
         urlInput.css("border", "1px solid red");
         valid = false;
+        showError("Invalid Image URL");
     } else {
         urlInput.css("border", "");
     }
@@ -132,17 +152,19 @@ function imgInputisValidSilent() {
 }
 
 function generateScreenshot(url) {
-    let reqUrl = "https://url-2-png.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
-    fetch(reqUrl, {
-        method: "GET",
-        signal: signal,
-    }).then(res => {
-        res.blob().then(blobRes => {
-            uploadFile(new File([blobRes], "preview.png", {type: "image/png"}));
-        }, onError);
-    }, onError);
+    let screenshotMethod = "window";
+
+    if (screenshotMethod === "server") {
+        generateScreenshotWithServer(url)
+    } else if (screenshotMethod === "tab") {
+        generateScreenshotWithTab(url);
+    } else if (screenshotMethod === "window") {
+        generateScreenshotWithWindow(url);
+    }
 }
+
+
 
 function openEditor(row, col, useDefaultContent) {
     if (row !== false) {
@@ -207,6 +229,7 @@ function openEditor(row, col, useDefaultContent) {
         controller.abort();
         editorContainer.css("display", "");
         showTilePreview(false);
+        pickColor(false);
         setImgLoading(false);
     }
 
@@ -288,8 +311,8 @@ function showOptions(show) {
     if (show) {
         updateSelect($("#display-type-select"));
         dropDownSvg.addClass("active");
-        options.css("padding", "5px");
-        options.css("height", "60");
+        options.css("padding-top", "15px");
+        options.css("height", "75px");
     } else {
         dropDownSvg.removeClass("active");
         displayTypeSelect.removeClass("active");
@@ -304,7 +327,7 @@ function showOptions(show) {
 }
 
 function setPreviewHeight(optionsVisible) {
-    tilePreviewContainer.css("padding-top", "25px");
+    tilePreviewContainer.css("padding-top", "5px");
 
     let previewHeight = tilePreview.outerHeight();
 
@@ -336,4 +359,115 @@ function setImgLoading(loading) {
         fileInput.prop("disabled", false);
         saveButton.prop("disabled", false);
     }
+}
+
+let colorPickerCanvas;
+
+function pickColor(picking) {
+    let colorPreview = $("#color-pipette-preview");
+    if (picking) {
+
+        colorPickerCanvas = document.createElement("canvas");
+
+        showInfo("Move your cursor over the Preview Image!<br> Cancel with ESC or click anywhere else.");
+        tilePreview.addClass("picking-color-allowed");
+        colorPickerCanvas = document.createElement("canvas");
+        colorPickerCanvas.width = tilePreview.width();
+        colorPickerCanvas.height = tilePreview.innerHeight() - tilePreview.height();
+        let ctx = colorPickerCanvas.getContext("2d");
+        //Background with current background color
+        ctx.beginPath();
+        ctx.rect(0, 0, colorPickerCanvas.width, colorPickerCanvas.height);
+        ctx.fillStyle = tileBgInput.val();
+        ctx.fill();
+
+        console.log(tileBgInput.val());
+
+        blobFromUrl(imgInput.val(), function (blobURL) {
+            console.log(blobURL);
+
+            $("<img alt=''/>").attr("src", blobURL).on("load", function () {
+                let img = $(this)[0];
+                let imgRatio = img.height / img.width;
+                let canvasRatio = colorPickerCanvas.height / colorPickerCanvas.width;
+                let mode = getSelectValue(displayTypeSelect);
+
+                let startX;
+                let startY;
+
+                let realWidth;
+                let realHeight;
+                if (mode === "contain") {
+                    //Calculate real image size in tile
+                    if (canvasRatio > imgRatio) {
+                        realWidth = colorPickerCanvas.width;
+                        realHeight = realWidth * imgRatio;
+                    } else {
+                        realHeight = colorPickerCanvas.height;
+                        realWidth = realHeight / imgRatio;
+                    }
+
+                } else if (mode === "cover") {
+                    if (canvasRatio > imgRatio) {
+                        realHeight = colorPickerCanvas.height;
+                        realWidth = realHeight / imgRatio;
+                    } else {
+                        realWidth = colorPickerCanvas.width;
+                        realHeight = realWidth * imgRatio;
+                    }
+                } else if (mode === "auto") {
+                    realWidth = img.width;
+                    realHeight = img.height;
+                }
+
+                //Calculate center
+                startX = (colorPickerCanvas.width - realWidth) / 2;
+                startY = (colorPickerCanvas.height - realHeight) / 2;
+
+                ctx.drawImage(img, startX, startY, realWidth, realHeight);
+                $(this).remove();
+            });
+        });
+
+        tilePreview.on("mousemove.pipette", function (e) {
+            let x = e.originalEvent.clientX + 22;
+            let y = e.originalEvent.clientY - 42;
+
+            let pixelData = ctx.getImageData(e.originalEvent.layerX, e.originalEvent.layerY, 1, 1).data;
+
+            let rgbString = "rgb(" + pixelData[0] + ", " + pixelData[1] + ", " + pixelData[2] + ")";
+
+            colorPreview.css("background-color", rgbString);
+            colorPreview.css("left", x);
+            colorPreview.css("top", y);
+        });
+
+        tilePreview.on("mouseenter.pipette", function () {
+            colorPreview.css("display", "block");
+        });
+
+        tilePreview.on("mouseleave.pipette", function () {
+            colorPreview.css("display", "");
+        });
+
+        editor.on("click.pipette", function (e) {
+            let id = e.target.id;
+
+            if (id !== "tile-preview" && id !== "color-tile-background-pipette") {
+                pickColor(false);
+            } else if (id === "tile-preview") {
+                tileBgInput.val(rgb2hex(colorPreview.css("background-color")));
+                tileBgInput.trigger("change");
+                pickColor(false);
+            }
+        });
+    } else {
+        showInfo(false);
+        tilePreview.removeClass("picking-color-allowed");
+        colorPreview.css("display", "");
+        tilePreview.off(".pipette");
+        $(colorPickerCanvas).remove();
+    }
+
+    pickingColor = picking;
 }

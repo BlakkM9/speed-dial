@@ -1,7 +1,5 @@
-const REFLECT_BRIGHTNESS_PERCENT = 40;
-const REFLECT_HEIGHT_PERCENT = 50;
-const REFLECT_DISTANCE_PERCENT = 3;
-const REFLECT_BRIGHTNESS_HEX = dec2hex(Math.round(255 * (REFLECT_BRIGHTNESS_PERCENT / 100)));
+// const REFLECT_BRIGHTNESS_PERCENT = 40;
+// const REFLECT_BRIGHTNESS_HEX = ;
 let head;
 let body;
 let totalWidth;
@@ -11,7 +9,7 @@ let vgap, hgap;
 let reflection;
 let bgColorInput;
 
-let data;
+let data = {};
 let tileData = [];
 
 $(function() {
@@ -34,15 +32,12 @@ $(function() {
             if (!init) {
                 init = true;
                 save("sync", {init: true}, function() {
-                    saveData();
-                    data.version = browser.runtime.getManifest().version;
-                    console.log("version added to data");
-                    data.tile_options_visible = false;
+                    getAndSaveData();
                     displayCreator(false);
                     generateSpeedDial();
                 });
             } else {
-                saveData();
+                getAndSaveData();
                 displayCreator(false);
                 generateSpeedDial();
             }
@@ -64,31 +59,16 @@ function displayCreator(show) {
     }
 
     if (show) {
-        if (data == null || !init) {
-            bgColorInput.val(rgb2hex(body.css("background-color").toString()));
-            totalWidth.val("90");
-            cols.val("5");
-            rows.val("3");
-            width.val("4");
-            height.val("3");
-            vgap.val("2");
-            hgap.val("2");
-            reflection.prop("checked", false);
-            speedDial.css("display", "");
-            creator.css("background-color", "transparent");
-        } else {
-            bgColorInput.val(data.bg);
-            totalWidth.val(data.total_width);
-            cols.val(data.cols);
-            rows.val(data.rows);
-            width.val(data.width);
-            height.val(data.height);
-            vgap.val(data.vgap);
-            hgap.val(data.hgap);
-            reflection.prop("checked", data.reflection);
-            $("#create-button").html("Apply changes");
-            creator.css("background-color", "");
-        }
+        bgColorInput.val(data.bg);
+        totalWidth.val(data.total_width);
+        cols.val(data.cols);
+        rows.val(data.rows);
+        width.val(data.width);
+        height.val(data.height);
+        vgap.val(data.vgap);
+        hgap.val(data.hgap);
+        reflection.prop("checked", data.reflection);
+        $("#create-button").html("Apply changes");
 
         $(bgColorInput).trigger("change");
 
@@ -162,24 +142,48 @@ function creatorInputIsValid() {
     return valid;
 }
 
-function saveData() {
+function createData() {
+    data = {};
+    data.advanced_settings_default = false;
+    data.advanced_settings_warning = true;
+    data.total_width = 80;
+    data.width = 4;
+    data.height = 3;
+    data.border_radius = 0;
+    data.reflection = true;
+    data.reflection_gap = 3;
+    data.reflection_brightness = 60;
+    data.reflection_height = 50;
+    data.shadow = false;
+    data.shadow_color = "#000000";
+    data.shadow_intensity = 60;
+    data.tile_options_visible = false;
+    data.bg = body.css("background-color");
+    data.cols = 5;
+    data.rows = 3;
+    data.vgap = 2;
+    data.hgap = 2;
+    data.show_settings_icon = true;
 
-    data = {
-        "bg": colorInput.val(),
+    data.version = browser.runtime.getManifest().version;
 
-        "total_width": parseFloat(totalWidth.val()),
+    save("sync", {"data": data}, function() {
+        console.log("data saved");
+    });
+}
 
-        "cols": parseInt(cols.val()),
-        "rows": parseInt(rows.val()),
+function getAndSaveData() {
+    data.total_width = totalWidth.val();
+    data.width = width.val();
+    data.height = height.val();
+    data.reflection = reflection.prop("checked");
+    data.bg = bgColorInput.val();
+    data.cols = cols.val();
+    data.rows = rows.val();
+    data.vgap = vgap.val();
+    data.hgap = hgap.val();
 
-        "width": parseInt(width.val()),
-        "height": parseInt(height.val()),
-
-        "vgap": parseInt(vgap.val()),
-        "hgap": parseInt(hgap.val()),
-
-        "reflection": reflection.prop("checked")
-    };
+    data.version = browser.runtime.getManifest().version;
 
     save("sync", {"data": data}, function() {
         console.log("data saved");
@@ -221,7 +225,8 @@ function generateSpeedDial() {
             }
         }
 
-        reflectionRow.css("background", "linear-gradient(" + data.bg + REFLECT_BRIGHTNESS_HEX + ", " + data.bg + ")");
+        let hexBrightness = dec2hex(Math.round(255 * ((100 - data.reflection_brightness) / 100)));
+        reflectionRow.css("background", "linear-gradient(" + data.bg + hexBrightness + ", " + data.bg + ")");
     }
 
     //Calculate values
@@ -236,6 +241,11 @@ function generateSpeedDial() {
     //Spacers
     $(".vspacer").css("width", vGapPercent + "%");
 
+    //Setting icon
+    if (data.show_settings_icon) {
+        settingsIcon.css("display", "block");
+    }
+
     //SpeedDial
     speedDial.css("width", data.total_width + "%");
 
@@ -245,20 +255,25 @@ function generateSpeedDial() {
     //Tiles + rows
     tile.css("width", tileWidthPercent + "%");
     tile.css("padding-top", tilePaddingTop + "%");
+    tile.css("border-radius", data.border_radius + "%");
+    if (data.shadow) {
+        let hexIntensity = dec2hex(Math.round(255 * ((data.shadow_intensity) / 100)));
+        tile.css("box-shadow", "0 1px 8px 0 " + data.shadow_color + hexIntensity);
+    }
     $(".row").css("margin-bottom", hGapPercent + "%");
 
     //Reflection row
     if (data.reflection) {
         let reflectContainer = $("#reflection-container");
-        reflectionRow.css("height", REFLECT_HEIGHT_PERCENT + "%");
+        reflectionRow.css("height", data.reflection_height + "%");
         $(".row:nth-last-child(2)").css("margin-bottom", 0);
         $(".row:last-child").css("margin-bottom", 0);
 
         //Calculate top offset of speeddial to be centered again with reflection height
         let rowHeight = speedDial.width() * (tilePaddingTop / 100);
-        let diffInPx =  (rowHeight *  (100 - REFLECT_HEIGHT_PERCENT)) / 100;
+        let diffInPx =  (rowHeight *  (100 - data.reflection_height)) / 100;
         let speedDialTop = ((diffInPx / body.height() * 100) / 2) + "%";
-        reflectContainer.css("margin-top", REFLECT_DISTANCE_PERCENT + "%");
+        reflectContainer.css("margin-top", data.reflection_gap + "%");
         speedDial.css("top", speedDialTop);
     } else {
         $(".row:last-child").css("margin-bottom", 0);

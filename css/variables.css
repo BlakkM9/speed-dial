@@ -1,0 +1,52 @@
+:root {
+
+    /* Backgrounds */
+    --dark-bg-color: #0c0c0d;
+    --main-bg-color: #323234;
+    --input-bg-color: #474749;
+
+    /* Borders */
+    --border-color: #69696b;
+    --border-color-hover: #7b7b7c;
+
+
+    /* Text colors */
+    --text-primary-bright-color: #ffffff;
+    --text-secondary-bright-color: #f9f9fa;
+    --text-primary-color: rgb(230, 230, 231);
+    --text-secondary-color: rgb(153, 153, 154);
+
+    /* Icon colors */
+    --icon-primary-color: rgba(249, 249, 250, 0.8);
+    --icon-secondary-color: rgba(249, 249, 250, 0.6);
+
+    /* Button colors */
+    --button-bg-default: rgba(243, 243, 242, 0.1);
+    --button-bg-hover:  rgba(243, 243, 242, 0.2);
+    --button-bg-pressed:  rgba(243, 243, 242, 0.3);
+
+    /* Primary button */
+    --button-primary-bg-default: #0060df;
+    --button-primary-bg-hover: #003eaa;
+    --button-primary-bg-pressed: #002275;
+
+    /* Links */
+    --link-default: #0060df;
+    --link-pressed: #003eaa;
+
+    /* Highlight colors */
+    --blue-focus: #0a84ff;
+
+    /* Overlay */
+    --overlay-color: rgba(12, 12, 13, 0.6);
+
+    /* Transition */
+    --default-transition: cubic-bezier(.07,.95,0,1);
+
+    /* Shadows */
+    --shadow-default: 0 1px 8px 0 rgba(12, 12, 13, 0.2);
+    --shadow-select: 0 1px 8px 0 var(--blue-focus);
+
+    /* Warnings and errors */
+    --warning-color:  #ff0039;
+}

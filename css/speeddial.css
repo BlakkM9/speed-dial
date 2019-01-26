@@ -1,68 +1,22 @@
-/* Checkboard pattern (Mozilla style) */
-.checkboard {
-    background-image: /* tint image */
-            linear-gradient(to right, rgba(235, 235, 235, 0.865), rgba(235, 235, 235, 0.865)),
-                /* checkered effect */
-            linear-gradient(to right, black 50%, white 50%),
-            linear-gradient(to bottom, black 50%, white 50%);
-    background-blend-mode: normal, difference, normal;
-    background-size: 4vmin 4vmin;
-}
-
-body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    background-color: #323234;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    font-family: "Arial", sans-serif;
-}
-
-label {
-    grid-column-start: 1;
-    grid-column-end: 2;
-    line-height: 30px;
-    height: 30px;
-    padding-right: 3px;
-}
-
-.anti-error {
-    display: none;
-}
-
-.svg.path.info {
-    fill: #b6b6b6;
-}
-
-svg.drop-down {
-    fill: white;
-    width: 12px;
-    height: 12px;
-    transform: rotate(-90deg);
-    transition: transform 0.2s ease-in-out;
-}
-
-svg.drop-down.active {
-    transform: rotate(0deg);
-}
-
-.window {
-    padding: 10px;
-    border-radius: 3px;
-    box-shadow: 0 1px 8px 0 rgba(12, 12, 13, 0.2);
-    background-color: #474749;
-}
-
 #creator {
-    display: grid;
-    grid-column-gap: 10px;
-    grid-row-gap: 5px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     transition: height 0.2s ease-in-out;
+}
+
+#settings-icon {
+    display: none;
+    position: fixed;
+    right: 2%;
+    top: 2%;
+    width: 3%;
+    height: 3%;
+    fill: var(--icon-secondary-color);
+}
+
+#settings-icon:hover {
+    fill: var(--icon-primary-color)
 }
 
 #speeddial {
@@ -72,211 +26,26 @@ svg.drop-down.active {
     position: relative;
 }
 
-.window-container {
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 4;
-}
-
 #editor {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     /*height: 95px;*/
+    width: 300px;
     align-content: center;
     justify-content: center;
     column-gap: 10px;
     overflow: hidden;
 }
 
-.input.col2 {
-    grid-column: 2 / 3;
-}
-
-.input.col3 {
-    grid-column: 3 / 4;
-}
-
-.color-input-frame {
-    width: 30px;
-    height: 25px;
-    justify-self: center;
-    border: 1px solid #5a5a5c;
-    border-radius: 3px;
-}
-
-.color-input {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    opacity: 0;
-}
-
-.two-text-input-frame {
-    display: flex;
-    flex-direction: row;
-}
-
-.text-input:first-child {
-    margin-right: 5px;
-}
-
-.text-input {
-    justify-self: center;
-    width: 24px;
-    height: 19px;
-    border: 1px solid #5a5a5c;
-    border-radius: 3px;
-    padding: 3px;
-    background-color: #323234;
-    color: white;
-    text-align: center;
-}
-
-.text-input:focus {
-    border: 1px solid #0a84ff;
-}
-
-.text-input:disabled {
-    color: #7f7f7f;
-    background-color: transparent;
-}
-
-.text-input:last-child {
-    margin-left: 5px;
-}
-
-.text-input.long {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    width: 200px;
-    text-align: left;
-    align-self: center;
-}
-
-#img-input {
-    grid-row-start: 2;
-    grid-row-end: 2;
-}
-
 #reflection {
     justify-self: center;
 }
 
-.checkbox-input-frame {
-    display: block;
-    width: 15px;
-    height: 15px;
-    position: relative;
-    padding: 0;
-    cursor: pointer;
-    justify-self: center;
-    align-self: center;
-}
-
-.checkbox-input-frame input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 15px;
-    height: 15px;
-    border: 1px solid #5a5a5c;
-    border-radius: 3px;
-    background-color: #323234;
-}
-
-/* On mouse-over, add a grey background color */
-.checkbox-input-frame:hover input ~ .checkmark {
-    border: 1px solid #0a84ff;
-}
-
-/*!* When the checkbox is checked, add a blue background *!*/
-/*.checkbox-input-frame input:checked ~ .checkmark {*/
-    /*background-color: #2196F3;*/
-/*}*/
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.checkbox-input-frame input:checked ~ .checkmark:after {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.checkbox-input-frame .checkmark:after {
-    left: 4px;
-    width: 5px;
-    height: 10px;
-    border: solid #0a84ff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-.button {
-    width: auto;
-    height: 30px;
-    font-size: 16px;
-    padding: 0 5px;
-    justify-self: center;
-    border-radius: 3px;
-    text-align: center;
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.1s;
-    font-family: "Arial", sans-serif;
-    grid-column: 1 / 4;
-}
-
-.button:hover {
-    background-color: #666667;
-}
-
-.button:active {
-    background-color: #7f7f7f;
-}
-
-.button:disabled, input:disabled + label {
-    background-color: #323234 !important;
-    cursor: wait;
-}
-
-#img-file-input {
-    visibility: hidden;
-    width: 0;
-}
-
-#upload-animation-container {
-    display: none;
-    position: relative;
-    grid-row: 2 / 2;
-    grid-column: 2 / 3;
-    border: none;
-    background-color: transparent;
-}
-
 #upload-animation {
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    margin: 0 !important;
+    display: none;
+    position: relative;
+    margin-top: -26px;
+    /*margin: 0 !important;*/
     background-color: transparent;
     border: 1px solid #0a84ff;
     animation: uploading 0.85s cubic-bezier(.45,.05,.55,.95) infinite;
@@ -291,7 +60,6 @@ svg.drop-down.active {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    grid-column: 1 / 3;
     overflow: hidden;
     transition: all 0.2s ease-in-out;
 }
@@ -303,53 +71,38 @@ svg.drop-down.active {
 #tile-options {
     display: flex;
     justify-content: flex-start;
+    width: 90%;
     flex-direction: column;
     margin: 15px 0;
-    width: 80%;
 }
 
 #show-options-dropdown {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-primary-color);
+    font-weight: 600;
     cursor: pointer;
     -moz-user-select: none;
     white-space: nowrap;
 }
 
 #options {
-    display: grid;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
     height: 0;
-    padding: 0 0;
+    padding-top: 0;
+    width: 95%;
     align-items: center;
     align-self: center;
     overflow: hidden;
     transition: all 0.2s ease-in-out;
 }
 
-#display-type-select {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-}
-
-/* Info */
-.info.hover.icon {
-    width: 20px;
-    height: 20px;
-    justify-self: center;
-    cursor: help;
-}
-.info.creator {
-    grid-column: 2 / 3;
-}
-
-/*Editor buttons*/
-#gallery-button {
-    display: none;
-}
-
 .editor-button.left {
-    display: block;
+    display: flex;
     width: auto;
-    margin: 5px 5px 0 5px;
+    margin: 0 5px;
 }
 
 .editor-buttons-container {
@@ -359,7 +112,6 @@ svg.drop-down.active {
 }
 
 .editor-buttons-container.parent {
-    grid-column: 1 / 3;
     justify-content: space-between;
 }
 
@@ -371,8 +123,12 @@ svg.drop-down.active {
     justify-content: space-evenly;
 }
 
+/*Editor buttons*/
+#gallery-button {
+    display: none;
+}
+
 #browse-button:before {
-    color: white;
     content: "Browse...";
 }
 
@@ -414,15 +170,8 @@ svg.drop-down.active {
     overflow: hidden;
 }
 
-/*@keyframes uploading {*/
-    /*0% {width: 0;}*/
-    /*100% {width: 208px;}*/
-/*}*/
-
 @keyframes uploading {
     0% {clip-path: inset(0px 208px 0px 0px)}
-    25% {clip-path: inset(0px 208px 0px 208px)}
     50% {clip-path: inset(0px 0px 0px 208px)}
-    75% {clip-path: inset(0px 208px 0px 208px)}
     100% {clip-path: inset(0px 208px 0px 0px)}
 }
