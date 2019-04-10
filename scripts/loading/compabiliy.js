@@ -44,7 +44,7 @@ function checkAndAdjustDataCompability() {
 
     if (versionInt < 150) {
 
-        data.show_settings_icon = true;
+        data.show_settings_icon = false;
 
         oldVersion = true;
         data.version = browser.runtime.getManifest().version;
