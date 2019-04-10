@@ -20,12 +20,15 @@ function drop(e) {
 
     let tempUrl = tileData[originIndex].url;
     let tempImg = tileData[originIndex].img;
+    let tempBg = tileData[originIndex].bg;
 
     tileData[originIndex].url = tileData[targetIndex].url;
     tileData[originIndex].img = tileData[targetIndex].img;
+    tileData[originIndex].bg = tileData[targetIndex].bg;
 
     tileData[targetIndex].url = tempUrl;
     tileData[targetIndex].img = tempImg;
+    tileData[targetIndex].bg = tempBg;
 
 
     applyTileData();
