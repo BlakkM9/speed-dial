@@ -1,7 +1,3 @@
-//Next version
-//TODO add info when generating takes long
-//TODO remove not needed permissions from manifest
-
 //Later versions
 //TODO improve info when inputs are invalid in options
 //TODO add settings for screenshot method

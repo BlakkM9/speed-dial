@@ -1,10 +1,17 @@
 function generateScreenshotWithServer(url) {
     let reqUrl = "https://url-2-png.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
+    let generationTimer = setTimeout(function() {
+        showInfo("Screenshot Generation may take a few Seconds due to the Screenshot Server sleeping");
+    }, 2000);
+
     fetch(reqUrl, {
         method: "GET",
         signal: signal,
     }).then(res => {
+        clearTimeout(generationTimer);
+        showInfo(false);
+
         res.blob().then(blobRes => {
 
             let blobURL = URL.createObjectURL(blobRes);

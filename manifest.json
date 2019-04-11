@@ -21,11 +21,9 @@
 
   "permissions": [
     "tabs",
-    "tabHide",
     "contextMenus",
     "storage",
-    "<all_urls>",
-    "downloads"
+    "https://url-2-png.herokuapp.com/screenshot"
   ],
 
   "options_ui": {
