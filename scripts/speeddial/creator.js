@@ -164,6 +164,7 @@ function createData() {
     data.vgap = 2;
     data.hgap = 2;
     data.show_settings_icon = true;
+    data.override_homepage = false;
 
     data.version = browser.runtime.getManifest().version;
 

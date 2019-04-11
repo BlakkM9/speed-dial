@@ -86,7 +86,7 @@ $(function() {
         tilePreview.css("background-color", tileBgInput.val());
     });
 
-    //Dispay type select
+    //Display type select
     displayTypeSelect.change(function(e, value) {
         console.log("type changed:", value);
         tilePreview.css("background-size", value);
@@ -153,7 +153,7 @@ function imgInputisValidSilent() {
 
 function generateScreenshot(url) {
 
-    let screenshotMethod = "window";
+    let screenshotMethod = "server";
 
     if (screenshotMethod === "server") {
         generateScreenshotWithServer(url)

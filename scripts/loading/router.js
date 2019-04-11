@@ -1,10 +1,17 @@
-//TODO add settings for screenshot method
-//TODO add option for using images without uploading
+//Next version
+//TODO add whats new page
 //TODO add info when generating takes long
-//TODO fix bug with pipette sometimes not activation when clicking
+//TODO remove not needed permissions from manifest
+
+//Later versions
+//TODO improve info when inputs are invalid in options
+//TODO add settings for screenshot method
+//TODO improve override homepage (flickering when loading)
+//TODO add option for using images without uploading
 //TODO add option to generate from website icon http://url-2-png.herokuapp.com/icon?url=... ready to be used (;
-//TODO duckduck go automatic image search
-//TODO add help/tutorial page
+//TODO duckduckgo automatic image search
+//TODO extend help page
+//TODO add interactive tutorial
 //TODO replace text inputs with sliders in normal settings (maybe)
 //TODO add gallery to editor with filter options
 //TODO make secret options (hidden speed dials)

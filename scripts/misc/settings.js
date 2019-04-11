@@ -25,6 +25,7 @@ let shadowColorInput;
 let advancedSettingsWarningInput;
 let advancedSettingsDefaultInput;
 let showSettingsIconInput;
+let overrideHomepageInput;
 
 let importInput;
 let exportButton;
@@ -63,6 +64,7 @@ $(function() {
     advancedSettingsWarningInput = $("#advanced-settings-warning");
     advancedSettingsDefaultInput = $("#advanced-settings-default");
     showSettingsIconInput = $("#show-settings-icon");
+    overrideHomepageInput = $("#override-homepage");
 
     importInput = $("#import-input");
     exportButton = $("#export-button");
@@ -102,6 +104,7 @@ $(function() {
         advancedSettingsWarningInput.prop("checked", data.advanced_settings_warning);
         advancedSettingsDefaultInput.prop("checked", data.advanced_settings_default);
         showSettingsIconInput.prop("checked", data.show_settings_icon);
+        overrideHomepageInput.prop("checked", data.override_homepage);
 
         enableReflectionOptions(reflectionInput.prop("checked"));
         enableShadowOptions(shadowInput.prop("checked"));
@@ -169,6 +172,7 @@ $(function() {
         data.advanced_settings_warning = advancedSettingsWarningInput.prop("checked");
         data.advanced_settings_default = advancedSettingsDefaultInput.prop("checked");
         data.show_settings_icon = showSettingsIconInput.prop("checked");
+        data.override_homepage = overrideHomepageInput.prop("checked");
 
         save("sync", {data: data}, function() {
             window.location.href = "/speeddial.html";

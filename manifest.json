@@ -16,7 +16,7 @@
   },
 
   "background": {
-    "scripts": ["./background/menuitem.js"]
+    "scripts": ["./background/menuitem.js", "./background/homepage.js"]
   },
 
   "permissions": [
