@@ -30,11 +30,12 @@ $(function() {
         if (creatorInputIsValid()) {
             setLoading(true);
             if (!init) {
-                init = true;
                 save("sync", {init: true}, function() {
                     getAndSaveData();
                     displayCreator(false);
                     generateSpeedDial();
+                    showWhatsNew(true);
+                    init = true;
                 });
             } else {
                 getAndSaveData();
@@ -168,9 +169,9 @@ function createData() {
 
     data.version = browser.runtime.getManifest().version;
 
-    save("sync", {"data": data}, function() {
-        console.log("data saved");
-    });
+    // save("sync", {"data": data}, function() {
+    //     console.log("data saved");
+    // });
 }
 
 function getAndSaveData() {
@@ -310,6 +311,7 @@ function generateSpeedDial() {
     //Drag and drop
     tile.on("dragstart", function(e) {drag(e)});
     tile.on("dragover", function(e) {allowDrag(e)});
+    tile.on("dragleave", function(e) {unmarkTarget(e)});
     tile.on("drop", function(e) {drop(e)});
 
     //Check if tile data exists and create/load and set it

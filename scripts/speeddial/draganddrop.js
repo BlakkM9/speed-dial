@@ -36,5 +36,13 @@ function drop(e) {
 
 function allowDrag(e) {
     e.originalEvent.preventDefault();
+
+    let tile = $(e.target);
+    tile.css("opacity", "1");
+}
+
+function unmarkTarget(e) {
+    let tile = $(e.target);
+    tile.css("opacity", "");
 }
 

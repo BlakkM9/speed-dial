@@ -1,5 +1,4 @@
 //Next version
-//TODO add whats new page
 //TODO add info when generating takes long
 //TODO remove not needed permissions from manifest
 
@@ -52,7 +51,7 @@ $(function() {
                         //If no data was found
                         if (data == null) {
                             console.log("no data found");
-                            //Open blank creator
+                            //Open blank creator with default settings
                             createData();
                             displayCreator();
                         } else {

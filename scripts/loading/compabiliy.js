@@ -58,6 +58,7 @@ function checkAndAdjustDataCompability() {
             console.log("new version:", parseInt(data.version.replace(/\./g, "")));
 
         });
+        showWhatsNew(true);
     } else {
         console.log("data was up to date");
     }
