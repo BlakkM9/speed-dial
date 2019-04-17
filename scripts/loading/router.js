@@ -1,3 +1,9 @@
+//Next version
+//TODO fix bug that background color not changing when edited via hex
+//TODO add option to change settings icons color (and maybe size)
+//TODO ability to reset speed dial
+//TODO prompt when resetting or leaving without saving
+
 //Later versions
 //TODO improve info when inputs are invalid in options
 //TODO add settings for screenshot method

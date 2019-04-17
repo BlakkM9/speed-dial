@@ -24,7 +24,11 @@ let shadowColorInput;
 
 let advancedSettingsWarningInput;
 let advancedSettingsDefaultInput;
+
+let settingsIconOptions;
 let showSettingsIconInput;
+let settingsIconColorInput;
+
 let overrideHomepageInput;
 
 let importInput;
@@ -63,7 +67,11 @@ $(function() {
 
     advancedSettingsWarningInput = $("#advanced-settings-warning");
     advancedSettingsDefaultInput = $("#advanced-settings-default");
+
+    settingsIconOptions = $("#settings-icon-options");
     showSettingsIconInput = $("#show-settings-icon");
+    settingsIconColorInput = $("#settings-icon-color");
+
     overrideHomepageInput = $("#override-homepage");
 
     importInput = $("#import-input");
@@ -108,6 +116,7 @@ $(function() {
 
         enableReflectionOptions(reflectionInput.prop("checked"));
         enableShadowOptions(shadowInput.prop("checked"));
+        enableSettingsIconOptions(showSettingsIconInput.prop("checked"));
 
         colorInput.trigger("change");
 
@@ -120,6 +129,10 @@ $(function() {
 
     shadowInput.change(function() {
         enableShadowOptions(shadowInput.prop("checked"));
+    });
+
+    showSettingsIconInput.change(function() {
+        enableSettingsIconOptions(showSettingsIconInput.prop("checked"));
     });
 
     importInput.on("change", function() {
@@ -213,5 +226,15 @@ function enableShadowOptions(enable) {
     } else {
         shadowOptions.css("opacity", "0.4");
         shadowOptions.css("pointer-events", "none");
+    }
+}
+
+function enableSettingsIconOptions(enable) {
+    if (enable) {
+        settingsIconOptions.css("opacity", "");
+        settingsIconOptions.css("pointer-events", "");
+    } else {
+        settingsIconOptions.css("opacity", "0.4");
+        settingsIconOptions.css("pointer-events", "none");
     }
 }
