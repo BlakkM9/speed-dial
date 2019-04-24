@@ -14,14 +14,19 @@ let optionsDropdown;
 let options;
 let tileBgPipette;
 let tileBgInput;
+let displaySizePercentInput;
 let displayTypeSelect;
 let generateButton;
+let generateDropDownContainer;
+let generateButtonScreenshot;
+let generateButtonIcon;
 let browseButton;
 let saveButton;
 
 let replacing = false;
 let pickingColor = false;
 let imgPreviewLoaded = false;
+let generateDropDownOpen = false;
 
 let controller;
 let signal;
@@ -42,8 +47,12 @@ $(function() {
     options = $("#options");
     tileBgPipette = $("#color-tile-background-pipette");
     tileBgInput = $("#color-tile-background");
+    displaySizePercentInput = $("#display-size-percentage-input");
     displayTypeSelect = $("#display-type-select");
     generateButton = $("#generate-button");
+    generateDropDownContainer = $(".multi-button-container");
+    generateButtonScreenshot = $("#generate-button-screenshot");
+    generateButtonIcon = $("#generate-button-icon");
     browseButton = $("#browse-button");
     saveButton = $("#save-button");
 
@@ -60,10 +69,35 @@ $(function() {
 
     //Generate button
     generateButton.click(function() {
+
+        if (!generateDropDownOpen) {
+            showGenerateDropDown(true);
+        } else {
+            showGenerateDropDown(false);
+        }
+
+        // if (urlInputIsValid()) {
+        //     setImgLoading(true);
+        //     generateScreenshot(urlInput.val());
+        // }
+    });
+
+    //Screenshot button
+    generateButtonScreenshot.click(function() {
         if (urlInputIsValid()) {
             setImgLoading(true);
             generateScreenshot(urlInput.val());
+            showGenerateDropDown(false);
         }
+    });
+
+    //Generate icon
+    generateButtonIcon.click(function() {
+       if (urlInputIsValid()) {
+           setImgLoading(true);
+           generateIcon(urlInput.val());
+           showGenerateDropDown(false);
+       }
     });
 
     //Pipette
@@ -93,7 +127,18 @@ $(function() {
     //Display type select
     displayTypeSelect.change(function(e, value) {
         console.log("type changed:", value);
-        tilePreview.css("background-size", value);
+        if (value === "percentage") {
+            displaySizePercentInput.css("display", "block");
+            displaySizePercentInput.val("100");
+            tilePreview.css("background-size", "100%");
+        } else {
+            displaySizePercentInput.css("display", "");
+            tilePreview.css("background-size", value);
+        }
+    });
+
+    displaySizePercentInput.bind("keyup input paste", function() {
+        tilePreview.css("background-size", displaySizePercentInput.val() + "%");
     });
 
     //Bind img input to update preview image
@@ -168,9 +213,21 @@ function generateScreenshot(url) {
     }
 }
 
+function generateIcon(url) {
+    let reqUrl = "https://url-2-png.herokuapp.com/icon?url=" + url;
 
+    $.ajax({
+       dataType: "json",
+       url: reqUrl,
+       data: data,
+       success: function(body) {
+           showIconSelection(true, body);
+       }
+    });
+}
 
 function openEditor(row, col, useDefaultContent) {
+
     if (row !== false) {
         if (useDefaultContent == null) {
             useDefaultContent = true;
@@ -203,6 +260,14 @@ function openEditor(row, col, useDefaultContent) {
                 imgInput.trigger("paste");
                 tilePreview.css("background-image", "url(" + imgInput.val() + ")");
             }
+
+
+
+            if (/\d+%/.test(currentTile.size)) {
+                displaySizePercentInput.css("display", "block");
+            } else {
+                displaySizePercentInput.css("display", "");
+            }
         }
 
         saveButton.off("click");
@@ -215,7 +280,12 @@ function openEditor(row, col, useDefaultContent) {
                 currentTile.url = urlInput.val();
                 currentTile.img = imgInput.val();
                 currentTile.bg = tileBgInput.val();
-                currentTile.size = getSelectValue(displayTypeSelect);
+
+                if (getSelectValue(displayTypeSelect) === "percentage") {
+                    currentTile.size = displaySizePercentInput.val() + "%";
+                } else {
+                    currentTile.size = getSelectValue(displayTypeSelect);
+                }
 
                 urlInput.val("");
                 imgInput.val("");
@@ -235,6 +305,7 @@ function openEditor(row, col, useDefaultContent) {
         showTilePreview(false);
         pickColor(false);
         setImgLoading(false);
+        showGenerateDropDown(false);
     }
 
     save("sync", {"data": data}, function() {
@@ -281,6 +352,24 @@ function openFirstEmpty(addURL) {
         showInfo("No free tiles.</br>Click a tile to replace it.");
         urlInput.val(addURL);
         replacing = true;
+    }
+}
+
+function showGenerateDropDown(show) {
+    //Set correct position for generate drop down
+    generateDropDownContainer.css("top", generateButton.position().top + generateButton.outerHeight());
+    generateDropDownContainer.css("left", generateButton.position().left + (generateButton.outerWidth(true) - generateButton.outerWidth()) / 2);
+
+    if (show) {
+        generateDropDownContainer.css("opacity", "1");
+        generateDropDownContainer.css("pointer-events", "auto");
+        generateButton.css("border-radius", "2px 2px 0 0");
+        generateDropDownOpen = true;
+    } else {
+        generateDropDownContainer.css("opacity", "");
+        generateDropDownContainer.css("pointer-events", "");
+        generateButton.css("border-radius", "");
+        generateDropDownOpen = false;
     }
 }
 
@@ -379,6 +468,7 @@ function pickColor(picking) {
         colorPickerCanvas.width = tilePreview.width();
         colorPickerCanvas.height = tilePreview.innerHeight() - tilePreview.height();
         let ctx = colorPickerCanvas.getContext("2d");
+
         //Background with current background color
         ctx.beginPath();
         ctx.rect(0, 0, colorPickerCanvas.width, colorPickerCanvas.height);
@@ -457,7 +547,7 @@ function pickColor(picking) {
         editor.on("click.pipette", function (e) {
             let id = e.target.id;
 
-            if (id !== "tile-preview" && id !== "color-tile-background-pipette") {
+            if (id !== "tile-preview" && id !== "color-tile-background-pipette" && $(target).parent("#color-tile-background").length) {
                 pickColor(false);
             } else if (id === "tile-preview") {
                 tileBgInput.val(rgb2hex(colorPreview.css("background-color")));

@@ -35,11 +35,19 @@ function getNewFeatures(version) {
     versionHeader.html("v" + version);
 
     if (version === "1.5.0") {
-        newsDiv.html("- Option to Display Options Icon in top-right Corner<br><br>" +
+        newsDiv.html(
+            "- Option to Display Options Icon in top-right Corner<br><br>" +
             "- When SpeedDial was updated, it shows you what's new in this Version<br><br>" +
             "- Option added to Override the Browsers Homepage with the SpeedDial<br><br>" +
             "- When editing Tiles, there is a Pipette that can be used to pick a<br>" +
             "Color from the Preview Image<br><br>" +
+            "- Minor bug fixes"
+        );
+    }
+
+    if (version === "1.5.1") {
+        newsDiv.html(
+            "- Generate Tile Preview from Websites Logo (if possible)<br><br>" +
             "- Minor bug fixes");
     }
 }

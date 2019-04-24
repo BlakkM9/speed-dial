@@ -38,15 +38,14 @@ function checkAndAdjustDataCompability() {
 
         data.advanced_settings_warning = true;
         data.advanced_settings_default = false;
-
-        oldVersion = true;
     }
 
     if (versionInt < 150) {
-
         data.show_settings_icon = false;
         data.override_homepage = false;
+    }
 
+    if (versionInt < 151) {
         oldVersion = true;
         data.version = browser.runtime.getManifest().version;
     }

@@ -15,6 +15,7 @@
         <script src="scripts/speeddial/whatsnew.js"></script>
         <script src="scripts/speeddial/creator.js"></script>
         <script src="scripts/speeddial/editor.js"></script>
+        <script src="scripts/speeddial/iconselection.js"></script>
         <script src="scripts/speeddial/speeddial.js"></script>
         <script src="scripts/elements/contextmenu.js"></script>
         <script src="scripts/utils/uploadfile.js"></script>
@@ -251,9 +252,14 @@
                                 <div class="label">
                                     <div class="primary">Display Type</div>
                                 </div>
+
                                 <label for="display-type-select" class="anti-error"></label>
+                                <label for="display-size-percentage-input" class="anti-error"></label>
+
+                                <input id="display-size-percentage-input" class="text-input" type="text">
 
                                 <div id="display-type-select" class="select container">
+
                                     <div class="select">
                                         <div class="selected">Contain</div>
                                         <div class="drop-down container window">
@@ -261,6 +267,7 @@
                                             <div data-value="auto" class="menu-entry drop-down">Auto</div>
                                             <div data-value="contain" class="menu-entry drop-down">Contain</div>
                                             <div data-value="cover" class="menu-entry drop-down">Cover</div>
+                                            <div data-value="percentage" class="menu-entry drop-down">%</div>
                                         </div>
                                     </div>
                                     <svg class="drop-down select" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -275,18 +282,11 @@
                 <div class="editor-buttons-container parent">
                     <div class="editor-buttons-container left">
                         <div id="generate-button" class="button drop-down editor-button left">
-                            <button class="button"></button>
-                            <div class="select">
-                                <div class="selected">Generate</div>
-                                <div class="drop-down container window">
-                                    <div class="drop-down select menu-entry">Generate</div>
-                                    <div data-value="auto" class="menu-entry drop-down">Screenshot</div>
-                                    <div data-value="contain" class="menu-entry drop-down">Logo</div>
-                                </div>
-                            </div>
-                            <!--<svg class="drop-down select" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">-->
-                                <!--<path class="svg path" transform="translate(0,8)" d="M 12,9 2,-1 H 22 L 12,9"></path>-->
-                            <!--</svg>-->
+                            <button class="button">Generate</button>
+                        </div>
+                        <div class="multi-button-container">
+                            <button id="generate-button-screenshot" class="button">Screenshot</button>
+                            <button id="generate-button-icon" class="button">Icon</button>
                         </div>
                         <button id="gallery-button" class="button editor-button left">Gallery...</button>
                         <input id="img-file-input" type="file" accept="image/*">
@@ -296,6 +296,20 @@
                         <button id="save-button" class="button primary">
                             Save
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="icon-selection-container" class="window-container">
+            <div id="icon-selection" class="window">
+                <div class="inner"></div>
+                <div class="controls">
+                    <div class="left">
+                        <button id="cancel-button" class="button">Cancel</button>
+                    </div>
+                    <div class="right">
+                        <button id="use-button" class="button primary">Use</button>
                     </div>
                 </div>
             </div>

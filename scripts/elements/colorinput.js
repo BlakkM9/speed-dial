@@ -10,8 +10,6 @@ $(function() {
         let currInput = $(this);
         let val = currInput.val();
 
-        console.log(e);
-
         currInput.parent().css("background-color", val);
         currInput.parent().removeClass("active");
         currInput.parent().parent().find(".text-input").val(val.substr(1, val.length));

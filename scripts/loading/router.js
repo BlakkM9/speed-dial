@@ -1,5 +1,7 @@
 //Next version
-//TODO fix bug that background color not changing when edited via hex
+//TODO add icon generation from website logo
+
+//Version after next
 //TODO add option to change settings icons color (and maybe size)
 //TODO ability to reset speed dial
 //TODO prompt when resetting or leaving without saving
