@@ -48,6 +48,7 @@ function getNewFeatures(version) {
     if (version === "1.5.1") {
         newsDiv.html(
             "- Generate Tile Preview from Websites Logo (if possible)<br><br>" +
-            "- Minor bug fixes");
+            "- Set Width of Image in the Tile in Percent (100 % equals \"Contain\"<br><br>" +
+            "- Bug fixes");
     }
 }

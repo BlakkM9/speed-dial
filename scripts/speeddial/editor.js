@@ -23,6 +23,7 @@ let generateButtonIcon;
 let browseButton;
 let saveButton;
 
+let editorActive = false;
 let replacing = false;
 let pickingColor = false;
 let imgPreviewLoaded = false;
@@ -75,11 +76,6 @@ $(function() {
         } else {
             showGenerateDropDown(false);
         }
-
-        // if (urlInputIsValid()) {
-        //     setImgLoading(true);
-        //     generateScreenshot(urlInput.val());
-        // }
     });
 
     //Screenshot button
@@ -216,12 +212,19 @@ function generateScreenshot(url) {
 function generateIcon(url) {
     let reqUrl = "https://url-2-png.herokuapp.com/icon?url=" + url;
 
+    let generationTimer = setTimeout(function() {
+        showInfo("Icon Generation may take a few Seconds due to the Screenshot Server sleeping");
+    }, 2000);
+
     $.ajax({
        dataType: "json",
        url: reqUrl,
        data: data,
        success: function(body) {
-           showIconSelection(true, body);
+           clearTimeout(generationTimer);
+           if (editorActive) {
+               showIconSelection(true, body);
+           }
        }
     });
 }
@@ -265,6 +268,7 @@ function openEditor(row, col, useDefaultContent) {
 
             if (/\d+%/.test(currentTile.size)) {
                 displaySizePercentInput.css("display", "block");
+                displaySizePercentInput.val(currentTile.size.substring(0, currentTile.size.length - 1));
             } else {
                 displaySizePercentInput.css("display", "");
             }
@@ -293,6 +297,7 @@ function openEditor(row, col, useDefaultContent) {
                 applyTileData();
             }
         });
+        editorActive = true;
     } else {
         //Close editor
         urlInput.val("");
@@ -306,6 +311,7 @@ function openEditor(row, col, useDefaultContent) {
         pickColor(false);
         setImgLoading(false);
         showGenerateDropDown(false);
+        editorActive = false;
     }
 
     save("sync", {"data": data}, function() {

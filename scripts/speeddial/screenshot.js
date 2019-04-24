@@ -19,8 +19,14 @@ function generateScreenshotWithServer(url) {
             tilePreview.css("background-image", "url(" + blobURL + ")");
 
             uploadFile(new File([blobRes], "preview.png", {type: "image/png"}));
-        }, onError);
-    }, onError);
+        }, function() {
+            onError();
+            clearTimeout(generationTimer);
+        });
+    }, function() {
+        onError();
+        clearTimeout(generationTimer);
+    });
 }
 
 // function generateScreenshotWithTab(url) {
