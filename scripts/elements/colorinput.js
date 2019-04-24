@@ -6,9 +6,11 @@ $(function() {
     colorInput = $(".color-input");
     hexInput = $(".color-input-container > .text-input");
 
-    colorInput.change(function() {
+    colorInput.change(function(e) {
         let currInput = $(this);
         let val = currInput.val();
+
+        console.log(e);
 
         currInput.parent().css("background-color", val);
         currInput.parent().removeClass("active");
@@ -18,7 +20,9 @@ $(function() {
     hexInput.bind("keyup input paste", function() {
         let curr = $(this);
         let val = "#" + curr.val();
-        curr.find(".color-input").val(val);
         curr.next().css("background-color", val);
+        val = rgb2hex(curr.next().css("background-color"));
+        curr.next().find(".color-input").val(val);
+        colorInput.trigger("hexchange");
     });
 });

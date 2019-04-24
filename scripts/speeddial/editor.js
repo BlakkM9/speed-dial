@@ -86,6 +86,10 @@ $(function() {
         tilePreview.css("background-color", tileBgInput.val());
     });
 
+    tileBgInput.on("hexchange", function() {
+       tilePreview.css("background-color", tileBgInput.val());
+    });
+
     //Display type select
     displayTypeSelect.change(function(e, value) {
         console.log("type changed:", value);
@@ -158,9 +162,9 @@ function generateScreenshot(url) {
     if (screenshotMethod === "server") {
         generateScreenshotWithServer(url)
     } else if (screenshotMethod === "tab") {
-        generateScreenshotWithTab(url);
+        // generateScreenshotWithTab(url);
     } else if (screenshotMethod === "window") {
-        generateScreenshotWithWindow(url);
+        // generateScreenshotWithWindow(url);
     }
 }
 
