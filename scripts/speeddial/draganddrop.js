@@ -21,14 +21,17 @@ function drop(e) {
     let tempUrl = tileData[originIndex].url;
     let tempImg = tileData[originIndex].img;
     let tempBg = tileData[originIndex].bg;
+    let tempSize = tileData[originIndex].size;
 
     tileData[originIndex].url = tileData[targetIndex].url;
     tileData[originIndex].img = tileData[targetIndex].img;
     tileData[originIndex].bg = tileData[targetIndex].bg;
+    tileData[originIndex].size = tileData[targetIndex].size;
 
     tileData[targetIndex].url = tempUrl;
     tileData[targetIndex].img = tempImg;
     tileData[targetIndex].bg = tempBg;
+    tileData[targetIndex].size = tempSize;
 
 
     applyTileData();

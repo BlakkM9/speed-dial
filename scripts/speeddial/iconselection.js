@@ -3,7 +3,10 @@ let iconSelection;
 let iconSelectionControls;
 let iconPreviewTile;
 let useButton;
+let searchOnlineButton;
 let cancelButton;
+
+let noImageFound = false;
 
 $(function() {
 
@@ -11,6 +14,7 @@ $(function() {
     iconSelection = $("#icon-selection > .inner");
     iconSelectionControls = $("#icon-selection > .controls");
     useButton = $("#use-button");
+    searchOnlineButton = $("#search-online-button");
     cancelButton = $("#cancel-button");
 
     iconSelectionContainer.click(function(e) {
@@ -21,8 +25,37 @@ $(function() {
     });
 
     cancelButton.click(function() {
+
+
+        if (noImageFound) {
+            showIconSelection(false);
+        } else {
+            setImgLoading(false);
+        }
+    });
+
+    searchOnlineButton.click(function() {
         showIconSelection(false);
-        setImgLoading(false);
+        let reqUrl = "https://url-2-png.herokuapp.com/imgsearch?url=" + urlInput.val();
+
+        let generationTimer = setTimeout(function() {
+            showInfo("Websearch may take a few Seconds.");
+        }, 2000);
+
+        setImgLoading(true);
+
+        $.ajax({
+            dataType: "json",
+            url: reqUrl,
+            data: data,
+            success: function(body) {
+                clearTimeout(generationTimer);
+                showInfo(false);
+                if (editorActive) {
+                    showIconSelection(true, body);
+                }
+            }
+        });
     });
 
     useButton.click(function() {
@@ -53,7 +86,7 @@ function generateIconSelection(body) {
         useButton.css("display", "");
         iconSelectionControls.css("justify-content", "");
         cancelButton.html("Cancel");
-        cancelButton.removeClass("primary");
+        searchOnlineButton.removeClass("primary");
 
         useButton.prop("disabled", true);
 
@@ -118,11 +151,12 @@ function generateIconSelection(body) {
         }
     } else {
         useButton.css("display", "none");
-        iconSelectionControls.css("justify-content", "center");
-        cancelButton.html("OK");
-        cancelButton.addClass("primary");
+        // iconSelectionControls.css("justify-content", "");
+        searchOnlineButton.addClass("primary");
 
-        iconSelection.append("<div class='label'>Sorry. No Icon was found for this Website. Try Image-Search in the web.</div>");
+        noImageFound = true;
+
+        iconSelection.append("<div class='label'>Sorry. No Icon was found for this Website. Try the DuckDuckGo-Search.</div>");
         setImgLoading(false)
     }
 }
