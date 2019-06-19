@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extension_name__",
-  "version": "1.5.2",
+  "version": "1.5.5",
 
   "default_locale": "en",
 
@@ -14,8 +14,6 @@
     "192": "icons/speeddial.svg",
     "256": "icons/speeddial.svg"
   },
-
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js; object-src 'self'",
 
   "background": {
     "scripts": ["./background/menuitem.js", "./background/homepage.js"]

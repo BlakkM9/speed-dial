@@ -393,8 +393,14 @@ function showTilePreview(show) {
     if (show) {
         showOptions(data.tile_options_visible);
         tileBgInput.val(currentTile.bg);
-        setSelectValue(displayTypeSelect, currentTile.size);
-        tileBgInput.trigger("change");
+
+        //Adjust if percent
+        if (/\d+%/.test(currentTile.size)) {
+            setSelectValue(displayTypeSelect, "percentage");
+        } else {
+            setSelectValue(displayTypeSelect, currentTile.size);
+            tileBgInput.trigger("change");
+        }
     } else {
         tilePreviewContainer.css("padding-top", "");
         tilePreviewContainer.css("height", "");
