@@ -284,7 +284,14 @@ function generateSpeedDial() {
 
     //Add listeners
     //Click
-    tile.click(function(e) {
+    // tile.click(function(e) {
+    //     processClick(e, $(this));
+    // });
+    // tile.click(function(e) {
+    //     // processClick(e, $(this));
+    //     console.log("click");
+    // });
+    tile.mouseup(function(e) {
         processClick(e, $(this));
     });
 
