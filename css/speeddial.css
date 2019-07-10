@@ -256,6 +256,15 @@
     overflow: hidden;
 }
 
+#reflection-container {
+    position: relative;
+}
+
+#reflection-gradient {
+    position: absolute;
+    width: 100%;
+}
+
 @keyframes uploading {
     0% {clip-path: inset(0px 208px 0px 0px)}
     50% {clip-path: inset(0px 0px 0px 208px)}

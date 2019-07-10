@@ -219,6 +219,11 @@ function generateSpeedDial() {
     if (data.reflection) {
         speedDial.append("<div id='reflection-container'><div class='row reflection'></div></div>");
         reflectionRow = $(".row.reflection");
+
+        //Add gradient
+        reflectionRow.append("<img id='reflection-gradient' alt='' src='../images/transparent.png'/>");
+
+        //Add tile reflections
         for (let i = 0; i < data.cols; i++) {
             reflectionRow.append("<div class='tile col" + i + " reflection empty'></div>");
             //Add spacer
@@ -226,9 +231,6 @@ function generateSpeedDial() {
                 reflectionRow.append("<div class='vspacer'></div>");
             }
         }
-
-        let hexBrightness = dec2hex(Math.round(255 * ((100 - data.reflection_brightness) / 100)));
-        reflectionRow.css("background", "linear-gradient(" + data.bg + hexBrightness + ", " + data.bg + ")");
     }
 
     //Calculate values
@@ -277,20 +279,25 @@ function generateSpeedDial() {
         let speedDialTop = ((diffInPx / body.height() * 100) / 2) + "%";
         reflectContainer.css("margin-top", data.reflection_gap + "%");
         speedDial.css("top", speedDialTop);
+
+        //Calc gradient
+        //Height
+        let reflectionGradient = $("#reflection-gradient");
+        reflectionGradient.css("height", data.reflection_height + "%");
+
+        //Gradient
+        let reflectionAlpha = (100 - data.reflection_brightness) / 100;
+        reflectionGradient.css("background-color", data.bg);
+        reflectionGradient.css("mask-image", "linear-gradient(rgba(0, 0, 0, " + reflectionAlpha + "), black");
+
     } else {
         $(".row:last-child").css("margin-bottom", 0);
         speedDial.css("top", "0");
     }
 
     //Add listeners
-    //Click
-    // tile.click(function(e) {
-    //     processClick(e, $(this));
-    // });
-    // tile.click(function(e) {
-    //     // processClick(e, $(this));
-    //     console.log("click");
-    // });
+    //TODO implement proper click listener not mouseup
+    //Click (left and middle mouse button)
     tile.mouseup(function(e) {
         processClick(e, $(this));
     });
