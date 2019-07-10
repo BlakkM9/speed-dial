@@ -19,11 +19,6 @@
     top: 2%;
     width: 3%;
     height: 3%;
-    fill: var(--icon-secondary-color);
-}
-
-#settings-icon:hover {
-    fill: var(--icon-primary-color)
 }
 
 #speeddial {
@@ -56,6 +51,12 @@
     background-color: transparent;
     border: 1px solid #0a84ff;
     animation: uploading 0.85s cubic-bezier(.45,.05,.55,.95) infinite;
+}
+
+/* Creator Image background */
+#background-image-icon {
+    display: flex;
+    align-items: center;
 }
 
 /* Tile preview */

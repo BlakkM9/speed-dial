@@ -89,6 +89,14 @@ svg.drop-down.active {
     transform: rotate(0deg);
 }
 
+.svg-icon {
+    fill: var(--icon-secondary-color);
+}
+
+.svg-icon:hover {
+    fill: var(--icon-primary-color);
+}
+
 .window {
     padding: 15px;
     border-radius: 2px;
@@ -205,7 +213,6 @@ svg.drop-down.active {
     width: 26px;
     height: 26px;
     cursor: pointer;
-    fill: var(--text-primary-color);
 }
 
 .picking-color-allowed {

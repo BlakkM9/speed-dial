@@ -1,5 +1,6 @@
 const INFO_TEXT = {
-    "color-tile-background-pipette": "Pick a color from the Preview Image"
+    "color-tile-background-pipette": "Pick a color from the Preview Image",
+    "background-image-svg": "Add a Background Image"
 
     // width:      "The width of your SpeedDials in percent. 100 for example " +
     //             "means the whole browser width is used for the images.</br>" +
@@ -28,14 +29,15 @@ $(function() {
     infoPopup = $("#info-popup");
 
     let info = $(".hover.info");
-    let infoText;
 
     info.hover(() => {}, function() {
         infoPopup.css("display", "");
+        infoPopup.html("");
     });
 
     info.mousemove(function(e) {
         let id = e.target.id;
+        let infoText;
 
         if (INFO_TEXT.hasOwnProperty(id)) {
             infoText = INFO_TEXT[id];
