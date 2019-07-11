@@ -160,8 +160,12 @@ $(function() {
     });
 
     resetButton.click(function() {
-        wipeData(function() {
-            window.location.href = "/speeddial.html";
+        cPrompt("Are you sure?", function(sure) {
+            if (sure) {
+                wipeData(function() {
+                    window.location.href = "/speeddial.html";
+                });
+            }
         });
     });
 
