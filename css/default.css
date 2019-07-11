@@ -426,7 +426,7 @@ label.button {
 
 /* Labels used as buttons */
 .button:disabled, input:disabled + label {
-    background-color: var(--button-bg-default) !important;
+    background-color: var(--button-bg-default);
     opacity: 0.4;
 }
 
@@ -487,4 +487,20 @@ label.button {
 
 .button.drop-down > svg.drop-down {
     margin-left: 4px;
+}
+
+/* Text input animation */
+.text-input.long.upload-animation {
+    display: none;
+    position: relative;
+    margin-top: -26px;
+    background-color: transparent;
+    border: 1px solid #0a84ff;
+    animation: uploading 0.85s cubic-bezier(.45,.05,.55,.95) infinite;
+}
+
+@keyframes uploading {
+    0% {clip-path: inset(0px 208px 0px 0px)}
+    50% {clip-path: inset(0px 0px 0px 208px)}
+    100% {clip-path: inset(0px 208px 0px 0px)}
 }

@@ -198,10 +198,13 @@
                     <div class="text-input-long-label">Background Image URL</div>
                     <label for="bg-url-input" class="anti-error"></label>
                     <input id="bg-url-input" class="text-input long" type="text" placeholder="https://www.example.com/image.png">
+                    <div id="bg-upload-animation" class="text-input long upload-animation"></div>
                 </div>
                 <div class="button-container">
                     <div class="left">
                         <button id="remove-bg-button" class="button danger">Remove</button>
+                        <input id="bg-img-file-input" type="file" accept="image/*">
+                        <label for="bg-img-file-input" id="bg-browse-button" class="button"></label>
                     </div>
                     <div class="right">
                         <button id="save-bg-button" class="button primary">Save</button>

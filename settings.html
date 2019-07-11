@@ -12,6 +12,7 @@
         <script src="scripts/lib/jquery-3.4.1.min.js"></script>
         <script src="scripts/elements/colorinput.js"></script>
         <script src="scripts/utils/utils.js"></script>
+        <script src="scripts/utils/uploadfile.js"></script>
         <script src="scripts/elements/imagebackgroundeditor.js"></script>
         <script src="scripts/elements/prompt.js"></script>
         <script src="scripts/misc/settings.js"></script>
@@ -363,10 +364,13 @@
                     <div class="text-input-long-label">Background Image URL</div>
                     <label for="bg-url-input" class="anti-error"></label>
                     <input id="bg-url-input" class="text-input long" type="text" placeholder="https://www.example.com/image.png">
+                    <div id="bg-upload-animation" class="text-input long upload-animation"></div>
                 </div>
                 <div class="button-container">
                     <div class="left">
                         <button id="remove-bg-button" class="button danger">Remove</button>
+                        <input id="bg-img-file-input" type="file" accept="image/*">
+                        <label for="bg-img-file-input" id="bg-browse-button" class="button"></label>
                     </div>
                     <div class="right">
                         <button id="save-bg-button" class="button primary">Save</button>

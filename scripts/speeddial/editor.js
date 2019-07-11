@@ -32,6 +32,8 @@ let generateDropDownOpen = false;
 let controller;
 let signal;
 
+let generationTimer;
+
 let currentTile;
 
 $(function() {
@@ -76,6 +78,21 @@ $(function() {
         } else {
             showGenerateDropDown(false);
         }
+    });
+
+    //File input
+    fileInput.on("change", function() {
+        uploadFile(fileInput.prop("files")[0], function(url) {
+            if (url !== null) {
+                imgInput.val(url);
+                imgInput.trigger("paste");
+                setImgLoading(false);
+            } else {
+                setImgLoading(false);
+            }
+        });
+        imgInput.prop("disabled", true);
+        uploadAnimation.css("display", "block");
     });
 
     //Screenshot button
@@ -212,7 +229,7 @@ function generateScreenshot(url) {
 function generateIcon(url) {
     let reqUrl = "https://speed-dial-blakkm9.herokuapp.com/icon?url=" + url;
 
-    let generationTimer = setTimeout(function() {
+    generationTimer = setTimeout(function() {
         showInfo("Icon Generation may take a few Seconds due to the Screenshot Server sleeping");
     }, 2000);
 
@@ -223,6 +240,7 @@ function generateIcon(url) {
        success: function(body) {
            clearTimeout(generationTimer);
            if (editorActive) {
+               showInfo(false);
                showIconSelection(true, body);
            }
        },
@@ -317,6 +335,7 @@ function openEditor(row, col, useDefaultContent) {
         pickColor(false);
         setImgLoading(false);
         showGenerateDropDown(false);
+        clearTimeout(generationTimer);
         editorActive = false;
     }
 

@@ -6,3 +6,7 @@
 #image-bg-editor {
     width: 300px;
 }
+
+#bg-browse-button:before {
+    content: "Browse...";
+}

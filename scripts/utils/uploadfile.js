@@ -2,15 +2,7 @@ let uploadReq;
 let uploadUrlReq;
 const clientID = "2e71d236b3417d4";
 
-$(function() {
-    fileInput.on("change", function() {
-        uploadFile(fileInput.prop("files")[0]);
-    })
-});
-
-function uploadFile(file) {
-    imgInput.prop("disabled", true);
-    uploadAnimation.css("display", "block");
+function uploadFile(file, callback) {
 
     uploadReq = $.ajax({
         url: "https://api.imgur.com/3/image",
@@ -23,14 +15,11 @@ function uploadFile(file) {
         data: file,
 
         success: function(res) {
-            let link = JSON.parse(res).data.link;
-            imgInput.val(link);
-            imgInput.trigger("paste");
-            setImgLoading(false);
+            callback(JSON.parse(res).data.link);
         },
         error: function(res) {
             console.log("uploading failed:", res);
-            setImgLoading(false);
+
             switch (res.status) {
                 case 400: {
                     showError("Upload failed because because of invalid data was send.</br>This usually is due to the screenshot server being down.</br>Try again later.", 10);
@@ -46,6 +35,8 @@ function uploadFile(file) {
                     showError("Upload failed with error code " + res.status);
                 }
             }
+
+            callback(null);
         }
     });
 }

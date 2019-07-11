@@ -1,6 +1,3 @@
-//Current version
-//TODO add browse button to bg image selection
-//TODO add loading animation to bg image selection
 //DID fix screenshot and icon generation!!!! (heroku account suspended, because of crypto mining?!?) / changed to other heroku account
 
 //Next version
