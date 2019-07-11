@@ -48,6 +48,10 @@ function checkAndAdjustDataCompability() {
     if (versionInt < 160) {
         oldVersion = true;
         data.bg_image = "";
+        data.hover_effect_enabled = true;
+        data.tile_bg_color = data.bg;
+        data.over_opacity = 100;
+        data.inactive_opacity = 70;
         data.version = browser.runtime.getManifest().version;
     }
 

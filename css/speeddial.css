@@ -191,7 +191,7 @@
 }
 
 .tile {
-    opacity: 0.7;
+    /*opacity: 0.7;*/
     position: relative;
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -202,7 +202,7 @@
     background-color: white;
     background-image: url("../images/add.svg");
     background-size: contain;
-    opacity: 0.3;
+    /*opacity: 0.3;*/
 }
 
 .vspacer {
@@ -219,7 +219,7 @@
 
 .row.reflection {
     margin-bottom: 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
     position: relative;
 }
 
@@ -230,8 +230,6 @@
 #reflection-gradient {
     position: absolute;
     background-attachment: fixed;
-    width: 100%;
-    height: 100%;
 }
 
 @keyframes uploading {

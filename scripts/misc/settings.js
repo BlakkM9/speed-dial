@@ -13,6 +13,12 @@ let reflectionGapInput;
 let reflectionHeightInput;
 let reflectionBrightnessInput;
 
+let hoverEffectInput;
+let hoverEffectOptions;
+let hoverBgColorInput;
+let hoverOverOpacity;
+let hoverInactiveOpacity;
+
 let ratioWidthInput;
 let ratioHeightInput;
 let borderRadiusInput;
@@ -56,6 +62,12 @@ $(function() {
     reflectionGapInput = $("#reflection-gap");
     reflectionHeightInput = $("#reflection-height");
     reflectionBrightnessInput = $("#reflection-brightness");
+
+    hoverEffectInput = $("#hover-effect");
+    hoverEffectOptions = $("#hover-options");
+    hoverBgColorInput = $("#tile-hover-bg-color");
+    hoverOverOpacity = $("#hover-over-opacity");
+    hoverInactiveOpacity = $("#hover-inactive-opacity");
 
     ratioWidthInput = $("#width");
     ratioHeightInput = $("#height");
@@ -103,6 +115,11 @@ $(function() {
         reflectionHeightInput.val(data.reflection_height);
         reflectionBrightnessInput.val(data.reflection_brightness);
 
+        hoverEffectInput.prop("checked", data.hover_effect_enabled);
+        hoverBgColorInput.val(data.tile_bg_color);
+        hoverOverOpacity.val(data.over_opacity);
+        hoverInactiveOpacity.val(data.inactive_opacity);
+
         ratioWidthInput.val(data.width);
         ratioHeightInput.val(data.height);
         borderRadiusInput.val(data.border_radius);
@@ -117,6 +134,7 @@ $(function() {
         overrideHomepageInput.prop("checked", data.override_homepage);
 
         enableReflectionOptions(reflectionInput.prop("checked"));
+        enableHoverOptions(hoverEffectInput.prop("checked"));
         enableShadowOptions(shadowInput.prop("checked"));
         enableSettingsIconOptions(showSettingsIconInput.prop("checked"));
 
@@ -127,6 +145,10 @@ $(function() {
 
     reflectionInput.change(function() {
         enableReflectionOptions(reflectionInput.prop("checked"));
+    });
+
+    hoverEffectInput.change(function() {
+       enableHoverOptions(hoverEffectInput.prop("checked"));
     });
 
     shadowInput.change(function() {
@@ -183,6 +205,11 @@ $(function() {
         data.reflection_height = reflectionHeightInput.val();
         data.reflection_brightness = reflectionBrightnessInput.val();
 
+        data.hover_effect_enabled = hoverEffectInput.prop("checked");
+        data.tile_bg_color = hoverBgColorInput.val();
+        data.over_opacity = hoverOverOpacity.val();
+        data.inactive_opacity = hoverInactiveOpacity.val();
+
         data.width = ratioWidthInput.val();
         data.height = ratioHeightInput.val();
         data.border_radius = borderRadiusInput.val();
@@ -224,6 +251,16 @@ function enableReflectionOptions(enable) {
     } else {
         reflectionOptions.css("opacity", "0.4");
         reflectionOptions.css("pointer-events", "none");
+    }
+}
+
+function enableHoverOptions(enable) {
+    if (enable) {
+        hoverEffectOptions.css("opacity", "");
+        hoverEffectOptions.css("pointer-events", "");
+    } else {
+        hoverEffectOptions.css("opacity", "0.4");
+        hoverEffectOptions.css("pointer-events", "none");
     }
 }
 

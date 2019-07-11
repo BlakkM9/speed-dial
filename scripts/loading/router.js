@@ -1,18 +1,18 @@
 //Current version
-//TODO fix screenshot and icon generation!!!! (heroku account suspended, waiting for email response!) / changed to other heroku account
 //TODO add prompt
 //TODO prompt when resetting
-//TODO add option to change tile bg color (hover bg)
-//TODO add options to disable/adjust hover effect
 //TODO add browse button to bg image selection
 //TODO add loading animation to bg image selection
-//TODO add preview to bg image selection
+//DID fix screenshot and icon generation!!!! (heroku account suspended, because of crypto mining?!?) / changed to other heroku account
 
 //Next version
 //TODO add option to change settings icons color (and maybe size)
 //TODO prompt when leaving without saving
+//TODO add options for bg image (bg-size etc)
+//TODO add preview to bg image selection (maybe)
 
 //Later versions
+//TODO add own color picker (with transparency)
 //TODO improve info when inputs are invalid in options
 //TODO add settings for screenshot method
 //TODO add option for using images without uploading

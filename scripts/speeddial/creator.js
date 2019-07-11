@@ -159,6 +159,10 @@ function createData() {
     data.reflection_gap = 3;
     data.reflection_brightness = 60;
     data.reflection_height = 50;
+    data.hover_effect_enabled = true;
+    data.tile_bg_color = "#000000";
+    data.over_opacity = 100;
+    data.inactive_opacity = 70;
     data.shadow = false;
     data.shadow_color = "#000000";
     data.shadow_intensity = 60;
@@ -233,8 +237,8 @@ function generateSpeedDial() {
         }
     }
 
-    let reflectionRow;
     //Reflection
+    let reflectionRow;
     if (data.reflection) {
         speedDial.append("<div id='reflection-container'><div class='row reflection'></div></div>");
         reflectionRow = $(".row.reflection");
@@ -284,6 +288,11 @@ function generateSpeedDial() {
     tile.css("width", tileWidthPercent + "%");
     tile.css("padding-top", tilePaddingTop + "%");
     tile.css("border-radius", data.border_radius + "%");
+    if (!data.hover_effect_enabled) {
+        tile.css("opacity", "1");
+    } else {
+        tile.css("opacity", (data.inactive_opacity / 100));
+    }
     if (data.shadow) {
         let hexIntensity = dec2hex(Math.round(255 * ((data.shadow_intensity) / 100)));
         tile.css("box-shadow", "0 1px 8px 0 " + data.shadow_color + hexIntensity);
@@ -293,8 +302,7 @@ function generateSpeedDial() {
     //Tile bg
     let tileBg = $(".tile.bg");
     tileBg.css("position", "absolute");
-    //TODO add variable tile bg color here
-    tileBg.css("background", "transparent");
+    tileBg.css("background", data.tile_bg_color);
     tileBg.css("opacity", "1");
 
     //Reflection row
@@ -320,8 +328,13 @@ function generateSpeedDial() {
 
         //Gradient
         let reflectionAlpha = (100 - data.reflection_brightness) / 100;
+        let reflectionGradientPadding = (100 - data.total_width) / 2;
+        reflectionGradient.css("width", (100 + reflectionGradientPadding * 2) + "%");
+        reflectionGradient.css("height", ((100 * 100) / data.reflection_height) + "%");
+        reflectionGradient.css("left", -reflectionGradientPadding + "%");
         reflectionGradient.css("background-color", data.bg);
-        reflectionGradient.css("mask-image", "linear-gradient(rgba(0, 0, 0, " + reflectionAlpha + "), black");
+        reflectionGradient.css("mask-image",
+            "linear-gradient(rgba(0, 0, 0, " + reflectionAlpha + "), black " + data.reflection_height + "%)");
         //Image pos
         if (data.bg_image.length !== 0) {
             reflectionGradient.css("background-image", "url('" + data.bg_image + "')");
@@ -342,24 +355,26 @@ function generateSpeedDial() {
     });
 
     //Hover
-    tile.hover(function() {
-        $(this).css("opacity", "1");
-        if (data.reflection && $(this).attr("id") == null) {
-            if ($(this).parent().attr("class").includes("row" + (data.rows - 1))) {
-                let col = /col\d/.exec($(this).attr("class"))[0];
-                let reflexTile = $("." + col + ".reflection");
-                reflexTile.css("opacity", "1");
+    if (data.hover_effect_enabled) {
+        tile.hover(function() {
+            $(this).css("opacity", (data.over_opacity / 100));
+            if (data.reflection && $(this).attr("id") == null) {
+                if ($(this).parent().attr("class").includes("row" + (data.rows - 1))) {
+                    let col = /col\d/.exec($(this).attr("class"))[0];
+                    let reflexTile = $("." + col + ".reflection");
+                    reflexTile.css("opacity", (data.over_opacity / 100));
+                }
             }
-        }
-    }, function() {
-        $(this).css("opacity", "");
-        if (data.reflection && $(this).attr("id") == null) {
-            if ($(this).parent().attr("class").includes("row" + (data.rows - 1))) {
-                let col = /col\d/.exec($(this).attr("class"))[0];
-                $("." + col + ".reflection").css("opacity", "");
+        }, function() {
+            $(this).css("opacity", (data.inactive_opacity / 100));
+            if (data.reflection && $(this).attr("id") == null) {
+                if ($(this).parent().attr("class").includes("row" + (data.rows - 1))) {
+                    let col = /col\d/.exec($(this).attr("class"))[0];
+                    $("." + col + ".reflection").css("opacity", (data.inactive_opacity / 100));
+                }
             }
-        }
-    });
+        });
+    }
 
     //Drag and drop
     tile.on("dragstart", function(e) {drag(e)});

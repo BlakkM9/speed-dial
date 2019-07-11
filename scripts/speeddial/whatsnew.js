@@ -54,9 +54,10 @@ function getNewFeatures(version) {
 
     if (version === "1.6.0") {
         newsDiv.html(
-            "- Clicking on Tile with middle Mousebutton opens Page in new Tab<br><br>" +
+            "- Clicking on a Tile with middle Mousebutton opens Page in new Tab<br><br>" +
             "- Use an Image as Background for your SpeedDial<br><br>" +
-            "- Effect when hovering Tile is now independend of SpeedDial Background<br><br>" +
+            "- Effect when hovering Tiles is now independend of SpeedDial Background<br>" +
+            "and adjustable<br><br>" +
             "- Minor bug fixes");
     }
 }
