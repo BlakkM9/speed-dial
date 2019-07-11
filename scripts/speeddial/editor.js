@@ -210,7 +210,7 @@ function generateScreenshot(url) {
 }
 
 function generateIcon(url) {
-    let reqUrl = "https://url-2-png.herokuapp.com/icon?url=" + url;
+    let reqUrl = "https://speed-dial-blakkm9.herokuapp.com/icon?url=" + url;
 
     let generationTimer = setTimeout(function() {
         showInfo("Icon Generation may take a few Seconds due to the Screenshot Server sleeping");

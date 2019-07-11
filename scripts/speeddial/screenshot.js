@@ -1,5 +1,5 @@
 function generateScreenshotWithServer(url) {
-    let reqUrl = "https://url-2-png.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
+    let reqUrl = "https://speed-dial-blakkm9.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
     // console.log("screenshot reqURL:", reqUrl);
 

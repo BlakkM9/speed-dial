@@ -36,7 +36,7 @@ $(function() {
 
     searchOnlineButton.click(function() {
         showIconSelection(false);
-        let reqUrl = "https://url-2-png.herokuapp.com/imgsearch?url=" + urlInput.val();
+        let reqUrl = "https://speed-dial-blakkm9.herokuapp.com/imgsearch?url=" + urlInput.val();
 
         let generationTimer = setTimeout(function() {
             showInfo("Websearch may take a few Seconds.");

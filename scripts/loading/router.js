@@ -1,6 +1,5 @@
 //Current version
-//TODO fix screenshot and icon generation!!!!
-//TODO ability to reset speed dial
+//TODO fix screenshot and icon generation!!!! (heroku account suspended, waiting for email response!) / changed to other heroku account
 //TODO add prompt
 //TODO prompt when resetting
 //TODO add option to change tile bg color (hover bg)

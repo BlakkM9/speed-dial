@@ -29,7 +29,7 @@ body {
 }
 
 #warning > .button-container {
-    margin-top: 25px;
+    margin: 25px 0 0 0;
 }
 
 #warning label + .label {
