@@ -327,14 +327,17 @@ function generateSpeedDial() {
         let reflectionGradient = $("#reflection-gradient");
 
         //Gradient
+        const heightPadding = 40;
         let reflectionAlpha = (100 - data.reflection_brightness) / 100;
         let reflectionGradientPadding = (100 - data.total_width) / 2;
+        let reflectionGradientHeight = (((100 * 100) / data.reflection_height) + heightPadding);
+        let reflectionGradientEndpoint = ((reflectionGradientHeight - heightPadding) * data.reflection_height) / reflectionGradientHeight;
         reflectionGradient.css("width", (100 + reflectionGradientPadding * 2) + "%");
-        reflectionGradient.css("height", ((100 * 100) / data.reflection_height) + "%");
+        reflectionGradient.css("height",  reflectionGradientHeight + "%");
         reflectionGradient.css("left", -reflectionGradientPadding + "%");
         reflectionGradient.css("background-color", data.bg);
         reflectionGradient.css("mask-image",
-            "linear-gradient(rgba(0, 0, 0, " + reflectionAlpha + "), black " + data.reflection_height + "%)");
+            "linear-gradient(rgba(0, 0, 0, " + reflectionAlpha + "), black " + reflectionGradientEndpoint + "%)");
         //Image pos
         if (data.bg_image.length !== 0) {
             reflectionGradient.css("background-image", "url('" + data.bg_image + "')");
