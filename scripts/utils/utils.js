@@ -32,13 +32,24 @@ function urlIsValid(url) {
 }
 
 let errorTimeout;
+let error;
+
+$(function() {
+    error = $("#error-message");
+
+    console.log("TEST");
+    error.click(function() {
+        if (error.hasClass("active")) {
+            error.removeClass("active");
+            clearTimeout(errorTimeout);
+        }
+    });
+});
 
 function showError(msg, displayTime) {
     if (displayTime == null) {
         displayTime = 4;
     }
-    console.log("Error:", msg);
-    let error = $("#error-message");
 
     error.html(msg);
     error.addClass("active");
@@ -122,34 +133,35 @@ function blobFromUrl(url, callback) {
 }
 
 //Debugging functions
-function wipeData() {
+function wipeData(callback) {
     remove("sync", "init", function() {
         remove("sync", "data", function() {
             remove("sync", "tileData", function() {
                 console.log("Complete data wiped");
+                callback();
             });
         });
     });
 }
-
-function loadData() {
-    setLoading(true);
-
-    save("sync", {init: true}, function() {
-        init = true;
-
-        $.getJSON( "./E_data.json", function(res) {
-            data = res.data;
-            save("sync", {"data": data}, function() {
-                $.getJSON( "./E_tileData.json", function(res) {
-
-                    console.log("backup loaded");
-                    save("sync", {tileData: res.tileData}, function() {
-                        displayCreator(false);
-                        generateSpeedDial();
-                    });
-                });
-            });
-        });
-    });
-}
+//
+// function loadData() {
+//     setLoading(true);
+//
+//     save("sync", {init: true}, function() {
+//         init = true;
+//
+//         $.getJSON( "./E_data.json", function(res) {
+//             data = res.data;
+//             save("sync", {"data": data}, function() {
+//                 $.getJSON( "./E_tileData.json", function(res) {
+//
+//                     console.log("backup loaded");
+//                     save("sync", {tileData: res.tileData}, function() {
+//                         displayCreator(false);
+//                         generateSpeedDial();
+//                     });
+//                 });
+//             });
+//         });
+//     });
+// }

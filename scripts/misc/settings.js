@@ -31,6 +31,7 @@ let settingsIconColorInput;
 
 let overrideHomepageInput;
 
+let resetButton;
 let importInput;
 let exportButton;
 
@@ -74,6 +75,7 @@ $(function() {
 
     overrideHomepageInput = $("#override-homepage");
 
+    resetButton = $("#reset-button");
     importInput = $("#import-input");
     exportButton = $("#export-button");
 
@@ -133,6 +135,12 @@ $(function() {
 
     showSettingsIconInput.change(function() {
         enableSettingsIconOptions(showSettingsIconInput.prop("checked"));
+    });
+
+    resetButton.click(function() {
+        wipeData(function() {
+            window.location.href = "/speeddial.html";
+        });
     });
 
     importInput.on("change", function() {

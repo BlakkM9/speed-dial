@@ -45,8 +45,9 @@ function checkAndAdjustDataCompability() {
         data.override_homepage = false;
     }
 
-    if (versionInt < 151) {
+    if (versionInt < 160) {
         oldVersion = true;
+        data.bg_image = "";
         data.version = browser.runtime.getManifest().version;
     }
 

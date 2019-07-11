@@ -366,6 +366,7 @@ input[type=file] {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: 0 -5px;
 }
 
 .button-container > .left {
@@ -443,6 +444,23 @@ label.button {
 
 .button.primary:disabled {
     background-color: var(--button-primary-bg-default);
+}
+
+/* Red button */
+.button.danger {
+    background-color: var(--button-danger-bg-default);
+}
+
+.button.danger:hover {
+    background-color: var(--button-danger-bg-hover);
+}
+
+.button.danger:active {
+    background-color: var(--button-danger-bg-pressed);
+}
+
+.button.danger:disabled {
+    background-color: var(--button-danger-bg-default);
 }
 
 /* Info */

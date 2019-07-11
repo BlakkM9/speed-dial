@@ -9,6 +9,8 @@ let vgap, hgap;
 let reflection;
 let bgColorInput;
 
+let advancedSettingsLink;
+
 let data = {};
 let tileData = [];
 
@@ -25,6 +27,8 @@ $(function() {
     vgap = $("#vgap");
     hgap = $("#hgap");
     reflection = $("#reflection");
+
+    advancedSettingsLink = $("#advanced-settings-link");
 
     $("#create-button").click(function() {
         if (creatorInputIsValid()) {
@@ -74,7 +78,7 @@ function displayCreator(show) {
         $(bgColorInput).trigger("change");
 
         setLoading(false);
-        creator.css("display", "grid");
+        creator.css("display", "flex");
     } else {
         creator.css("display", "");
     }
@@ -160,6 +164,7 @@ function createData() {
     data.shadow_intensity = 60;
     data.tile_options_visible = false;
     data.bg = body.css("background-color");
+    data.bg_image = "";
     data.cols = 5;
     data.rows = 3;
     data.vgap = 2;
@@ -169,9 +174,9 @@ function createData() {
 
     data.version = browser.runtime.getManifest().version;
 
-    // save("sync", {"data": data}, function() {
-    //     console.log("data saved");
-    // });
+    save("sync", {"data": data}, function() {
+        console.log("data saved");
+    });
 }
 
 function getAndSaveData() {
@@ -199,13 +204,27 @@ function generateSpeedDial() {
     //If old data format is used
     checkAndAdjustDataCompability();
 
+    //Calculate values
+    let vGapPercent = data.vgap / 10;
+    let hGapPercent = data.hgap / 10;
+    let tileWidthPercent = (100.0 - (data.cols - 1) * vGapPercent) / data.cols;
+    let tilePaddingTop = tileWidthPercent * (data.height / data.width);
+
     //Create HTML
     //Rows
+
+
     for (let i = 0; i < data.rows; i++) {
         speedDial.append("<div class='row row" + i + "'></div>");
         //Cols
         for (let j = 0; j < data.cols; j++) {
             let row = $(".row" + i);
+            //Add background for tile
+            let tileBg = $("<div class='tile bg'></div>");
+            row.append(tileBg);
+            tileBg.css("left", ((tileWidthPercent + vGapPercent) * j) + "%");
+
+            //Add tile
             row.append("<div draggable='true' class='tile col" + j + " empty'></div>");
             //Add spacer
             if (j !== (data.cols - 1)) {
@@ -225,6 +244,11 @@ function generateSpeedDial() {
 
         //Add tile reflections
         for (let i = 0; i < data.cols; i++) {
+            //Tile bg
+            let tileBg = $("<div class='tile bg reflection'></div>");
+            reflectionRow.append(tileBg);
+            tileBg.css("left", ((tileWidthPercent + vGapPercent) * i) + "%");
+
             reflectionRow.append("<div class='tile col" + i + " reflection empty'></div>");
             //Add spacer
             if (i !== (data.cols - 1)) {
@@ -232,12 +256,6 @@ function generateSpeedDial() {
             }
         }
     }
-
-    //Calculate values
-    let vGapPercent = data.vgap / 10;
-    let hGapPercent = data.hgap / 10;
-    let tileWidthPercent = (100.0 - (data.cols - 1) * vGapPercent) / data.cols;
-    let tilePaddingTop = tileWidthPercent * (data.height / data.width);
 
     let tile = $(".tile");
 
@@ -255,6 +273,12 @@ function generateSpeedDial() {
 
     //Background
     body.css("background-color", data.bg);
+    //If background image is set
+    if (data.bg_image.length !== 0) {
+        body.css("background-image", "url('" + data.bg_image + "')");
+    } else {
+        body.css("background-image", "");
+    }
 
     //Tiles + rows
     tile.css("width", tileWidthPercent + "%");
@@ -265,6 +289,13 @@ function generateSpeedDial() {
         tile.css("box-shadow", "0 1px 8px 0 " + data.shadow_color + hexIntensity);
     }
     $(".row").css("margin-bottom", hGapPercent + "%");
+
+    //Tile bg
+    let tileBg = $(".tile.bg");
+    tileBg.css("position", "absolute");
+    //TODO add variable tile bg color here
+    tileBg.css("background", "transparent");
+    tileBg.css("opacity", "1");
 
     //Reflection row
     if (data.reflection) {
@@ -280,15 +311,23 @@ function generateSpeedDial() {
         reflectContainer.css("margin-top", data.reflection_gap + "%");
         speedDial.css("top", speedDialTop);
 
-        //Calc gradient
-        //Height
+        //Reflection tile bg
+        let tileBg = $(".tile.bg.reflection");
+        tileBg.css("z-index", "-1");
+
+        //Gradient
         let reflectionGradient = $("#reflection-gradient");
-        reflectionGradient.css("height", data.reflection_height + "%");
 
         //Gradient
         let reflectionAlpha = (100 - data.reflection_brightness) / 100;
         reflectionGradient.css("background-color", data.bg);
         reflectionGradient.css("mask-image", "linear-gradient(rgba(0, 0, 0, " + reflectionAlpha + "), black");
+        //Image pos
+        if (data.bg_image.length !== 0) {
+            reflectionGradient.css("background-image", "url('" + data.bg_image + "')");
+        } else {
+            reflectionGradient.css("background-image", "");
+        }
 
     } else {
         $(".row:last-child").css("margin-bottom", 0);
@@ -443,7 +482,7 @@ function applyTileData() {
     }
 
     save("sync", {tileData: tileData}, function() {
-        //Check opend via add context menu
+        //Check opened via add context menu
         getAddURL(function(addURL) {
             if (addURL != null) {
                 console.log("add url:", addURL);

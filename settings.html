@@ -6,10 +6,12 @@
         <title>Settings</title>
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/imagebackgroundeditor.css">
         <link rel="stylesheet" href="css/settings.css">
         <script src="scripts/lib/jquery-3.4.1.min.js"></script>
         <script src="scripts/elements/colorinput.js"></script>
         <script src="scripts/utils/utils.js"></script>
+        <script src="scripts/elements/imagebackgroundeditor.js"></script>
         <script src="scripts/misc/settings.js"></script>
     </head>
 
@@ -54,6 +56,13 @@
                             <label for="color-background" class="anti-error"></label>
                             <label for="color-background-hex" class="anti-error"></label>
                             <div class="color-input-container">
+                                <div id="background-image-icon" class="svg-icon">
+                                    <svg id="background-image-svg" class="hover info" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 18">
+                                        <circle class="svg path" r="3" cy="5" cx="5"></circle>
+                                        <path class="svg path" fill-rule="evenodd" d="M0 0 h24 v18 h-24 v-18z M1 1 h22 v16 h-22z"></path>
+                                        <path class="svg path" d="M21.5 15.5 h-16 l3.5 -6 l3 2.5 l4 -6.5z"></path>
+                                    </svg>
+                                </div>
                                 <div class="hashtag">#</div>
                                 <input id="color-background-hex" class="text-input" maxlength="6" type="text">
                                 <div class="color-input-frame">
@@ -150,7 +159,7 @@
                             <div class="label">
                                 <div class="label">
                                     <div class="primary">Image Ratio</div>
-                                    <div class="secondary">Width : Height ratio of your images</div>
+                                    <div class="secondary">Width : Height Ratio of your Images</div>
                                 </div>
                             </div>
                             <div class="two-text-input-frame">
@@ -165,7 +174,7 @@
                         <div class="option-row">
                             <div class="label">
                                 <div class="primary">Border Radius</div>
-                                <div class="secondary">How much the of the tile cornors should be round (in Percent)</div>
+                                <div class="secondary">How much the of the Tile Corners should be round (in Percent)</div>
                             </div>
                             <label for="border-radius" class="anti-error"></label>
                             <input id="border-radius" class="text-input" type="text" placeholder="%"/>
@@ -174,7 +183,7 @@
                         <div class="option-row">
                             <div class="label">
                                 <div class="primary">Enable Shadow</div>
-                                <div class="secondary">Enables a Shadow around every tile</div>
+                                <div class="secondary">Enables a Shadow around every Tile</div>
                             </div>
                             <label for="shadow" class="checkbox-input-frame input">
                                 <input id="shadow" class="checkbox-input" type="checkbox"/>
@@ -214,7 +223,7 @@
 
                         <div class="option-row">
                             <div class="label">
-                                <div class="primary">Advanced Settings Warning</div>
+                                <div class="primary">Disable Advanced Settings Warning</div>
                                 <div class="secondary">Never show a Warning when Opening the Advanced Settings</div>
                             </div>
                             <label for="advanced-settings-warning" class="checkbox-input-frame input">
@@ -226,7 +235,7 @@
                         <div class="option-row">
                             <div class="label">
                                 <div class="primary">Always open Advanced Settings</div>
-                                <div class="secondary">When 'Options' is selected from the Contextmenu directly open Advanced Settings</div>
+                                <div class="secondary">When 'Options' is selected from the Contextmenu directly, open Advanced Settings</div>
                             </div>
                             <label for="advanced-settings-default" class="checkbox-input-frame input">
                                 <input id="advanced-settings-default" class="checkbox-input" type="checkbox"/>
@@ -244,23 +253,23 @@
                                 <span class="checkmark"></span>
                             </label>
                         </div>
-                        <div id="settings-icon-options" class="nested-options">
-                            <div class="option-row nested">
-                                <div class="label">
-                                    <div class="primary">Settings Icon Color</div>
-                                    <div class="secondary">Color of the Settings Icon</div>
-                                </div>
-                                <label for="settings-icon-color-hex" class="anti-error"></label>
-                                <label for="settings-icon-color" class="anti-error"></label>
-                                <div class="color-input-container">
-                                    <div class="hashtag">#</div>
-                                    <input id="settings-icon-color-hex" class="text-input" maxlength="6" type="text">
-                                    <div class="color-input-frame">
-                                        <input id="settings-icon-color" class="color-input" type="color"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div id="settings-icon-options" class="nested-options">-->
+<!--                            <div class="option-row nested">-->
+<!--                                <div class="label">-->
+<!--                                    <div class="primary">Settings Icon Color</div>-->
+<!--                                    <div class="secondary">Color of the Settings Icon</div>-->
+<!--                                </div>-->
+<!--                                <label for="settings-icon-color-hex" class="anti-error"></label>-->
+<!--                                <label for="settings-icon-color" class="anti-error"></label>-->
+<!--                                <div class="color-input-container">-->
+<!--                                    <div class="hashtag">#</div>-->
+<!--                                    <input id="settings-icon-color-hex" class="text-input" maxlength="6" type="text">-->
+<!--                                    <div class="color-input-frame">-->
+<!--                                        <input id="settings-icon-color" class="color-input" type="color"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div class="option-row">
                             <div class="label">
@@ -288,6 +297,7 @@
                     </div>
                     <div class="button-container">
                         <div class="left">
+                            <button id="reset-button" class="button danger">Reset</button>
                             <input id="import-input" type="file" accept=".dat">
                             <label for="import-input" id="import-button" class="button"></label>
                             <button id="export-button" class="button">Export</button>
@@ -296,6 +306,24 @@
                             <button id="cancel-button" class="button">Cancel</button>
                             <button id="apply-button" class="button primary">Apply Settings</button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="image-bg-editor-container" class="window-container">
+            <div id="image-bg-editor" class="window">
+                <div class="option-row option-text-input">
+                    <div class="text-input-long-label">Background Image URL</div>
+                    <label for="bg-url-input" class="anti-error"></label>
+                    <input id="bg-url-input" class="text-input long" type="text" placeholder="https://www.example.com/image.png">
+                </div>
+                <div class="button-container">
+                    <div class="left">
+                        <button id="remove-bg-button" class="button danger">Remove</button>
+                    </div>
+                    <div class="right">
+                        <button id="save-bg-button" class="button primary">Save</button>
                     </div>
                 </div>
             </div>

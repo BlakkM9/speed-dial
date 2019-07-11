@@ -5,6 +5,7 @@
         <title>SpeedDial</title>
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/imagebackgroundeditor.css">
         <link rel="stylesheet" href="css/speeddial.css">
         <link rel="stylesheet" href="css/loader.css">
         <link rel="stylesheet" href="css/popups.css">
@@ -14,6 +15,7 @@
         <script src="scripts/loading/router.js"></script>
         <script src="scripts/speeddial/whatsnew.js"></script>
         <script src="scripts/speeddial/creator.js"></script>
+        <script src="scripts/elements/imagebackgroundeditor.js"></script>
         <script src="scripts/speeddial/editor.js"></script>
         <script src="scripts/speeddial/iconselection.js"></script>
         <script src="scripts/speeddial/speeddial.js"></script>
@@ -137,7 +139,7 @@
                     <div class="label">
                         <div class="label">
                             <div class="primary">Image Ratio</div>
-                            <div class="secondary">Width : Height ratio of your images</div>
+                            <div class="secondary">Width : Height Ratio of your Images</div>
                         </div>
                     </div>
                     <div class="two-text-input-frame">
@@ -177,7 +179,7 @@
 
                 <div class="option-row">
                     <div class="label">
-                        <a href="settings.html">Advanced Settings</a>
+                        <a id="advanced-settings-link" href="settings.html">Advanced Settings</a>
                     </div>
                     <div class="label right">
                         <a href="help.html">Help</a>
@@ -187,6 +189,24 @@
                 <button id="create-button" class="button primary">
                     Create SpeedDial
                 </button>
+            </div>
+        </div>
+
+        <div id="image-bg-editor-container" class="window-container">
+            <div id="image-bg-editor" class="window">
+                <div class="option-row option-text-input">
+                    <div class="text-input-long-label">Background Image URL</div>
+                    <label for="bg-url-input" class="anti-error"></label>
+                    <input id="bg-url-input" class="text-input long" type="text" placeholder="https://www.example.com/image.png">
+                </div>
+                <div class="button-container">
+                    <div class="left">
+                        <button id="remove-bg-button" class="button danger">Remove</button>
+                    </div>
+                    <div class="right">
+                        <button id="save-bg-button" class="button primary">Save</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -286,20 +306,19 @@
                     </div>
                 </div>
 
-                <div class="editor-buttons-container parent">
-                    <div class="editor-buttons-container left">
-                        <div id="generate-button" class="button drop-down editor-button left">
+                <div class="button-container">
+                    <div class="left">
+                        <div id="generate-button" class="button drop-down">
                             <button class="button">Generate</button>
                         </div>
                         <div class="multi-button-container">
                             <button id="generate-button-screenshot" class="button">Screenshot</button>
                             <button id="generate-button-icon" class="button">Icon</button>
                         </div>
-                        <button id="gallery-button" class="button editor-button left">Gallery...</button>
                         <input id="img-file-input" type="file" accept="image/*">
-                        <label for="img-file-input" id="browse-button" class="button editor-button left"></label>
+                        <label for="img-file-input" id="browse-button" class="button"></label>
                     </div>
-                    <div class="editor-buttons-container right">
+                    <div class="right">
                         <button id="save-button" class="button primary">
                             Save
                         </button>

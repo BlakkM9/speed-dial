@@ -225,6 +225,12 @@ function generateIcon(url) {
            if (editorActive) {
                showIconSelection(true, body);
            }
+       },
+       error: function(err) {
+           console.log(err);
+           clearTimeout(generationTimer);
+           showError("Upload failed because because of invalid data was send.</br>This usually is due to the screenshot server being down.</br>Try again later.", 10);
+           setImgLoading(false);
        }
     });
 }
@@ -364,7 +370,7 @@ function openFirstEmpty(addURL) {
 function showGenerateDropDown(show) {
     //Set correct position for generate drop down
     generateDropDownContainer.css("top", generateButton.position().top + generateButton.outerHeight());
-    generateDropDownContainer.css("left", generateButton.position().left + (generateButton.outerWidth(true) - generateButton.outerWidth()) / 2);
+    generateDropDownContainer.css("left", generateButton.position().left);
 
     if (show) {
         generateDropDownContainer.css("opacity", "1");
@@ -393,6 +399,7 @@ function showTilePreview(show) {
     if (show) {
         showOptions(data.tile_options_visible);
         tileBgInput.val(currentTile.bg);
+        tileBgInput.trigger("change");
 
         //Adjust if percent
         if (/\d+%/.test(currentTile.size)) {

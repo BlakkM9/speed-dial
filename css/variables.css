@@ -30,6 +30,11 @@
     --button-primary-bg-hover: #003eaa;
     --button-primary-bg-pressed: #002275;
 
+    /* Danger button */
+    --button-danger-bg-default: var(--warning-color);
+    --button-danger-bg-hover: #9b0029;
+    --button-danger-bg-pressed: #69000f;
+
     /* Links */
     --link-default: #0060df;
     --link-pressed: #003eaa;
@@ -49,4 +54,7 @@
 
     /* Warnings and errors */
     --warning-color:  #ff0039;
+
+    /*TODO*/
+    /*Firefox uses new colors maybe update (https://www.mozilla.org/en-US/styleguide/)*/
 }

@@ -1,19 +1,25 @@
+//Current version
+//TODO fix screenshot and icon generation!!!!
+//TODO ability to reset speed dial
+//TODO add prompt
+//TODO prompt when resetting
+//TODO add option to change tile bg color (hover bg)
+//TODO add options to disable/adjust hover effect
+//TODO add browse button to bg image selection
+//TODO add loading animation to bg image selection
+//TODO add preview to bg image selection
+
 //Next version
 //TODO add option to change settings icons color (and maybe size)
-//TODO ability to reset speed dial
-//TODO prompt when resetting or leaving without saving
+//TODO prompt when leaving without saving
 
 //Later versions
 //TODO improve info when inputs are invalid in options
 //TODO add settings for screenshot method
-//TODO improve override homepage (flickering when loading)
 //TODO add option for using images without uploading
-//TODO add option to generate from website icon http://url-2-png.herokuapp.com/icon?url=... ready to be used (;
-//TODO duckduckgo automatic image search
 //TODO extend help page
 //TODO add interactive tutorial
 //TODO replace text inputs with sliders in normal settings (maybe)
-//TODO add gallery to editor with filter options
 //TODO make secret options (hidden speed dials)
 //TODO rebuild to work with js modules (to hide annoying warnings)
 

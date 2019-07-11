@@ -1,0 +1,8 @@
+#background-image-icon {
+    display: flex;
+    align-items: center;
+}
+
+#image-bg-editor {
+    width: 300px;
+}

@@ -1,6 +1,8 @@
 function generateScreenshotWithServer(url) {
     let reqUrl = "https://url-2-png.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
+    // console.log("screenshot reqURL:", reqUrl);
+
     let generationTimer = setTimeout(function() {
         showInfo("Screenshot Generation may take a few Seconds due to the Screenshot Server sleeping");
     }, 2000);
