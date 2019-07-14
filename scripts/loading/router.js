@@ -1,13 +1,14 @@
 //DID fix screenshot and icon generation!!!! (heroku account suspended, because of crypto mining?!?) / changed to other heroku account
 
 //Next version
+//TODO fix icon selection height (adjust to available height and use multiple pages)
+//TODO add own color picker (with transparency)
 //TODO add option to change settings icons color (and maybe size)
 //TODO prompt when leaving without saving
 //TODO add options for bg image (bg-size etc)
 //TODO add preview to bg image selection (maybe)
 
 //Later versions
-//TODO add own color picker (with transparency)
 //TODO improve info when inputs are invalid in options
 //TODO add settings for screenshot method
 //TODO add option for using images without uploading

@@ -71,8 +71,10 @@ function showIconSelection(show, body) {
     if (show) {
         generateIconSelection(body);
         iconSelectionContainer.css("display", "flex");
+        $("body").css("overflow-y", "visible");
     } else {
         iconSelectionContainer.css("display", "");
+        $("body").css("overflow-y", "");
         //Delete content
         iconSelection.html("");
     }
