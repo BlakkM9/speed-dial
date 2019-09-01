@@ -175,6 +175,9 @@ function createData() {
     data.hgap = 2;
     data.show_settings_icon = true;
     data.override_homepage = false;
+    data.disable_loading_animation = true;
+    data.empty_bg_color = "#fff";
+    data.empty_svg_color = "#000";
 
     data.version = browser.runtime.getManifest().version;
 
@@ -216,7 +219,6 @@ function generateSpeedDial() {
 
     //Create HTML
     //Rows
-
 
     for (let i = 0; i < data.rows; i++) {
         speedDial.append("<div class='row row" + i + "'></div>");
@@ -398,7 +400,6 @@ function generateSpeedDial() {
                 checkAndAdjustTileDataCompability();
                 validateTileDataSize();
                 applyTileData();
-
             }
         });
     } else {
@@ -457,6 +458,7 @@ function applyTileData() {
                     tile.css("background-size", currTileData.size);
                     tile.css("background-color", currTileData.bg);
                     tile.removeClass("empty");
+                    tile.html("");
                     loadedImages++;
                     $(this).remove();
 
@@ -468,10 +470,12 @@ function applyTileData() {
                     console.log("failed to load image", (loadedImages + 1));
                 });
             } else {
+                tile.addClass("empty");
                 tile.css("background-image", "");
                 tile.css("background-size", "");
-                tile.css("background-color", "");
-                tile.addClass("empty");
+                tile.append($("<svg viewBox='0 0 12 12'><polygon class='add-svg' points='7,2 5,2 5,5 2,5 2,7 5,7 5,10 7,10 7,7 10,7 10,5 7,5'/></svg>"));
+                tile.css("background-color", data.empty_bg_color);
+                tile.css("fill", data.empty_svg_color);
             }
         }
     }
@@ -489,12 +493,15 @@ function applyTileData() {
                 tile.css("background-image", "url(" + currTileData.img + ")");
                 tile.css("background-size", currTileData.size);
                 tile.css("background-color", currTileData.bg);
+                tile.html("");
                 tile.removeClass("empty");
             } else {
+                tile.addClass("empty");
                 tile.css("background-image", "");
                 tile.css("background-size", "");
-                tile.css("background-color", "");
-                tile.addClass("empty");
+                tile.append($("<svg viewBox='0 0 12 12'><polygon class='add-svg' points='7,2 5,2 5,5 2,5 2,7 5,7 5,10 7,10 7,7 10,7 10,5 7,5'/></svg>"));
+                tile.css("background-color", data.empty_bg_color);
+                tile.css("fill", data.empty_svg_color);
             }
         }
     }

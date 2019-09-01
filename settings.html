@@ -51,8 +51,8 @@
                         <div class="header3">General</div>
                         <div class="option-row">
                             <div class="label">
-                                <div class="primary">Background Color</div>
-                                <div class="secondary">Background Color of your SpeedDial</div>
+                                <div class="primary">SpeedDial Background</div>
+                                <div class="secondary">Background of your SpeedDial</div>
                             </div>
                             <label for="color-background" class="anti-error"></label>
                             <label for="color-background-hex" class="anti-error"></label>
@@ -111,6 +111,17 @@
                                 <label for="hgap" class="anti-error"></label>
                                 <input id="hgap" class="text-input" type="text" placeholder="H"/>
                             </div>
+                        </div>
+
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Show Settings Icon</div>
+                                <div class="secondary">Show a Settings Icon in the top-right Corner</div>
+                            </div>
+                            <label for="show-settings-icon" class="checkbox-input-frame input">
+                                <input id="show-settings-icon" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
                         </div>
 
                         <div class="header3">Reflection</div>
@@ -289,17 +300,6 @@
                                 <span class="checkmark"></span>
                             </label>
                         </div>
-
-                        <div class="option-row">
-                            <div class="label">
-                                <div class="primary">Show Settings Icon</div>
-                                <div class="secondary">Show a Settings Icon in the top-right Corner</div>
-                            </div>
-                            <label for="show-settings-icon" class="checkbox-input-frame input">
-                                <input id="show-settings-icon" class="checkbox-input" type="checkbox"/>
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
 <!--                        <div id="settings-icon-options" class="nested-options">-->
 <!--                            <div class="option-row nested">-->
 <!--                                <div class="label">-->
@@ -329,19 +329,30 @@
                             </label>
                         </div>
 
+                        <div class="option-row">
+                            <div class="label">
+                                <div class="primary">Disable loading Animation</div>
+                                <div class="secondary">Disables the loading Animation that is displayed until the SpeedDial is ready</div>
+                            </div>
+                            <label for="show-loading-animation" class="checkbox-input-frame input">
+                                <input id="show-loading-animation" class="checkbox-input" type="checkbox"/>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
                         <!--<hr>-->
 
                         <!--<div class="settings-header">GUI Settings</div>-->
                         <!--<div class="settings-header2">Coming soon!</div>-->
                     </div>
                 </div>
-                <div id="settings-end">
-                    <div class="option-row">
-                        <div class="label"></div>
-                        <div class="label right">
-                            <a href="/help.html">Help</a>
-                        </div>
-                    </div>
+<!--                <div id="settings-end">-->
+<!--                    <div class="option-row">-->
+<!--                        <div class="label"></div>-->
+<!--                        <div class="label right">-->
+<!--                            <a href="/help.html">Help</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="button-container">
                         <div class="left">
                             <button id="reset-button" class="button danger">Reset</button>

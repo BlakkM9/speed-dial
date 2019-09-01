@@ -192,11 +192,19 @@ body {
     transition: opacity 0.1s;
 }
 
-.tile.empty {
-    background-color: white;
-    background-image: url("../images/add.svg");
-    background-size: contain;
-    /*opacity: 0.3;*/
+/*.tile.empty.reflection {*/
+/*    background-color: white;*/
+/*    !*background-image: url("../images/add.svg");*!*/
+/*    !*background-size: contain;*!*/
+/*    !*opacity: 0.3;*!*/
+/*}*/
+
+.tile.empty > svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }
 
 .vspacer {

@@ -1,20 +1,22 @@
-//DID fix screenshot and icon generation!!!! (heroku account suspended, because of crypto mining?!?) / changed to other heroku account
-
 //Next version
 //TODO add option to disable loading animation
+//TODO add context menu entry when clicking on image
 //TODO add option to change empty tile colors
 
 //Next major version
-//TODO improve info when inputs are invalid in options
-//TODO rebuild to work with js modules (to hide annoying warnings)
+//TODO rebuild to work with js modules/ES6 classes
+//TODO remove jquery dependence
+//TODO improve info when inputs are invalid
+//TODO less obstrusive update notification
 //TODO fix icon selection height (adjust to available height and use multiple pages)
-//TODO add own color picker (with transparency)
+//TODO add own color picker (with transparency support)
 //TODO add option to change settings icons color (and maybe size)
 //TODO prompt when leaving without saving
-//TODO add options for bg image (bg-size etc)
+//TODO add options for bg image (bg-size etc) (maybe)
 //TODO add preview to bg image selection (maybe)
 
 //Later versions
+//TODO add folders logic for tiles
 //TODO add settings for screenshot method
 //TODO add option for using images without uploading
 //TODO extend help page
@@ -48,6 +50,7 @@ $(function() {
             if (init) {
                 //Generate speeddial from data and open
                 loadDatafromStorage(function() {
+                    setLoading(true);
                     generateSpeedDial();
                 });
             } else {
@@ -113,9 +116,13 @@ function setLoading(loading) {
         editorContainer.css("display", "");
         creator.css("display", "");
         speedDial.css("display", "none");
-        loader.css("display", "");
+        if (data.disable_loading_animation) {
+            loader.css("display", "block");
+        } else {
+            loader.css("display", "");
+        }
     } else {
-        loader.css("display", "none");
+        loader.css("display", "");
     }
 }
 

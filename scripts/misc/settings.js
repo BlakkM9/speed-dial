@@ -36,6 +36,7 @@ let showSettingsIconInput;
 let settingsIconColorInput;
 
 let overrideHomepageInput;
+let showLoadingInput;
 
 let resetButton;
 let importInput;
@@ -86,6 +87,7 @@ $(function() {
     settingsIconColorInput = $("#settings-icon-color");
 
     overrideHomepageInput = $("#override-homepage");
+    showLoadingInput = $("#show-loading-animation");
 
     resetButton = $("#reset-button");
     importInput = $("#import-input");
@@ -132,6 +134,7 @@ $(function() {
         advancedSettingsDefaultInput.prop("checked", data.advanced_settings_default);
         showSettingsIconInput.prop("checked", data.show_settings_icon);
         overrideHomepageInput.prop("checked", data.override_homepage);
+        showLoadingInput.prop("checked", data.disable_loading_animation);
 
         enableReflectionOptions(reflectionInput.prop("checked"));
         enableHoverOptions(hoverEffectInput.prop("checked"));
@@ -225,6 +228,7 @@ $(function() {
         data.advanced_settings_default = advancedSettingsDefaultInput.prop("checked");
         data.show_settings_icon = showSettingsIconInput.prop("checked");
         data.override_homepage = overrideHomepageInput.prop("checked");
+        data.disable_loading_animation = showLoadingInput.prop("checked");
 
         save("sync", {data: data}, function() {
             window.location.href = "/speeddial.html";

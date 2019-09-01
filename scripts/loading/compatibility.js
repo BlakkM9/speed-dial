@@ -46,12 +46,19 @@ function checkAndAdjustDataCompability() {
     }
 
     if (versionInt < 160) {
-        oldVersion = true;
         data.bg_image = "";
         data.hover_effect_enabled = true;
         data.tile_bg_color = data.bg;
         data.over_opacity = 100;
         data.inactive_opacity = 70;
+
+    }
+
+    if (versionInt < 162) {
+        oldVersion = true;
+        data.disable_loading_animation = true;
+        data.empty_bg_color = "#fff";
+        data.empty_svg_color = "#000";
         data.version = browser.runtime.getManifest().version;
     }
 
@@ -62,7 +69,7 @@ function checkAndAdjustDataCompability() {
             console.log("new version:", parseInt(data.version.replace(/\./g, "")));
 
         });
-        showWhatsNew(true);
+        // showWhatsNew(true);
     } else {
         console.log("data was up to date");
     }

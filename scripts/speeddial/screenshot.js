@@ -20,7 +20,7 @@ function generateScreenshotWithServer(url) {
 
             tilePreview.css("background-image", "url(" + blobURL + ")");
 
-            uploadFile(new File([blobRes], "preview.png", {type: "image/png"}));
+            uploadFile(new File([blobRes], "preview.png", {type: "image/png"}), function() {});
         }, function() {
             onError();
             clearTimeout(generationTimer);

@@ -145,7 +145,7 @@ function wipeData(callback) {
 }
 //
 // function loadData() {
-//     setLoading(true);
+//     (true);
 //
 //     save("sync", {init: true}, function() {
 //         init = true;
