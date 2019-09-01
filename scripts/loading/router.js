@@ -1,6 +1,12 @@
 //DID fix screenshot and icon generation!!!! (heroku account suspended, because of crypto mining?!?) / changed to other heroku account
 
 //Next version
+//TODO add option to disable loading animation
+//TODO add option to change empty tile colors
+
+//Next major version
+//TODO improve info when inputs are invalid in options
+//TODO rebuild to work with js modules (to hide annoying warnings)
 //TODO fix icon selection height (adjust to available height and use multiple pages)
 //TODO add own color picker (with transparency)
 //TODO add option to change settings icons color (and maybe size)
@@ -9,14 +15,12 @@
 //TODO add preview to bg image selection (maybe)
 
 //Later versions
-//TODO improve info when inputs are invalid in options
 //TODO add settings for screenshot method
 //TODO add option for using images without uploading
 //TODO extend help page
 //TODO add interactive tutorial
 //TODO replace text inputs with sliders in normal settings (maybe)
 //TODO make secret options (hidden speed dials)
-//TODO rebuild to work with js modules (to hide annoying warnings)
 
 let loader;
 let creator;
