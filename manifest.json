@@ -9,12 +9,12 @@
   "icons": {
     "16": "icons/speeddial.svg",
     "24": "icons/speeddial.svg",
-    "32": "icons/speeddial.svg",
+    "32": "icons/speeddial-32.png",
     "40": "icons/speeddial.svg",
     "48": "icons/speeddial.svg",
-    "64": "icons/speeddial.svg",
+    "64": "icons/speeddial-64.png",
     "96": "icons/speeddial.svg",
-    "128": "icons/speeddial.svg",
+    "128": "icons/speeddial-128.png",
     "256": "icons/speeddial.svg"
   },
 
