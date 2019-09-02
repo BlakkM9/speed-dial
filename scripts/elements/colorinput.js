@@ -6,9 +6,11 @@ $(function() {
     colorInput = $(".color-input");
     hexInput = $(".color-input-container > .text-input");
 
-    colorInput.change(function(e) {
+    colorInput.change(function() {
         let currInput = $(this);
         let val = currInput.val();
+
+        console.log("set val:" + val.substr(1, val.length));
 
         currInput.parent().css("background-color", val);
         currInput.parent().removeClass("active");

@@ -1,5 +1,3 @@
-// const REFLECT_BRIGHTNESS_PERCENT = 40;
-// const REFLECT_BRIGHTNESS_HEX = ;
 let head;
 let body;
 let totalWidth;
@@ -75,7 +73,7 @@ function displayCreator(show) {
         reflection.prop("checked", data.reflection);
         $("#create-button").html("Apply changes");
 
-        $(bgColorInput).trigger("change");
+        bgColorInput.trigger("change");
 
         setLoading(false);
         creator.css("display", "flex");
@@ -167,7 +165,7 @@ function createData() {
     data.shadow_color = "#000000";
     data.shadow_intensity = 60;
     data.tile_options_visible = false;
-    data.bg = body.css("background-color");
+    data.bg = "#323234";
     data.bg_image = "";
     data.cols = 5;
     data.rows = 3;
@@ -176,8 +174,8 @@ function createData() {
     data.show_settings_icon = true;
     data.override_homepage = false;
     data.disable_loading_animation = true;
-    data.empty_bg_color = "#fff";
-    data.empty_svg_color = "#000";
+    data.empty_bg_color = "#ffffff";
+    data.empty_svg_color = "#000000";
 
     data.version = browser.runtime.getManifest().version;
 

@@ -112,6 +112,7 @@ $(function() {
 
         //Fill inputs from data values
         backgroundColor.val(data.bg);
+        backgroundColor.trigger("change");
         widthInput.val(data.total_width);
         colsInput.val(data.cols);
         rowsInput.val(data.rows);
@@ -125,11 +126,14 @@ $(function() {
 
         hoverEffectInput.prop("checked", data.hover_effect_enabled);
         hoverBgColorInput.val(data.tile_bg_color);
+        hoverBgColorInput.trigger("change");
         hoverOverOpacity.val(data.over_opacity);
         hoverInactiveOpacity.val(data.inactive_opacity);
 
         emptyBackgroundColor.val(data.empty_bg_color);
+        emptyBackgroundColor.trigger("change");
         emptyIconColor.val(data.empty_svg_color);
+        emptyIconColor.trigger("change");
 
         ratioWidthInput.val(data.width);
         ratioHeightInput.val(data.height);
@@ -138,6 +142,7 @@ $(function() {
         shadowInput.prop("checked", data.shadow);
         shadowIntensityInput.val(data.shadow_intensity);
         shadowColorInput.val(data.shadow_color);
+        shadowColorInput.trigger("change");
 
         advancedSettingsWarningInput.prop("checked", data.advanced_settings_warning);
         advancedSettingsDefaultInput.prop("checked", data.advanced_settings_default);
