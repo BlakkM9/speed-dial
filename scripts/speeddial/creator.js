@@ -38,7 +38,7 @@ $(function() {
                     getAndSaveData();
                     displayCreator(false);
                     generateSpeedDial();
-                    showWhatsNew(true);
+                    // showWhatsNew(true);
                     init = true;
                 });
             } else {
