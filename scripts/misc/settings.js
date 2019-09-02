@@ -19,6 +19,9 @@ let hoverBgColorInput;
 let hoverOverOpacity;
 let hoverInactiveOpacity;
 
+let emptyBackgroundColor;
+let emptyIconColor;
+
 let ratioWidthInput;
 let ratioHeightInput;
 let borderRadiusInput;
@@ -69,6 +72,9 @@ $(function() {
     hoverBgColorInput = $("#tile-hover-bg-color");
     hoverOverOpacity = $("#hover-over-opacity");
     hoverInactiveOpacity = $("#hover-inactive-opacity");
+
+    emptyBackgroundColor = $("#color-empty-background");
+    emptyIconColor = $("#color-empty-svg-background");
 
     ratioWidthInput = $("#width");
     ratioHeightInput = $("#height");
@@ -121,6 +127,9 @@ $(function() {
         hoverBgColorInput.val(data.tile_bg_color);
         hoverOverOpacity.val(data.over_opacity);
         hoverInactiveOpacity.val(data.inactive_opacity);
+
+        emptyBackgroundColor.val(data.empty_bg_color);
+        emptyIconColor.val(data.empty_svg_color);
 
         ratioWidthInput.val(data.width);
         ratioHeightInput.val(data.height);
@@ -216,6 +225,9 @@ $(function() {
         data.tile_bg_color = hoverBgColorInput.val();
         data.over_opacity = hoverOverOpacity.val();
         data.inactive_opacity = hoverInactiveOpacity.val();
+
+        data.empty_bg_color = emptyBackgroundColor.val();
+        data.empty_svg_color = emptyIconColor.val();
 
         data.width = ratioWidthInput.val();
         data.height = ratioHeightInput.val();

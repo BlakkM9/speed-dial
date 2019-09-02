@@ -37,7 +37,6 @@ let error;
 $(function() {
     error = $("#error-message");
 
-    console.log("TEST");
     error.click(function() {
         if (error.hasClass("active")) {
             error.removeClass("active");

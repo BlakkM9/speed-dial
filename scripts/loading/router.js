@@ -1,13 +1,9 @@
-//Next version
-//TODO add option to disable loading animation
-//TODO add context menu entry when clicking on image
-//TODO add option to change empty tile colors
-
 //Next major version
 //TODO rebuild to work with js modules/ES6 classes
 //TODO remove jquery dependence
 //TODO improve info when inputs are invalid
 //TODO less obstrusive update notification
+//TODO add context menu entry when clicking on image
 //TODO fix icon selection height (adjust to available height and use multiple pages)
 //TODO add own color picker (with transparency support)
 //TODO add option to change settings icons color (and maybe size)
