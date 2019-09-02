@@ -113,9 +113,9 @@ function setLoading(loading) {
         creator.css("display", "");
         speedDial.css("display", "none");
         if (data.disable_loading_animation) {
-            loader.css("display", "block");
-        } else {
             loader.css("display", "");
+        } else {
+            loader.css("display", "block");
         }
     } else {
         loader.css("display", "");
