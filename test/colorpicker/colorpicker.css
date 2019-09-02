@@ -1,0 +1,231 @@
+#de-blakkm9-estyl label {
+
+}
+
+#de-blakkm9-estyl input {
+    background-color: #0c0c0d;
+    border: 1px solid #42484f;
+    color: #e1e1e1;
+    width: 127px;
+    padding: 3px 2px;
+    font-size: 13px
+}
+
+#de-blakkm9-estyl .h-box {
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+}
+
+#de-blakkm9-estyl .show-opacity {
+    background-image:
+            linear-gradient(to right, rgba(225, 225, 225, 0.8), rgba(225, 225, 225, 0.8)),
+            linear-gradient(to right, black 50%, white 50%),
+            linear-gradient(to bottom, black 50%, white 50%);
+    background-blend-mode: normal, difference, normal;
+    background-size: 1vw 1vw;
+}
+
+#de-blakkm9-estyl .marker {
+    position: relative;
+    box-sizing: border-box;
+}
+
+#de-blakkm9-estyl .color-picker {
+    display: flex;
+    border: 1px solid black;
+    padding: 20px;
+    background-color: rgb(50, 50, 52);
+}
+
+/*Pickers*/
+#de-blakkm9-estyl .sat-val-picker {
+    user-select: all;
+    width: 200px;
+    height: 100%;
+    background:
+            linear-gradient(to bottom, transparent, black),
+            linear-gradient(to left, transparent, white),
+            linear-gradient(red, red);
+    overflow: hidden;
+}
+
+#de-blakkm9-estyl .sat-val-picker .marker {
+    width: 12px;
+    height: 12px;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+#de-blakkm9-estyl .picker-container .show-opacity {
+    width: 30px;
+    margin-left: 20px;
+    height: 100%;
+}
+
+#de-blakkm9-estyl .alpha-picker {
+    -webkit-appearance: slider-vertical;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, red);
+}
+
+#de-blakkm9-estyl .alpha-picker .marker {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% + 30px);
+    height: 15px;
+    left: -15px;
+}
+
+#de-blakkm9-estyl .alpha-picker .marker .left {
+    width: 15px;
+    height: 15px;
+    background-image: url("../../graphics/marker.svg");
+}
+
+#de-blakkm9-estyl .alpha-picker .marker .right {
+    width: 15px;
+    height: 15px;
+    background-image: url("../../graphics/marker.svg");
+    transform: scaleX(-1);
+}
+
+#de-blakkm9-estyl .hue-picker {
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+    background:
+            linear-gradient(to right,
+            hsl(0, 100%, 50%),
+            hsl(30, 100%, 50%),
+            hsl(60, 100%, 50%),
+            hsl(90, 100%, 50%),
+            hsl(120, 100%, 50%),
+            hsl(150, 100%, 50%),
+            hsl(180, 100%, 50%),
+            hsl(210, 100%, 50%),
+            hsl(240, 100%, 50%),
+            hsl(270, 100%, 50%),
+            hsl(300, 100%, 50%),
+            hsl(330, 100%, 50%),
+            hsl(360, 100%, 50%));
+}
+
+#de-blakkm9-estyl .hue-picker .marker {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15px;
+    height: calc(100% + 30px);
+    top: -15px;
+}
+
+
+#de-blakkm9-estyl .hue-picker .marker .top {
+    width: 15px;
+    height: 15px;
+    background-image: url("../../graphics/marker.svg");
+    align-items: center;
+    transform: rotate(90deg);
+}
+
+#de-blakkm9-estyl .hue-picker .marker .bottom {
+    width: 15px;
+    height: 15px;
+    background-image: url("../../graphics/marker.svg");
+    transform: rotate(270deg);
+    align-items: center;
+    bottom: 0;
+}
+
+#de-blakkm9-estyl .marker svg {
+
+}
+
+/*Preview*/
+#de-blakkm9-estyl .preview-container {
+    margin-left: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#de-blakkm9-estyl .color-preview-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+#de-blakkm9-estyl .color-preview {
+    width: 50%;
+    height: 100%;
+}
+
+#de-blakkm9-estyl .color-before {
+    background-color: red;
+}
+
+#de-blakkm9-estyl .color-current {
+    background-color: green;
+}
+
+/*Inputs*/
+#de-blakkm9-estyl .color-inputs {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+}
+
+#de-blakkm9-estyl .color-inputs * {
+    font-family: "Roboto Mono", monospace;
+}
+
+#de-blakkm9-estyl .color-inputs label {
+    grid-column: 1;
+}
+
+#de-blakkm9-estyl .color-inputs .hex-input {
+    grid-column: 2;
+    user-select: text;
+}
+
+#de-blakkm9-estyl .color-inputs label span.highlight {
+    color: #0060df;
+    font-weight: bold;
+}
+
+#de-blakkm9-estyl .color-inputs .four-val-input {
+    grid-column: 2;
+    border: 1px solid #42484f;
+    display: flex;
+    flex-direction: row;
+}
+
+#de-blakkm9-estyl .color-inputs .four-val-input input {
+    width: 28px;
+    overflow: hidden;
+    border: none;
+    user-select: text;
+    text-align: right;
+}
+
+#de-blakkm9-estyl .hex-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#de-blakkm9-estyl .hex-input-container .hex {
+    position: absolute;
+    user-select: none;
+    color: #e1e1e1;
+    left: 2px;
+}
+
+#de-blakkm9-estyl .color-inputs .hex-input {
+    width: 78px;
+    text-indent: 8px;
+}

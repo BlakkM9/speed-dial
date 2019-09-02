@@ -8,6 +8,7 @@
 //TODO add own color picker (with transparency support)
 //TODO add option to change settings icons color (and maybe size)
 //TODO prompt when leaving without saving
+//TODO loading animation color option
 //TODO add options for bg image (bg-size etc) (maybe)
 //TODO add preview to bg image selection (maybe)
 

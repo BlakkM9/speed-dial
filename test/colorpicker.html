@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ColorPicker</title>
+        <script type="module" src="colorpicker/colorpicker.js"></script>
+        <link rel="stylesheet" href="colorpicker/colorpicker.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="color-picker">
+            <div class="picker-container">
+                <div class="h-box">
+                    <div class="sat-val-picker">
+                        <div class="marker"></div>
+                    </div>
+                    <div class="show-opacity">
+                        <div class="alpha-picker">
+                            <div class="marker">
+                                <div class="left"></div>
+                                <div class="right"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hue-picker">
+                    <div class="marker">
+                        <div class="top"></div>
+                        <div class="bottom"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-container">
+                <div class="color-preview-container show-opacity">
+                    <div class="color-preview color-before"></div>
+                    <div class="color-preview color-current"></div>
+                </div>
+                <div class="color-inputs">
+                    <label>HEX</label>
+                    <div class="hex-input-container">
+                        <div class="hex">#</div>
+                        <label><input class="hex-input" maxlength="8" type="text"></label>
+                    </div>
+                    <label>RGBA</label>
+                    <div class="four-val-input rgba-input">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                    </div>
+                    <label><span>H</span>SVA</label>
+                    <div class="four-val-input hsva-input">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                    </div>
+                    <label>HSLA</label>
+                    <div class="four-val-input hsla-input">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                        <input type="text" maxlength="3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
