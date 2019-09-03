@@ -16,6 +16,36 @@ const rgbaInput = new FourPartInput(".rgba-input", 255, 255, 255, 255);
 const hsvaInput = new FourPartInput(".hsva-input", 360, 255, 255, 255);
 const hslaInput = new FourPartInput(".hsla-input", 360, 255, 255, 255);
 
+class ColorPicker {
+
+    _hex = "";
+    _hue = 0;
+    _sat = 1;
+    _val = 1;
+    _alpha = 1;
+
+    _lastValidHex;
+
+
+    constructor(selector) {
+        this.colorPicker = document.querySelector(selector);
+        this.hexInput = document.querySelector(selector + " .hex-input");
+        this.rgbaInput = new FourPartInput(selector + " .rgba-input", 255, 255, 255, 255);
+        this.hsvaInput = new FourPartInput(selector + " .hsva-input", 360, 255, 255, 255);
+        this.hslaInput = new FourPartInput(selector + " .hsla-input", 360, 255, 255, 255);
+    }
+
+    show(x, y) {
+        this.colorPicker.style.left = x;
+        this.colorPicker.style.top = y;
+        this.colorPicker.style.display = "flex";
+    }
+
+    hide() {
+        this.colorPicker.style.display = "";
+    }
+}
+
 let hex = "";
 let hue = 0;
 let sat = 1;

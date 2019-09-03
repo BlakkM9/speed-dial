@@ -1,6 +1,12 @@
 .color-picker {
-    width: 400px;
-    height: 220px;
+    display: none;
+    position: fixed;
+    width: 500px;
+    background-color: var(--background);
+    color: white;
+    padding: 20px;
+    border-radius: 2px;
+    font-family: "Open Sans", sans-serif;
 }
 
 .color-picker label {
@@ -13,7 +19,9 @@
     color: #e1e1e1;
     width: 127px;
     padding: 3px 2px;
-    font-size: 13px
+    font-size: 13px;
+    border-radius: 2px;
+    font-family: "Roboto Mono", monospace;
 }
 
 .color-picker .h-box {
@@ -182,10 +190,10 @@
     display: grid;
     grid-column-gap: 10px;
     grid-row-gap: 5px;
+    justify-content: space-between;
 }
 
 .color-picker .color-inputs * {
-    font-family: "Roboto Mono", monospace;
 }
 
 .color-picker .color-inputs label {
@@ -205,16 +213,28 @@
 .color-picker .color-inputs .four-val-input {
     grid-column: 2;
     border: 1px solid #42484f;
+    border-radius: 2px;
     display: flex;
     flex-direction: row;
 }
 
 .color-picker .color-inputs .four-val-input input {
-    width: 28px;
+    width: 24px;
     overflow: hidden;
     border: none;
     user-select: text;
     text-align: right;
+    border-radius: 0;
+}
+
+.color-picker .color-inputs .four-val-input input:first-child {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+
+.color-picker .color-inputs .four-val-input input:last-child {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .color-picker .hex-input-container {
