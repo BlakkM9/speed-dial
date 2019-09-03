@@ -1,8 +1,4 @@
-let settingsIcon;
-
 $(function() {
-    settingsIcon = $("#settings-icon");
-
     settingsIcon.click(function() {
         openSettings();
     });

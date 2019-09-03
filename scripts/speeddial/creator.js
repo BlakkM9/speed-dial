@@ -6,6 +6,7 @@ let width, height;
 let vgap, hgap;
 let reflection;
 let bgColorInput;
+let settingsIcon;
 
 let advancedSettingsLink;
 
@@ -16,6 +17,7 @@ $(function() {
     head = $("head");
     body = $("body");
 
+    settingsIcon = $("#settings-icon");
     bgColorInput = $("#color-background");
     totalWidth = $("#total-width");
     cols = $("#cols");
