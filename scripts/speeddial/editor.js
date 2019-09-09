@@ -475,6 +475,7 @@ function setPreviewHeight(optionsVisible) {
 }
 
 function setImgLoading(loading) {
+    console.log("img loading " + loading);
     if (loading) {
         imgInput.prop("disabled", true);
         uploadAnimation.css("display", "block");

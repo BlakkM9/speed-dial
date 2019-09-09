@@ -42,6 +42,7 @@ function uploadFile(file, callback) {
 }
 
 function uploadUrl(url) {
+    console.log("uploading img", url);
     uploadUrlReq = $.ajax({
         url: "https://api.imgur.com/3/image",
         method: "POST",
@@ -54,6 +55,7 @@ function uploadUrl(url) {
 
         success: function(res) {
             let link = JSON.parse(res).data.link;
+            console.log("success uploading", link);
             imgInput.val(link);
             imgInput.trigger("paste");
             setImgLoading(false);

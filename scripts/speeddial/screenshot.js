@@ -1,7 +1,7 @@
 function generateScreenshotWithServer(url) {
     let reqUrl = "https://speed-dial-blakkm9.herokuapp.com/screenshot?url=" + url + "&width=" + data.width + "&height=" + data.height;
 
-    // console.log("screenshot reqURL:", reqUrl);
+    console.log("screenshot reqURL:", reqUrl);
 
     let generationTimer = setTimeout(function() {
         showInfo("Screenshot Generation may take a few Seconds due to the Screenshot Server sleeping");
@@ -19,8 +19,13 @@ function generateScreenshotWithServer(url) {
             let blobURL = URL.createObjectURL(blobRes);
 
             tilePreview.css("background-image", "url(" + blobURL + ")");
-
-            uploadFile(new File([blobRes], "preview.png", {type: "image/png"}), function() {});
+            console.log("blob:", blobURL);
+            uploadFile(new File([blobRes], "preview.png", {type: "image/png"}), function(link) {
+                console.log("success uploading", link);
+                imgInput.val(link);
+                imgInput.trigger("paste");
+                setImgLoading(false);
+            });
         }, function() {
             onError();
             clearTimeout(generationTimer);
